@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Post;
+use App\Models\WorkoutSession;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -29,4 +30,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function workoutSessions() {
+        return $this->hasMany(WorkoutSession::class); 
+    }
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
 }
+
