@@ -73,6 +73,13 @@ class ExerciseController extends Controller
      */
     public function destroy(string $id)
     {
+        $exercise = Exercise::findOrFail($id);
+        $exercise->delete();
+        return response()->json([
+            "Deleted Exercise" => $exercise,
+            "message" => "Exercise deleted successfully"
+        ],200);
+
         //
     }
 }

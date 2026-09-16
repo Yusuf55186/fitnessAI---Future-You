@@ -11,3 +11,4 @@ Route::get('/exercises',[ExerciseController::class,'index']);
 Route::post('/exercises',[ExerciseController::class,'store']);
 Route::get('/exercises/{id}',[ExerciseController::class,'show']);
 Route::patch('/exercises/{id}',[ExerciseController::class,'update']);
+Route::delete('/exercises/{id}',[ExerciseController::class,'destroy']);
