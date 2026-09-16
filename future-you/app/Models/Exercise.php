@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exercise extends Model
 {
+    protected $fillable = [
+        'name',
+    ];
     public function workoutLogs(){
         return $this->hasMany(WorkoutExercise::class);
     }

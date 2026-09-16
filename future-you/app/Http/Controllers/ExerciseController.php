@@ -5,8 +5,12 @@ use App\Models\Exercise;
 use Illuminate\Http\Request;
 
 class ExerciseController extends Controller
+
 {
+    
+
     /**
+     * 
      * Display a listing of the resource.
      */
     public function index()
@@ -38,14 +42,29 @@ class ExerciseController extends Controller
      */
     public function show(string $id)
     {
+        $exercise = Exercise::findOrFail($id);
+        return response()->json([
+            "exercise" => $exercise,
+            "message" => "Exercise added successfully", 
+        ],200);
         //
     }
-
+   
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
+        $exercise = Exercise::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $exercise->update($validated);
+        return response()->json([
+            "Updated Exercise" => $exercise,
+            "message" => "Exercise updated successfully"
+        ],200);
+        
         //
     }
 
