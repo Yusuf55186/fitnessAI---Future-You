@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkoutExercise extends Model
 {
+    protected $fillable = [
+        'workout_session_id',
+        'exercise_id',
+        'sets',
+        'reps',
+        'weight',
+    ];
     public function exercise(){
         return $this->belongsTo(Exercise::class);
     }
