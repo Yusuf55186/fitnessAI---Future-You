@@ -39,9 +39,8 @@ class WorkoutSessionController extends Controller
      */
     public function show(string $id)
     {
-        $sessionWorkout = WorkoutSession::findOrFail($id);
-        return response()->json([
-            "session previewd" => $sessionWorkout,
+        $sessionWorkout = WorkoutSession::with('workoutExercises.exercise')->findOrFail($id);        return response()->json([
+            "session" => $sessionWorkout,
             "message" => "session workout previewd successfully",
         ]);
         //

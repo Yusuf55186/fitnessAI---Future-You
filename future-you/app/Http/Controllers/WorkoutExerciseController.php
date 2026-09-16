@@ -21,8 +21,8 @@ class WorkoutExerciseController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'workout_session_id' => 'exists:workout_sessions,id|integer | required',
-            'exercise_id' => 'exists:exercises,id|integer | required',
+            'workout_session_id' => 'exists:workout_sessions,id|integer|required',
+            'exercise_id' => 'exists:exercises,id|integer|required',
             'sets' => 'required|integer',
             'reps' => 'required|integer',
             'weight' => 'required|numeric',
@@ -31,7 +31,7 @@ class WorkoutExerciseController extends Controller
         $workoutExercise = WorkoutExercise::create($validated);
        
         return response()->json([
-            "workoutExercise added" => $workoutExercise,
+            "workout_exercise" => $workoutExercise,
             "message" => "workout successfully added"
         ]);
     }
@@ -43,7 +43,7 @@ class WorkoutExerciseController extends Controller
     {
         $workoutExercise = WorkoutExercise::findOrFail($id);
         return response()->json([
-            "workoutExercise shown" => $workoutExercise,
+            "workoutExercise" => $workoutExercise,
             "message" => "workout preview"
         ]);
         //
@@ -65,7 +65,7 @@ class WorkoutExerciseController extends Controller
         ]);
         $workoutExercise->update($validated);
         return response()->json([
-            "updated workout" => $workoutExercise,
+            "workout" => $workoutExercise,
             "message" => "workout successfully updated"
         ],200);
         //
@@ -79,7 +79,7 @@ class WorkoutExerciseController extends Controller
         $workoutExercise = WorkoutExercise::findOrFail($id);
         $workoutExercise->delete();
         return response()->json([
-            "deleted workout" => $workoutExercise,
+            "workout" => $workoutExercise,
             "message" => "workout successfully deleted"
         ],200);
 
