@@ -6,6 +6,7 @@ use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\WorkoutExerciseController;
 use App\Http\Controllers\WorkoutSessionController;
 use App\Http\Controllers\WorkoutSetController;
+use App\Http\Controllers\AuthController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -28,6 +29,7 @@ Route::post('/workout-sets',[WorkoutSetController::class,'store']);
 Route::get('/workout-sets/{id}',[WorkoutSetController::class,'show']);
 Route::patch('/workout-sets/{id}',[WorkoutSetController::class,'update']);
 Route::delete('/workout-sets/{id}',[WorkoutSetController::class,'destroy']);
+Route::post('/users',[AuthController::class,'register']);
 
 
 
