@@ -59,7 +59,11 @@ class WorkoutSetController extends Controller
         $workoutSet = WorkoutSet::findOrfail($id);
         $validated = $request->validate([
             'reps' => 'required|integer',
-            'set_number' => 'required|integer',
+            'set_number' => ['required','integer',
+            Rule::unique('workout_sets', 'set_number')
+            ->ignore($id)
+            ->where('workout_exercise_id', $request->input('workout_exercise_id')),
+        ],
             'weight' => 'required|numeric',
             'rir' => 'required|integer',
             'workout_exercise_id' => 'required|exists:workout_exercises,id',
