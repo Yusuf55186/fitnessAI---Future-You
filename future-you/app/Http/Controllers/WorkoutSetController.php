@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\WorkoutSet;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 class WorkoutSetController extends Controller
 {
     /**
@@ -22,7 +22,10 @@ class WorkoutSetController extends Controller
     {
         $validated = $request->validate([
             'reps' => 'required|integer',
-            'set_number' => 'required|integer',
+            'set_number' => ['required','integer',
+            Rule::unique('workout_sets', 'set_number')
+            ->where('workout_exercise_id', $request->input('workout_exercise_id')),
+        ],
             'weight' => 'required|numeric',
             'rir' => 'required|integer',
             'workout_exercise_id' => 'required|exists:workout_exercises,id',
