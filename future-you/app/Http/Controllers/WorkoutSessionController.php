@@ -77,9 +77,14 @@ class WorkoutSessionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request,string $id)
     {
         $sessionWorkout = WorkoutSession::findOrFail($id);
+        if ($request->user()->id !== $sessionWorkout->user_id) {
+            return response()->json([
+                "message" => "nice try lil bro 💀💀💀"
+            ],403);
+        }
         $sessionWorkout->delete();
         return response()->json([
             "deleted workout" => $sessionWorkout,
