@@ -18,8 +18,10 @@ class WorkoutExercise extends Model
     public function session(){
         return $this->belongsTo(WorkoutSession::class);
     }
-    public function workoutSets(){
-        return $this->hasMany(WorkoutSet::class);
-    }
+    public function workoutSets()
+{
+    return $this->hasMany(WorkoutSet::class)
+        ->orderBy('set_number', 'asc');
+}
     //
 }
