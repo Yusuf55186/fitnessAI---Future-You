@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\WorkoutExerciseController;
 use App\Http\Controllers\WorkoutSessionController;
+use App\Http\Controllers\WorkoutSetController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -23,7 +24,7 @@ Route::post('/workout-sessions', [WorkoutSessionController::class, 'store']);
 Route::get('workout-sessions/{id}',[WorkoutSessionController::class,'show']);
 Route::patch('workout-sessions/{id}',[WorkoutSessionController::class,'update']);
 Route::delete('workout-sessions/{id}',[WorkoutSessionController::class,'destroy']);
-
+Route::post('/workout-sets',[WorkoutSetController::class,'store']);
 
 
 

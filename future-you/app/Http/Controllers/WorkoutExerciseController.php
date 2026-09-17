@@ -23,9 +23,7 @@ class WorkoutExerciseController extends Controller
         $validated = $request->validate([
             'workout_session_id' => 'exists:workout_sessions,id|integer|required',
             'exercise_id' => 'exists:exercises,id|integer|required',
-            'sets' => 'required|integer',
-            'reps' => 'required|integer',
-            'weight' => 'required|numeric',
+            
 
         ]);
         $workoutExercise = WorkoutExercise::create($validated);
