@@ -59,9 +59,13 @@ class WorkoutSessionController extends Controller
         $validated = $request->validate([
             'name' => 'required | string | max:255',
             'note' => 'nullable | string | max:255',
-            'user_id' => 'required|exists:users,id',
-            'date' => 'required | date',
+            'date' => 'sometimes | date',
         ]);
+        if ($request->user()->id !== $sessionWorkout->user_id) {
+            return response()->json([
+                "message" => "nice try lil bro 💀💀💀"
+            ],403);
+        }
         $sessionWorkout->update($validated);
         return response()->json([
             "updated workout" => $sessionWorkout,
