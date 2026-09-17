@@ -22,14 +22,15 @@ class WorkoutSessionController extends Controller
         $validated = $request->validate([
             'name' => 'required | string | max:255',
             'note' => 'nullable | string | max:255',
-            'user_id' => 'required|exists:users,id',
             'date' => 'required | date',
         ]);
+        $user_id = $request->user()->id;
+        $validated['user_id'] = $user_id;
         $sessionWorkout = WorkoutSession::create($validated);
         return response()->json([
             "session added" => $sessionWorkout,
             "message" => "session workout added successfully",
-        ]);
+        ],201);
 
         //
     }

@@ -20,17 +20,21 @@ Route::post('/workoutexercises',[WorkoutExerciseController::class,'store']);
 Route::get('workoutexercises/{id}',[WorkoutExerciseController::class,'show']);
 Route::patch('workoutexercises/{id}',[WorkoutExerciseController::class,'update']);
 Route::delete('workoutexercises/{id}',[WorkoutExerciseController::class,'destroy']);
-Route::get('/workout-sessions', [WorkoutSessionController::class, 'index']);
-Route::post('/workout-sessions', [WorkoutSessionController::class, 'store']);
-Route::get('workout-sessions/{id}',[WorkoutSessionController::class,'show']);
-Route::patch('workout-sessions/{id}',[WorkoutSessionController::class,'update']);
-Route::delete('workout-sessions/{id}',[WorkoutSessionController::class,'destroy']);
+Route::get('/workout-sessions', [WorkoutSessionController::class, 'index'])->middleware('auth:sanctum');
+Route::post('/workout-sessions', [WorkoutSessionController::class, 'store'])
+->middleware('auth:sanctum');
+Route::get('workout-sessions/{id}',[WorkoutSessionController::class,'show'])
+->middleware('auth:sanctum');
+Route::patch('workout-sessions/{id}',[WorkoutSessionController::class,'update'])
+->middleware('auth:sanctum');
+Route::delete('workout-sessions/{id}',[WorkoutSessionController::class,'destroy'])
+->middleware('auth:sanctum');
 Route::post('/workout-sets',[WorkoutSetController::class,'store']);
 Route::get('/workout-sets/{id}',[WorkoutSetController::class,'show']);
 Route::patch('/workout-sets/{id}',[WorkoutSetController::class,'update']);
 Route::delete('/workout-sets/{id}',[WorkoutSetController::class,'destroy']);
-Route::post('/users/register',[AuthController::class,'register']);
-Route::post('/users/login',[AuthController::class,'login']);
+Route::post('/user/register',[AuthController::class,'register']);
+Route::post('/user/login',[AuthController::class,'login']);
 
 
 
