@@ -25,6 +25,14 @@ Route::get('workout-sessions/{id}',[WorkoutSessionController::class,'show']);
 Route::patch('workout-sessions/{id}',[WorkoutSessionController::class,'update']);
 Route::delete('workout-sessions/{id}',[WorkoutSessionController::class,'destroy']);
 Route::post('/workout-sets',[WorkoutSetController::class,'store']);
+Route::get('/workout-sets/{id}',[WorkoutSetController::class,'show']);
+Route::patch('/workout-sets/{id}',[WorkoutSetController::class,'update']);
+Route::delete('/workout-sets/{id}',[WorkoutSetController::class,'destroy']);
+
+
+
+
+
 
 
 
