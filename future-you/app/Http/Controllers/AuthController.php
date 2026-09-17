@@ -51,7 +51,7 @@ public function register(Request $request){
     $validated = $request->validate([
         'name' => 'required|string',
         'email' => ['required', 'string', 'email', Rule::unique('users', 'email')],
-        'password' => 'required|string|min:8',
+        'password' => 'required|string|min:8|confirmed',
 
     ]);
     $validated['password'] = Hash::make($validated['password']);
@@ -60,5 +60,27 @@ public function register(Request $request){
         'User' => $user,
         'message' => 'User successfully registered',
     ],201);
+}
+
+public function login(Request $request){
+    $validated = $request->validate([
+        'email' => ['required','string','email'],
+        'password' => ['required','string']
+    ]);
+    $user = User::where('email',$validated['email'])->first();
+    if (!$user){ return response()->json(
+        ['message' => 'Invalid credentials']
+    ,401);
+    }
+    if(!Hash::check($validated['password'],$user->password)){
+        return response()->json(
+            ['message' => 'Invalid credentials']
+        ,401);
+    }
+    $token = $user->createToken('Future You API');
+    return response()->json([
+        'Usertoken' => $token->plainTextToken,
+        'message' => 'logged in'
+    ],200);
 }
 }

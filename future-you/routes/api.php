@@ -29,7 +29,9 @@ Route::post('/workout-sets',[WorkoutSetController::class,'store']);
 Route::get('/workout-sets/{id}',[WorkoutSetController::class,'show']);
 Route::patch('/workout-sets/{id}',[WorkoutSetController::class,'update']);
 Route::delete('/workout-sets/{id}',[WorkoutSetController::class,'destroy']);
-Route::post('/users',[AuthController::class,'register']);
+Route::post('/users/register',[AuthController::class,'register']);
+Route::post('/users/login',[AuthController::class,'login']);
+
 
 
 
