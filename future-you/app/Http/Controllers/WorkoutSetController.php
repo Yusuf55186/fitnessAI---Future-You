@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\WorkoutSet;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\WorkoutExercise;
 class WorkoutSetController extends Controller
 {
     /**
@@ -30,6 +31,12 @@ class WorkoutSetController extends Controller
             'rir' => 'required|integer',
             'workout_exercise_id' => 'required|exists:workout_exercises,id',
         ]);
+        $valWorkoutExercise = WorkoutExercise::findOrFail($validated['workout_exercise_id']);
+        if($valWorkoutExercise->user_id !== $request->user()->id){
+            return response()->json([
+                'message' => 'nice try buddy'
+            ],403);
+        }
         $workoutSet = WorkoutSet::create($validated);
         return response()->json([
             'workoutset' => $workoutSet,
@@ -41,9 +48,15 @@ class WorkoutSetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request,string $id)
     {
         $workoutSet = WorkoutSet::findOrfail($id);
+        
+        if($workoutSet->workoutExercise->session->user_id !== $request->user()->id){
+            return response()->json([
+                'message' => "nice try lil bro 💀💀💀"
+            ],403);
+        }
         return response()->json([
             'workoutsSet' => $workoutSet,
             'message' => 'Set preview',
@@ -57,6 +70,11 @@ class WorkoutSetController extends Controller
     public function update(Request $request, string $id)
     {
         $workoutSet = WorkoutSet::findOrfail($id);
+        if($workoutSet->workoutExercise->session->user_id !== $request->user()->id){
+            return response()->json([
+                'message' => "nice try lil bro 💀💀💀"
+            ],403);
+        }
         $validated = $request->validate([
             'reps' => 'required|integer',
             'set_number' => ['required','integer',
@@ -79,9 +97,14 @@ class WorkoutSetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id,Request $request)
     {
         $workoutSet = WorkoutSet::findOrFail($id);
+        if($workoutSet->workoutExercise->session->user_id !== $request->user()->id){
+            return response()->json([
+                'message' => "nice try lil bro 💀💀💀"
+            ],403);
+        }
         $workoutSet->delete();
         return response()->json([
             'workoutSet' => $workoutSet,

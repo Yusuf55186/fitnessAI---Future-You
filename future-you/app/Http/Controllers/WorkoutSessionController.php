@@ -63,6 +63,7 @@ class WorkoutSessionController extends Controller
     public function update(Request $request, string $id)
     {
         $sessionWorkout = WorkoutSession::findOrFail($id);
+        
         $validated = $request->validate([
             'name' => 'required | string | max:255',
             'note' => 'nullable | string | max:255',
