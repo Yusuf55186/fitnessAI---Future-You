@@ -38,15 +38,22 @@ class WorkoutSessionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request,string $id)
     {
         $sessionWorkout = WorkoutSession::with(
         'workoutExercises.exercise',
-        'workoutExercises.workoutSets')->findOrFail($id);       
+        'workoutExercises.workoutSets')->findOrFail($id);     
+        if ($request->user()->id !== $sessionWorkout->user_id) {
+            return response()->json([
+                "message" => "nice try lil bro 💀💀💀"
+            ],403);
+        }  
          return response()->json([
             "session" => $sessionWorkout,
             "message" => "session workout previewd successfully",
         ]);
+        
+        
         //
     }
 
