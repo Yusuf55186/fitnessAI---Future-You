@@ -32,7 +32,7 @@ class WorkoutSetController extends Controller
             'workout_exercise_id' => 'required|exists:workout_exercises,id',
         ]);
         $valWorkoutExercise = WorkoutExercise::findOrFail($validated['workout_exercise_id']);
-        if($valWorkoutExercise->user_id !== $request->user()->id){
+        if($valWorkoutExercise->session->user_id !== $request->user()->id){
             return response()->json([
                 'message' => 'nice try buddy'
             ],403);
