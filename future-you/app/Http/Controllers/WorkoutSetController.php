@@ -10,9 +10,12 @@ class WorkoutSetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return repsonse()->json(WorkoutSet::all());
+        $workoutSet= WorkoutSet::whereHas('workoutExercise.session',function ($query) use ($request) {
+            $query->where('user_id',$request->user()->id);
+        })->get();
+        return response()->json($workoutSet);
         //
     }
 
