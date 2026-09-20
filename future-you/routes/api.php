@@ -10,11 +10,11 @@ use App\Http\Controllers\AuthController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-Route::get('/exercises',[ExerciseController::class,'index']);
-Route::post('/exercises',[ExerciseController::class,'store']);
-Route::get('/exercises/{id}',[ExerciseController::class,'show']);
-Route::patch('/exercises/{id}',[ExerciseController::class,'update']);
-Route::delete('/exercises/{id}',[ExerciseController::class,'destroy']);
+Route::get('/exercises',[ExerciseController::class,'index'])->middleware('auth:sanctum');
+Route::post('/exercises',[ExerciseController::class,'store'])->middleware('auth:sanctum');
+Route::get('/exercises/{id}',[ExerciseController::class,'show'])->middleware('auth:sanctum');
+Route::patch('/exercises/{id}',[ExerciseController::class,'update'])->middleware('auth:sanctum');
+Route::delete('/exercises/{id}',[ExerciseController::class,'destroy'])->middleware('auth:sanctum');
 Route::get('/workoutexercises',[WorkoutExerciseController::class,'index'])->middleware('auth:sanctum');
 Route::post('/workoutexercises',[WorkoutExerciseController::class,'store'])
 ->middleware('auth:sanctum');
@@ -39,6 +39,7 @@ Route::patch('/workout-sets/{id}',[WorkoutSetController::class,'update'])->middl
 Route::delete('/workout-sets/{id}',[WorkoutSetController::class,'destroy'])->middleware('auth:sanctum');
 Route::post('/user/register',[AuthController::class,'register']);
 Route::post('/user/login',[AuthController::class,'login']);
+Route::post('/user/logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
 
 
 

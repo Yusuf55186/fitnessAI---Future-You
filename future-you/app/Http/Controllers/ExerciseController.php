@@ -13,9 +13,14 @@ class ExerciseController extends Controller
      * 
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Exercise::all());
+        $exercise = Exercise::whereNull('user_id')->
+        orWhere('user_id', '=', $request->user()->id)->get();
+        return response()->json([
+            'exercise' => $exercise,
+            'message' => 'Exercises viewed'
+        ],200);
         //
     }
 
@@ -28,9 +33,11 @@ class ExerciseController extends Controller
             'name' => 'required|string|max:255',
             
         ]);
-        $exercise = new Exercise;
-        $exercise->name = $validated['name'];
-        $exercise->save();
+        $exercise = Exercise::create([
+            'name' => $validated['name'],
+            'user_id' => $request->user()->id,
+        ]);
+        
         return response()->json([
             "message" => "Exercise added successfully",
             "exercise" => $exercise,
@@ -40,12 +47,14 @@ class ExerciseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
-        $exercise = Exercise::findOrFail($id);
+        
+        $exercise =  Exercise::where(function($query) use ($request) { $query->whereNull('user_id')->
+        orWhere('user_id','=',$request->user()->id);})->where('exercises.id','=',$id)->findOrFail($id);
         return response()->json([
             "exercise" => $exercise,
-            "message" => "Exercise added successfully", 
+            "message" => "Exercise retrieved successfully", 
         ],200);
         //
     }
@@ -55,11 +64,12 @@ class ExerciseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $exercise = Exercise::findOrFail($id);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
+        $exercise = Exercise::where('exercises.id','=',$id)->where('user_id','=',$request->user()->id)->findOrFail($id);
         $exercise->update($validated);
+        
         return response()->json([
             "Updated Exercise" => $exercise,
             "message" => "Exercise updated successfully"
@@ -71,10 +81,11 @@ class ExerciseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id,Request $request)
     {
-        $exercise = Exercise::findOrFail($id);
+        $exercise = Exercise::where('exercises.id','=',$id)->where('user_id','=',$request->user()->id)->findOrFail($id);
         $exercise->delete();
+
         return response()->json([
             "Deleted Exercise" => $exercise,
             "message" => "Exercise deleted successfully"
