@@ -17,9 +17,15 @@ class ExerciseController extends Controller
     {
         $exercise = Exercise::whereNull('user_id')->
         orWhere('user_id', '=', $request->user()->id)->get();
+        $exercise = $exercise->map(function ($exerciseItem){
+            $exerciseItem->exercise_type = $exerciseItem->user_id == null ? "global" : "custom";
+           unset($exerciseItem->user_id);
+            return $exerciseItem;
+        });
         return response()->json([
-            'exercise' => $exercise,
-            'message' => 'Exercises viewed'
+            'success' => true,
+            'message' => 'Exercises retrieved',
+            'data' => $exercise,
         ],200);
         //
     }
@@ -33,14 +39,18 @@ class ExerciseController extends Controller
             'name' => 'required|string|max:255',
             
         ]);
+        
         $exercise = Exercise::create([
             'name' => $validated['name'],
             'user_id' => $request->user()->id,
         ]);
+        $exercise->exercise_type = "custom";
+        unset($exercise->user_id);
         
         return response()->json([
+            "success" => true,
             "message" => "Exercise added successfully",
-            "exercise" => $exercise,
+            "data" => $exercise,
         ],201);
     }
 
@@ -52,9 +62,13 @@ class ExerciseController extends Controller
         
         $exercise =  Exercise::where(function($query) use ($request) { $query->whereNull('user_id')->
         orWhere('user_id','=',$request->user()->id);})->where('exercises.id','=',$id)->findOrFail($id);
+        $exercise->exercise_type = $exercise->user_id == null ? "global" : "custom";
+        unset($exercise->user_id);
         return response()->json([
-            "exercise" => $exercise,
+            "success" => true,
             "message" => "Exercise retrieved successfully", 
+            "data" => $exercise
+            
         ],200);
         //
     }
@@ -68,10 +82,13 @@ class ExerciseController extends Controller
             'name' => 'required|string|max:255',
         ]);
         $exercise = Exercise::where('exercises.id','=',$id)->where('user_id','=',$request->user()->id)->findOrFail($id);
-        $exercise->update($validated);
         
+        $exercise->update($validated);
+        $exercise->exercise_type = "custom";
+        unset($exercise->user_id);
         return response()->json([
-            "Updated Exercise" => $exercise,
+            "success" => true,
+            "data" => $exercise,
             "message" => "Exercise updated successfully"
         ],200);
         
@@ -87,7 +104,8 @@ class ExerciseController extends Controller
         $exercise->delete();
 
         return response()->json([
-            "Deleted Exercise" => $exercise,
+            "success" => true,
+            "data" => $exercise,
             "message" => "Exercise deleted successfully"
         ],200);
 

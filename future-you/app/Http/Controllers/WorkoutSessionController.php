@@ -9,9 +9,19 @@ class WorkoutSessionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(WorkoutSession::all());     //
+        $workoutSessions = WorkoutSession::where('user_id','=',$request->user()->id)->get();
+        $workoutSessions = $workoutSessions->map(function ($workoutSession){
+            unset($workoutSession->user_id);
+            return $workoutSession;
+        });  //
+        return response()->json([
+            "success" => true,
+            "data" => $workoutSessions,
+            "message" => "Sessions retrieved"
+
+        ]);
     }
 
     /**
@@ -26,10 +36,13 @@ class WorkoutSessionController extends Controller
         ]);
         $user_id = $request->user()->id;
         $validated['user_id'] = $user_id;
-        $sessionWorkout = WorkoutSession::create($validated);
+        $workoutSessions = WorkoutSession::create($validated);
+        unset($workoutSessions->user_id);
+        
         return response()->json([
-            "session added" => $sessionWorkout,
-            "message" => "session workout added successfully",
+            "success" => true,
+            "data" => $workoutSessions,
+            "message" => "Session created"
         ],201);
 
         //
@@ -40,18 +53,21 @@ class WorkoutSessionController extends Controller
      */
     public function show(Request $request,string $id)
     {
-        $sessionWorkout = WorkoutSession::with(
+        $workoutSessions = WorkoutSession::with(
         'workoutExercises.exercise',
-        'workoutExercises.workoutSets')->findOrFail($id);     
-        if ($request->user()->id !== $sessionWorkout->user_id) {
+        'workoutExercises.workoutSets')->findOrFail($id);
+        
+        if ($request->user()->id !== $workoutSessions->user_id) {
             return response()->json([
                 "message" => "nice try lil bro 💀💀💀"
             ],403);
-        }  
+        }
+        unset($workoutSessions->user_id);
          return response()->json([
-            "session" => $sessionWorkout,
-            "message" => "session workout previewd successfully",
-        ]);
+            "success" => true,
+            "data" => $workoutSessions,
+            "message" => "Session retrieved"
+        ],200);
         
         
         //
@@ -62,22 +78,25 @@ class WorkoutSessionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $sessionWorkout = WorkoutSession::findOrFail($id);
+        $workoutSessions = WorkoutSession::findOrFail($id);
         
         $validated = $request->validate([
             'name' => 'required | string | max:255',
             'note' => 'nullable | string | max:255',
             'date' => 'sometimes | date',
         ]);
-        if ($request->user()->id !== $sessionWorkout->user_id) {
+        if ($request->user()->id !== $workoutSessions->user_id) {
             return response()->json([
                 "message" => "nice try lil bro 💀💀💀"
             ],403);
         }
-        $sessionWorkout->update($validated);
+        
+        $workoutSessions->update($validated);
+        unset($workoutSessions->user_id);
         return response()->json([
-            "updated workout" => $sessionWorkout,
-            "message" => " session workout updated successfully"
+           "success" => true,
+           "data" => $workoutSessions,
+           "message" => "Session updated"
         ]);
         //
     }
@@ -87,16 +106,18 @@ class WorkoutSessionController extends Controller
      */
     public function destroy(Request $request,string $id)
     {
-        $sessionWorkout = WorkoutSession::findOrFail($id);
-        if ($request->user()->id !== $sessionWorkout->user_id) {
+        $workoutSessions = WorkoutSession::findOrFail($id);
+        if ($request->user()->id !== $workoutSessions->user_id) {
             return response()->json([
                 "message" => "nice try lil bro 💀💀💀"
             ],403);
         }
-        $sessionWorkout->delete();
+        unset($workoutSessions->user_id);
+        $workoutSessions->delete();
         return response()->json([
-            "deleted workout" => $sessionWorkout,
-            "message" => " session workout deleted successfully",
+            "success" => true,
+            "data" => $workoutSessions,
+            "message" => "Session deleted"
         ]);
         //
     }

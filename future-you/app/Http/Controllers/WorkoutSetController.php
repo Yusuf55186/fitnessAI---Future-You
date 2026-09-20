@@ -12,7 +12,7 @@ class WorkoutSetController extends Controller
      */
     public function index()
     {
-        return repsonse()->json(WorkoutSet::all());
+        return response()->json(WorkoutSet::all());
         //
     }
 
