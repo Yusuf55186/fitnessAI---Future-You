@@ -33,6 +33,7 @@ Route::patch('workout-sessions/{id}',[WorkoutSessionController::class,'update'])
 ->middleware('auth:sanctum');
 Route::delete('workout-sessions/{id}',[WorkoutSessionController::class,'destroy'])
 ->middleware('auth:sanctum');
+Route::get('/workout-sets',[WorkoutSetController::class,'index'])->middleware('auth:sanctum');
 Route::post('/workout-sets',[WorkoutSetController::class,'store'])->middleware('auth:sanctum');
 Route::get('/workout-sets/{id}',[WorkoutSetController::class,'show'])->middleware('auth:sanctum');
 Route::patch('/workout-sets/{id}',[WorkoutSetController::class,'update'])->middleware('auth:sanctum');
@@ -40,7 +41,6 @@ Route::delete('/workout-sets/{id}',[WorkoutSetController::class,'destroy'])->mid
 Route::post('/user/register',[AuthController::class,'register']);
 Route::post('/user/login',[AuthController::class,'login']);
 Route::post('/user/logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
-
 
 
 

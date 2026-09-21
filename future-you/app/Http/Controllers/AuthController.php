@@ -84,10 +84,10 @@ public function login(Request $request){
     ],200);
 }
 public function logout(Request $request){
-   $token = $request->user()->currentAccessToken();
-   $token->delete();
-   return response()->json([
-    'message' => 'successfully logged out'
-   ],200);
+    $token = $request->user()->currentAccessToken();
+    $token->delete();
+    return response()->json([
+        'message' => 'successfully logged out'
+    ],200);
 }
 }
