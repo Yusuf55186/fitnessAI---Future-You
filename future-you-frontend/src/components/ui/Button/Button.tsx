@@ -1,14 +1,14 @@
-import { type ReactNode } from "react";
 import "./Button.css";
-type Props = {
+import { type ReactNode,type ButtonHTMLAttributes} from "react";
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant: "primary" | "secondary" | "ghost";
     children:ReactNode;
-    onClick: => () ;
+    
 };
-export const Button =({variant,children}:Props) =>{
+export const Button =({variant,children,...rest}:Props) =>{
     return (
         
-        <button className={`button button--${variant}`}>{children}</button>
+        <button className={`button button--${variant}`} {...rest}>{children} </button>
     
         
     )
