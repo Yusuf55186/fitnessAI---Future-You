@@ -12,10 +12,19 @@ class WorkoutExerciseController extends Controller
      */
     public function index(Request $request)
     {
-        $workoutExercise = WorkoutExercise::whereHas('session', function ($query) use ($request) {
+        $workoutExercises = WorkoutExercise::whereHas('session', function ($query) use ($request) {
             $query->where('user_id', $request->user()->id);
+            
         })->get();
-        return response()->json($workoutExercise);
+        $workoutExercise = $workoutExercises->map(function ($workoutExercise){
+            unset($workoutExercise->user_id);
+            return $workoutExercise;
+        });
+        return response()->json([
+            "success" => true,
+            "data" => $workoutExercises,
+            "message" => "Workouts viewed"
+        ],200);
         
     }
 
@@ -36,11 +45,13 @@ class WorkoutExerciseController extends Controller
             ],403);
         }
         $workoutExercise = WorkoutExercise::create($validated);
+        unset($workoutExercise->user_id);
        
         return response()->json([
-            "workout_exercise" => $workoutExercise,
-            "message" => "workout successfully added"
-        ]);
+            "success" => true,
+            "data" => $workoutExercise,
+            "message" => "WorkoutExercise added"
+        ],201);
     }
 
     /**
@@ -54,10 +65,13 @@ class WorkoutExerciseController extends Controller
                 "message" => "nice try lil bro 💀💀💀",
             ],403);
         }
+        unset($workoutExercise->user_id);
+        
         return response()->json([
-            "workoutExercise" => $workoutExercise,
-            "message" => "workout preview"
-        ]);
+            "success" => true,
+            "data" => $workoutExercise,
+            "message" => "Workout viewed"
+        ],200);
         //
     }
 
@@ -75,16 +89,19 @@ class WorkoutExerciseController extends Controller
             'reps' => 'required|integer',
             'weight' => 'required|numeric',
 
-        ]);
+        ],200);
         if($workoutExercise->session->user_id !== $request->user()->id){
             return response()->json([
                 "message" => "nice try lil bro 💀💀💀"
             ],403);
         }
         $workoutExercise->update($validated);
+        unset($workoutExercise->user_id);
+        
         return response()->json([
-            "workout" => $workoutExercise,
-            "message" => "workout successfully updated"
+            "success" => true,
+            "data" => $workoutExercise,
+            "message" => "Workout updated"
         ],200);
         //
     }
@@ -101,9 +118,12 @@ class WorkoutExerciseController extends Controller
             ],403);
         }
         $workoutExercise->delete();
+        unset($workoutExercise->user_id);
+        
         return response()->json([
-            "workout" => $workoutExercise,
-            "message" => "workout successfully deleted"
+            "success" => true,
+            "data" => $workoutExercise,
+            "message" => "Workout deleted"
         ],200);
 
         //

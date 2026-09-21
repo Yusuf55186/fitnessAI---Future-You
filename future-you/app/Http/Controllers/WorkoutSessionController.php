@@ -118,7 +118,7 @@ class WorkoutSessionController extends Controller
             "success" => true,
             "data" => $workoutSessions,
             "message" => "Session deleted"
-        ]);
+        ],200);
         //
     }
 }

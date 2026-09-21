@@ -12,10 +12,17 @@ class WorkoutSetController extends Controller
      */
     public function index(Request $request)
     {
-        $workoutSet= WorkoutSet::whereHas('workoutExercise.session',function ($query) use ($request) {
+        $workoutSets= WorkoutSet::whereHas('workoutExercise.session',function ($query) use ($request) {
             $query->where('user_id',$request->user()->id);
         })->get();
-        return response()->json($workoutSet);
+        $workoutSets = $workoutSets->map(function ($workoutSet){
+            unset($workoutSet->user_id);
+        });
+        return response()->json([
+            "success" => true,
+            "data" => $workoutSet,
+            "message" => "Sets viewed"
+        ],200);
         //
     }
 
@@ -41,10 +48,12 @@ class WorkoutSetController extends Controller
             ],403);
         }
         $workoutSet = WorkoutSet::create($validated);
+        unset($workoutSet->user_id);
         return response()->json([
-            'workoutset' => $workoutSet,
-            'message' => 'Set added',
-        ]);
+            "success" => true,
+            "data" => $workoutSet,
+            "message" => "Set added"
+        ],200);
         //
     }
 
@@ -60,10 +69,12 @@ class WorkoutSetController extends Controller
                 'message' => "nice try lil bro 💀💀💀"
             ],403);
         }
+        unset($workoutSet->user_id);
         return response()->json([
-            'workoutsSet' => $workoutSet,
-            'message' => 'Set preview',
-        ]);
+            "success" => true,
+            "data" => $workoutSet,
+            "message" => "Set viewed"
+        ],200);
         //
     }
 
@@ -90,10 +101,12 @@ class WorkoutSetController extends Controller
             'workout_exercise_id' => 'required|exists:workout_exercises,id',
         ]);
         $workoutSet->update($validated);
+        unset($workoutSet->user_id);
         return response()->json([
-            'workoutSet' => $workoutSet,
-            'message' => 'Set updated',
-        ]);
+            "success" => true,
+            "data" => $workoutSet,
+            "message" => "Set updated"
+        ],200);
         //
     }
 
@@ -109,10 +122,12 @@ class WorkoutSetController extends Controller
             ],403);
         }
         $workoutSet->delete();
+        $workoutSet->unset($workoutSet->user_id);
         return response()->json([
-            'workoutSet' => $workoutSet,
-            'message' => 'Set deleted',
-        ]);
+            "success" => true,
+            "data" => $workoutSet,
+            "message" => "Set deleted"
+        ],200);
         //
     }
 }
