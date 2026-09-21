@@ -1,0 +1,119 @@
+:root {
+    /* =========================
+       COLORS — BACKGROUNDS
+       ========================= */
+  
+    --color-bg: #0b0d0d;
+    --color-bg-subtle: #111414;
+    --color-transparent: transparent;
+    --color-surface: #181c1c;
+    --color-surface-hover: #202424;
+    --color-surface-elevated: #242828;
+  
+  
+    /* =========================
+       COLORS — BRAND
+       ========================= */
+  
+    --color-accent: #f5a23a;
+    --color-accent-hover: #ffb24f;
+    --color-accent-active: #dc8927;
+  
+  
+    /* =========================
+       COLORS — TEXT
+       ========================= */
+  
+    --color-text: #f2f2ee;
+    --color-text-secondary: #a5a7a3;
+    --color-text-muted: #696d69;
+    --color-text-on-accent: #0b0d0d;
+  
+  
+    /* =========================
+       COLORS — BORDER
+       ========================= */
+  
+    --color-border: #292d2d;
+    --color-border-strong: #3a3e3e;
+  
+  
+    /* =========================
+       STATUS
+       ========================= */
+  
+    --color-success: #5f9d70;
+    --color-danger: #b85b55;
+    --color-warning: #f5a23a;
+  
+  
+    /* =========================
+       SPACING
+       ========================= */
+  
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+  
+  
+    /* =========================
+       BORDER RADIUS
+       ========================= */
+  
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  
+  
+    /* =========================
+       TYPOGRAPHY
+       ========================= */
+  
+    --font-interface:
+      Inter,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+  
+    --font-display:
+      "Arial Narrow",
+      Impact,
+      sans-serif;
+  
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 3rem;
+  
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+  
+  
+    /* =========================
+       MOTION
+       ========================= */
+  
+    --transition-fast: 120ms ease;
+    --transition-normal: 200ms ease;
+  
+  
+    /* =========================
+       LAYOUT
+       ========================= */
+  
+    --sidebar-width: 240px;
+    --topbar-height: 64px;
+    --page-max-width: 1440px;
+  }
