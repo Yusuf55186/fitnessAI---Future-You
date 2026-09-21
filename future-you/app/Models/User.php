@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\Post;
 use App\Models\WorkoutSession;
+use App\Models\Exercise;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -40,6 +41,9 @@ class User extends Authenticatable
     }
     public function posts() {
         return $this->hasMany(Post::class);
+    }
+    public function exercise(){
+        return $this->hasMany(Exercise::class);
     }
 }
 
