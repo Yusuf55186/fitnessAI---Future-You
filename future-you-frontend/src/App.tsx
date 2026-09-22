@@ -1,32 +1,19 @@
-import { Button } from "./components/ui/Button/Button";
-import { WorkoutCard } from "./features/components/workouts/Workout";
-import { Header } from "./Layout/Header/Header";
+import { useState } from "react";
+import { AppShell } from "./Layout/AppShell/AppShell";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
+import type { language } from "./types/language";
 export const App = () =>{
-  const startWorkout = () => {
-    console.log("Start workout");
-  }
-  const onStart = () => {
-    console.log("geklikt!");
-  }
+  const [language,setLanguage] = useState<language>('nl');
+  
  
   return (
     <>
-    <Header ></Header>
-    <WorkoutCard sessionName={"Push day"} exerciseCount={6} durationTime={45} onStart={onStart}
     
-    
-    >      
-    </WorkoutCard>
-    <div className="buttons-wrapper">
-    <Button onClick={startWorkout}  variant="primary">Start Workout</Button>
-    <Button variant="secondary">View Progress</Button>
-    <Button variant="ghost">Cancel</Button>
-    </div>
-   
-    
+    <AppShell language={language} setLanguage={setLanguage} activePath="/dashboard">
+      <Dashboard language={language} username="Yusuf"></Dashboard>
+        </AppShell>
 
-    </>
-    
-       
+   
+    </>   
   )
 }

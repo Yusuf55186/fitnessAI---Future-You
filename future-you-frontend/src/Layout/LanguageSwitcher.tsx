@@ -1,19 +1,40 @@
-export const LanguageSwitcher = () => {
-    const languages = ["NL", "EN", "مصري"];    
+import type { language } from "../types/language";
+type LanguageOption = {
+    label: string,
+    value:language,
+}
+type Props = {
+    language:language;
+    setLanguage:(language:language) =>void;
+}
+export const LanguageSwitcher = ({language,setLanguage}:Props) => {
+    const languages: LanguageOption[] = [
+        {label:"NL",value:"nl"},
+        {label:"EN",value:"en"},
+        {label: "مصري",value:"arz"},
+    ]    
     return (
         <div>
-        {languages.map((language) => {
+        {languages.map((lang) => {
             return (
+                
                 <button 
-                key={language} className={
-                    language == "NL"
+                        onClick={() => setLanguage(lang.value)}
+
+                key={lang.label} className={
+                    
+                    lang.value == language
                     ? "bg-fy-accent text-fy-text-on-accent"
                                 : "text-fy-text-muted"
                     }
+                    
                     >
-                    {language}
+                        {lang.label}
+                        
+                   
                     
                     </button>
+                    
             )
         })}
         </div>
