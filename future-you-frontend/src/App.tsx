@@ -1,20 +1,32 @@
 import { Button } from "./components/ui/Button/Button";
-import { Card } from "./components/ui/Card/Card"
+import { WorkoutCard } from "./features/components/workouts/Workout";
+import { Header } from "./Layout/Header/Header";
 export const App = () =>{
   const startWorkout = () => {
     console.log("Start workout");
   }
+  const onStart = () => {
+    console.log("geklikt!");
+  }
  
   return (
     <>
-    <Card> <h1>Today's workout</h1> <p>Push day</p>
+    <Header ></Header>
+    <WorkoutCard sessionName={"Push day"} exerciseCount={6} durationTime={45} onStart={onStart}
+    
+    
+    >      
+    </WorkoutCard>
     <div className="buttons-wrapper">
     <Button onClick={startWorkout}  variant="primary">Start Workout</Button>
     <Button variant="secondary">View Progress</Button>
     <Button variant="ghost">Cancel</Button>
     </div>
-    </Card>
-   </>
    
+    
+
+    </>
+    
+       
   )
 }

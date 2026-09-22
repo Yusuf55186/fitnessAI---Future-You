@@ -1,3 +1,4 @@
+
 :root {
     /* =========================
        COLORS — BACKGROUNDS
@@ -117,3 +118,112 @@
     --topbar-height: 64px;
     --page-max-width: 1440px;
   }
+  @theme {
+   /* =========================
+      COLORS — BACKGROUNDS
+      ========================= */
+ 
+   --color-fy-bg: var(--color-bg);
+   --color-fy-bg-subtle: var(--color-bg-subtle);
+   --color-fy-transparent: var(--color-transparent);
+   --color-fy-surface: var(--color-surface);
+   --color-fy-surface-hover: var(--color-surface-hover);
+   --color-fy-surface-elevated: var(--color-surface-elevated);
+ 
+ 
+   /* =========================
+      COLORS — BRAND
+      ========================= */
+ 
+   --color-fy-accent: var(--color-accent);
+   --color-fy-accent-hover: var(--color-accent-hover);
+   --color-fy-accent-active: var(--color-accent-active);
+ 
+ 
+   /* =========================
+      COLORS — TEXT
+      ========================= */
+ 
+   --color-fy-text: var(--color-text);
+   --color-fy-text-secondary: var(--color-text-secondary);
+   --color-fy-text-muted: var(--color-text-muted);
+   --color-fy-text-on-accent: var(--color-text-on-accent);
+ 
+ 
+   /* =========================
+      COLORS — BORDER
+      ========================= */
+ 
+   --color-fy-border: var(--color-border);
+   --color-fy-border-strong: var(--color-border-strong);
+ 
+ 
+   /* =========================
+      STATUS
+      ========================= */
+ 
+   --color-fy-success: var(--color-success);
+   --color-fy-danger: var(--color-danger);
+   --color-fy-warning: var(--color-warning);
+ 
+ 
+   /* =========================
+      SPACING
+      ========================= */
+ 
+   --spacing-fy-1: var(--space-1);
+   --spacing-fy-2: var(--space-2);
+   --spacing-fy-3: var(--space-3);
+   --spacing-fy-4: var(--space-4);
+   --spacing-fy-5: var(--space-5);
+   --spacing-fy-6: var(--space-6);
+   --spacing-fy-7: var(--space-7);
+   --spacing-fy-8: var(--space-8);
+ 
+ 
+   /* =========================
+      BORDER RADIUS
+      ========================= */
+ 
+   --radius-fy-sm: var(--radius-sm);
+   --radius-fy-md: var(--radius-md);
+   --radius-fy-lg: var(--radius-lg);
+ 
+ 
+   /* =========================
+      TYPOGRAPHY
+      ========================= */
+ 
+   --font-fy-interface: var(--font-interface);
+   --font-fy-display: var(--font-display);
+ 
+   --text-fy-xs: var(--font-size-xs);
+   --text-fy-sm: var(--font-size-sm);
+   --text-fy-md: var(--font-size-md);
+   --text-fy-lg: var(--font-size-lg);
+   --text-fy-xl: var(--font-size-xl);
+   --text-fy-2xl: var(--font-size-2xl);
+   --text-fy-3xl: var(--font-size-3xl);
+ 
+   --font-weight-fy-normal: var(--font-weight-normal);
+   --font-weight-fy-medium: var(--font-weight-medium);
+   --font-weight-fy-semibold: var(--font-weight-semibold);
+   --font-weight-fy-bold: var(--font-weight-bold);
+ 
+ 
+   /* =========================
+      MOTION
+      ========================= */
+ 
+   --ease-fy-fast: var(--transition-fast);
+   --ease-fy-normal: var(--transition-normal);
+ 
+ 
+   /* =========================
+      LAYOUT
+      ========================= */
+ 
+   --spacing-fy-sidebar: var(--sidebar-width);
+   --spacing-fy-topbar: var(--topbar-height);
+   --container-fy-page: var(--page-max-width);
+ }
