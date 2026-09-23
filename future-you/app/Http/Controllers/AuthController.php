@@ -56,8 +56,13 @@ public function register(Request $request){
     ]);
     $validated['password'] = Hash::make($validated['password']);
     $user = User::create($validated);
+    $token = $user->createToken('Future You API');
     return response()->json([
-        'User' => $user,
+        'success' => true,
+        'data' => [
+            'user' => $user,
+            'token' => $token->plainTextToken
+        ],
         'message' => 'User successfully registered',
     ],201);
 }
@@ -68,19 +73,25 @@ public function login(Request $request){
         'password' => ['required','string']
     ]);
     $user = User::where('email',$validated['email'])->first();
-    if (!$user){ return response()->json(
-        ['message' => 'Invalid credentials']
-    ,401);
+    if (!$user){ return response()->json([
+        'success' => false,
+        'message' => 'Invalid credentials'
+    ],401);
     }
     if(!Hash::check($validated['password'],$user->password)){
-        return response()->json(
-            ['message' => 'Invalid credentials']
-        ,401);
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid credentials'
+        ],401);
     }
     $token = $user->createToken('Future You API');
     return response()->json([
-        'Usertoken' => $token->plainTextToken,
-        'message' => 'logged in'
+        'success' => true,
+        'data' => [
+            'user' => $user,
+            'token' => $token->plainTextToken
+        ],
+        'message' => 'User logged in successfully'
     ],200);
 }
 public function logout(Request $request){

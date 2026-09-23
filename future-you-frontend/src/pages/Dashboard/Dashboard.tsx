@@ -2,6 +2,9 @@ import { StatCard } from "../../features/components/dashboard/StatCard";
 import { WorkoutCard } from "../../features/components/workouts/Workout";
 import { translations } from "../../il8n/translations";
 import type { language } from "../../types/language";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getWorkoutSessions} from "../../api/services";
 type Props = {
     username:string;
     language:language;
@@ -21,6 +24,30 @@ export const Dashboard = ({username,language}:Props) => {
             value:"82.5"
         }
     ]
+    const [workoutSessions, setWorkoutSessions] = useState([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const data = await getWorkoutSessions();
+        setWorkoutSessions(data);
+            }
+            catch (err:any) {
+                setError(err.message)
+            }
+            finally {
+                setLoading(false);
+            }
+        }
+        fetchData();
+    },[]);
+
+    if (error) return <div>Error: {error}</div>;
+    if (loading) return <div>Loading...</div>;
+
     const StartWorkouthandler = () => {
         alert("geklikt!")
     } 
@@ -38,6 +65,7 @@ export const Dashboard = ({username,language}:Props) => {
         <h2 className="text-fy-xl font-fy-semibold text-fy-text">
             {translations[language].workoutday}
         </h2>
+        <p>{workoutSessions.length}workouts</p>
 
         <WorkoutCard
         language={language}

@@ -3,12 +3,13 @@ import { type ReactNode,type ButtonHTMLAttributes} from "react";
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant: "primary" | "secondary" | "ghost";
     children:ReactNode;
+    className?:string;
     
 };
-export const Button =({variant,children,...rest}:Props) =>{
+export const Button =({variant,children,className,...rest}:Props) =>{
     return (
         
-        <button className={`button button--${variant}`} {...rest}>{children} </button>
+        <button className={`button button--${variant} ${className}`} {...rest}>{children} </button>
     
         
     )
