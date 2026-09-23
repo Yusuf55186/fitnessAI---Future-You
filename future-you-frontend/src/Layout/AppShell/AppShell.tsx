@@ -10,7 +10,10 @@ type Props = {
 }
 export const AppShell = ({children,activePath,language,setLanguage}:Props) => {
     return (
-        <div className="min-h-screen bg-fy-bg text-fy-text">
+        <div 
+        className={"min-h-screen bg-fy-bg text-fy-text"}
+        dir={language === "arz" ? "rtl" : "ltl"}
+        >
             <Header language={language} setLanguage={setLanguage}  />
 
             <div className="flex min-h-[calc(100vh-var(--topbar-height))] w-full max-w-fy-page">

@@ -9,6 +9,8 @@ export const translations = {
         workout:"Pushdag",
         workoutexercise:"oefeningen",
         buttonworkout:"Start training",
+        week:"Deze week",
+        humor:"Die gewichten tillen zichzelf niet hè 👀"
 
     },
 
@@ -17,9 +19,11 @@ export const translations = {
         greeting: "Hello",
         subtitle:"Ready to train",
         workoutday:"Today's Workout",
-        workout:"Pushday",
+        workout:"Push day",
         workoutexercise:"exercises",
-        buttonworkout:"Start workout"
+        buttonworkout:"Start workout",
+        week:"This Week",
+        humor:"Those weights aren't gonna lift themselves 👀"
     },
 
     arz: {
@@ -30,7 +34,8 @@ export const translations = {
         workout:"تمرينة Push",
         workoutexercise:"تمارين",
         buttonworkout:"ابدأ التمرينة",
-        
+        week:"الأسبوع ده",
+        humor:"يلا يا نجم، الحديد مش هيرفع نفسه 😂"
     }
     
 
