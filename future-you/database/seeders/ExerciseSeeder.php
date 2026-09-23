@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Exercise;
 
-class ExerciseSeeders extends Seeder
+class ExerciseSeeder extends Seeder
 {
     use WithoutModelEvents;
     /**
@@ -65,6 +65,19 @@ class ExerciseSeeders extends Seeder
 
     // Other
     "Deadlift",
+    // Legs
+"Back Squat",
+"Front Squat",
+"Hack Squat",
+"Leg Press",
+"Bulgarian Split Squat",
+"Walking Lunge",
+"Leg Extension",
+"Romanian Deadlift",
+"Seated Leg Curl",
+"Lying Leg Curl",
+"Standing Calf Raise",
+"Seated Calf Raise",
 ];
     foreach ($exercises as $exerciseName){
         Exercise::firstOrCreate([
@@ -81,6 +94,6 @@ class ExerciseSeeders extends Seeder
     
 
         
-        //
+   //
     
 
