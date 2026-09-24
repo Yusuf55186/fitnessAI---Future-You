@@ -60,3 +60,17 @@ export const registerUser = async (name:string,email:string,password:string,pass
     }
     return data.data;
 }
+export const workoutSets = async (weight:number,exercise_id:number,rir:number,reps:number,session_id:number) => {
+   const response = await fetch(`${API_URL}/workout-sets`, {
+        headers: AuthHeaders(),
+        method:'POST',
+    
+    body: JSON.stringify({session_id,weight,exercise_id,rir,reps})
+    });
+    const data = await response.json();
+   if(!response.ok || !data.success){
+    throw new Error(data.message || 'Failed to load workout sets');
+   }
+   return data.data;
+
+}

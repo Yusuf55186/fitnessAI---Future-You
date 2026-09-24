@@ -4,6 +4,7 @@ import { AppShell } from './Layout/AppShell/AppShell';
 import { useState } from 'react';
 import type { language } from './types/language';
 import { AuthWrapper } from './Auth/AuthWrapper';
+import { WorkoutSessionPage } from './WorkoutSession/WorkoutSessionPage';
 export const App = () => {
   const [language, setLanguage] = useState<language>('nl');
   const token = localStorage.getItem('token');
@@ -11,7 +12,20 @@ export const App = () => {
   return (
     <Router>
       <Routes>
+        
         <Route path="/auth" element={<AuthWrapper />} />
+        <Route 
+        path="/workout-sessions" 
+        element={
+          token ? (
+        <WorkoutSessionPage  />
+          ):(
+            <Navigate to={'/auth'} />
+          )
+        }
+          >
+        </Route>
+
         <Route 
           path="/dashboard" 
           element={

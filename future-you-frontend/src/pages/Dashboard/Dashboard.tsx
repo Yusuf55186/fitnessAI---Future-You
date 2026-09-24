@@ -5,6 +5,8 @@ import type { language } from "../../types/language";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getWorkoutSessions} from "../../api/services";
+import { useNavigate } from "react-router-dom";
+
 type Props = {
     username:string;
     language:language;
@@ -27,7 +29,7 @@ export const Dashboard = ({username,language}:Props) => {
     const [workoutSessions, setWorkoutSessions] = useState([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -49,7 +51,7 @@ export const Dashboard = ({username,language}:Props) => {
     if (loading) return <div>Loading...</div>;
 
     const StartWorkouthandler = () => {
-        alert("geklikt!")
+        navigate("/workout-sessions");
     } 
     return (
         <div>
