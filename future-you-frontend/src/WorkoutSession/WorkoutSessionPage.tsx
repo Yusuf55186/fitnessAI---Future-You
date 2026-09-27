@@ -7,6 +7,7 @@ type Exercise = {
     id: number,
     name:string,
     
+    
 }
 export const WorkoutSessionPage = () => {
     const [isAddExerciseOpen,setisAddExercise] = useState<boolean>(false); 
@@ -14,6 +15,7 @@ export const WorkoutSessionPage = () => {
     const [selectedExercises,setselectedExercises] = useState<Exercise[]>([]);
     const [loading,setloading] = useState<boolean>(true);
     const [error,setError] = useState<string | null> (null);
+    const [sessionId,setSessionId] = useState<number | null> (null);
     
     
     useEffect(() => {
@@ -88,7 +90,7 @@ export const WorkoutSessionPage = () => {
                 )}
 
                 {selectedExercises.map((selectedexer) => (
-                    <ExerciseCard key={selectedexer.id} name={selectedexer.name} id={selectedexer.id}
+                    <ExerciseCard onSessionCreated={setSessionId} sessionId={sessionId}  key={selectedexer.id} name={selectedexer.name} id={selectedexer.id}
                     
                     />
                 ))}

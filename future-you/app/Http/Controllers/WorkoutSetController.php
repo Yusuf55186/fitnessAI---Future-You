@@ -5,6 +5,7 @@ use App\Models\WorkoutSet;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\WorkoutExercise;
+use App\Models\WorkoutSession;
 class WorkoutSetController extends Controller
 {
     /**
@@ -17,10 +18,11 @@ class WorkoutSetController extends Controller
         })->get();
         $workoutSets = $workoutSets->map(function ($workoutSet){
             unset($workoutSet->user_id);
+            return ($workoutSet);
         });
         return response()->json([
             "success" => true,
-            "data" => $workoutSet,
+            "data" => $workoutSets,
             "message" => "Sets viewed"
         ],200);
         //
@@ -33,14 +35,29 @@ class WorkoutSetController extends Controller
     {
         $validated = $request->validate([
             'reps' => 'required|integer',
-            'set_number' => ['required','integer',
             Rule::unique('workout_sets', 'set_number')
             ->where('workout_exercise_id', $request->input('workout_exercise_id')),
-        ],
             'weight' => 'required|numeric',
             'rir' => 'required|integer',
-            'workout_exercise_id' => 'required|exists:workout_exercises,id',
+            'session_id' => 'exists:workout_sessions,id|integer|nullable',
+            'exercise_id' => 'required|exists:exercises,id|integer',
         ]);
+        if ($validated['session_id'] === null){
+            WorkoutSession::create(
+                [
+                 'name' => "Workout"
+                ,'note' => null
+                ,'date' => now()->toDateString()
+                , 'user_id' => $request->user()->id
+                    ]
+                );
+            WorkoutExercise::create(
+                [
+                    'workout_session_id' => $session->id,
+                    'exercise_id' => $validated['exercise_id']
+                ]
+            )
+        }
         $valWorkoutExercise = WorkoutExercise::findOrFail($validated['workout_exercise_id']);
         if($valWorkoutExercise->session->user_id !== $request->user()->id){
             return response()->json([
