@@ -1,14 +1,32 @@
 import { Card } from "../components/ui/Card/Card"
 import { useState } from "react"
 import { Button } from "../components/ui/Button/Button"
+import { workoutSets } from "../api/services"
 type Props = {
-    id:number,
-    name:string
+    id:number;
+    name:string;
+    sessionId: number | null;
+    onSessionCreated: (sessionId:number) => void;
 }
-export const ExerciseCard = ({id,name}:Props) => {
+export const ExerciseCard = ({id,name,sessionId,onSessionCreated}:Props) => {
     const [weight,setWeight] = useState<string>('');
     const [rir,setRir] = useState<string>('');
     const [reps,setReps] = useState<string>('');
+    
+    const handlelogSet = async () => {
+        
+        if (weight === "" || rir === "" || reps === ""){
+        return;
+    }
+    const convertedWeight = Number(weight);
+    const convertedReps = Number(reps);
+    const convertedRIR = Number(rir);
+       
+        const response = await workoutSets(convertedWeight,id,convertedRIR,convertedReps,sessionId)
+        onSessionCreated(response.session_id);
+        console.log(response);
+        
+    }
     
     return (
 <Card>
@@ -19,7 +37,7 @@ export const ExerciseCard = ({id,name}:Props) => {
     <input type="number" min="1" id={`reps-${id}`} onChange={(e) => setReps(e.target.value)} value={reps} />
         <label htmlFor={`rir-${id}`}>RIR</label>
     <input type="number" id={`rir-${id}`} min="0" max="4" onChange={(e) => setRir(e.target.value)} value={rir} />
-    <Button variant="primary">Log Set</Button>
+    <Button onClick={handlelogSet} variant="primary">Log Set</Button>
 </Card>
     )
 }
