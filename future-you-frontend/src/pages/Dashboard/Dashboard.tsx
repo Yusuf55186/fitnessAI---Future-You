@@ -14,8 +14,8 @@ type Props = {
 export const Dashboard = ({username,language}:Props) => {
     const stats = [
         {
-            label:translations[language].workout
-            ,value:12
+            label:translations[language].workoutexercise
+            ,value:6
         },
         {
             label:translations[language].week,
@@ -65,14 +65,14 @@ export const Dashboard = ({username,language}:Props) => {
                 </section>
                 <section className="mt-fy-7">
         <h2 className="text-fy-xl font-fy-semibold text-fy-text">
-            {translations[language].workoutday}
+            {translations[language].workout}
         </h2>
         <p>{workoutSessions.length}workouts</p>
 
         <WorkoutCard
         language={language}
             onStart={StartWorkouthandler}
-            sessionName={translations[language].workout}
+            sessionName={translations[language].workoutday}
             exerciseCount={6}
             durationTime={45}
         />

@@ -24,6 +24,17 @@ export const App = () => {
           )
         }
           >
+            <Route 
+        path="/workout-sessions/:id" 
+        element={
+          token ? (
+        <WorkoutSessionPage  />
+          ):(
+            <Navigate to={'/auth'} />
+          )
+        }
+          ></Route>
+
         </Route>
 
         <Route 

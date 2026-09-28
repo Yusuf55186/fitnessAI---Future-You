@@ -1,23 +1,49 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { Button } from "../components/ui/Button/Button"
 import { getExercises } from "../api/services";
+import { getWorkoutSession } from "../api/services";
 import { Card } from "../components/ui/Card/Card";
 import { ExerciseCard } from "../Exercise/ExerciseCard";
+import { useParams } from "react-router-dom";
+
 type Exercise = {
     id: number,
     name:string,
     
     
 }
+
+type WorkoutSet = {
+    set_number: number;
+    weight:number;
+    rir:number;
+    reps:number;
+}
+type WorkoutExercise = {
+    id:number;
+    exercise_id:number;
+    workout_session_id:number;
+    workout_sets: WorkoutSet[];
+    exercise:Exercise;
+}
+type workoutSession = {
+    id:number;
+    note: string | null;
+    name: string;
+    workout_exercises: WorkoutExercise[];
+    
+
+}
 export const WorkoutSessionPage = () => {
     const [isAddExerciseOpen,setisAddExercise] = useState<boolean>(false); 
     const [Exercise,setExercise] = useState<Exercise[]>([]);
+    const [session,setSession] = useState<workoutSession | null>(null);
     const [selectedExercises,setselectedExercises] = useState<Exercise[]>([]);
     const [loading,setloading] = useState<boolean>(true);
     const [error,setError] = useState<string | null> (null);
     const [sessionId,setSessionId] = useState<number | null> (null);
     const alreadySelected = (id: number) => selectedExercises.some((selectedExercise) => selectedExercise.id === id);
-    
+    const { id } = useParams();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -38,7 +64,25 @@ export const WorkoutSessionPage = () => {
             fetchData();
         }
     }, [isAddExerciseOpen]);
+useEffect(() => {
+    if(!id) return;
+    const fetchActiveSession = async () => {
+        try {
+            setloading(true);
+        const data = await getWorkoutSession(id);
+        setSession(data);
+        setSessionId(data.id);
+        }
+        catch (err:any) {
+            setError(err.message || "Failed to fetch Active sessions");
+        }
+        finally {
+            setloading(false);
+        }
 
+    }
+    fetchActiveSession();
+},[id])
 
 
     return (
@@ -97,7 +141,7 @@ export const WorkoutSessionPage = () => {
                 )}
 
                 {selectedExercises.map((selectedexer) => (
-                    <ExerciseCard onSessionCreated={setSessionId} sessionId={sessionId}  key={selectedexer.id} name={selectedexer.name} id={selectedexer.id}
+                    <ExerciseCard existingSets={[]} onSessionCreated={setSessionId} sessionId={sessionId}  key={selectedexer.id} name={selectedexer.name} id={selectedexer.id}
                     
                     />
                 ))}
@@ -111,7 +155,11 @@ export const WorkoutSessionPage = () => {
             
             
             </section>
-                
+            {session?.workout_exercises.map((workoutExercise) => {
+                return (
+                    <ExerciseCard  key={workoutExercise.id} id={workoutExercise.exercise_id} onSessionCreated={setSessionId} sessionId={sessionId} existingSets={workoutExercise.workout_sets} name={workoutExercise.exercise.name}></ExerciseCard>
+                )
+            })};
            
             
         </div>

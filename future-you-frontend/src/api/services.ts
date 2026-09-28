@@ -12,6 +12,17 @@ export const getWorkoutSessions = async () => {
    return data.data;
 
 }
+export const getWorkoutSession = async (id: string) => {
+    const response =  await fetch(`${API_URL}/workout-sessions/${id}`, {
+        headers:AuthHeaders()
+    });
+    
+    const data = await response.json();
+    if(!response.ok || !data.success){
+    throw new Error(data.message || 'Failed to load workout sessions');
+   }
+   return data.data;
+}
 export const getExercises = async () => {
     const response = await fetch(`${API_URL}/exercises`, {
         headers: AuthHeaders()
