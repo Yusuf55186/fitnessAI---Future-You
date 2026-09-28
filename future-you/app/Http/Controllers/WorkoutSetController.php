@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\WorkoutExercise;
 use App\Models\WorkoutSession;
+use App\Models\WorkoutSession;
 class WorkoutSetController extends Controller
 {
     /**
@@ -19,9 +20,11 @@ class WorkoutSetController extends Controller
         $workoutSets = $workoutSets->map(function ($workoutSet){
             unset($workoutSet->user_id);
             return ($workoutSet);
+            return ($workoutSet);
         });
         return response()->json([
             "success" => true,
+            "data" => $workoutSets,
             "data" => $workoutSets,
             "message" => "Sets viewed"
         ],200);
@@ -69,7 +72,9 @@ class WorkoutSetController extends Controller
         return response()->json([
             "success" => true,
             "data" => $workoutSet,
-            "message" => "Set added"
+            "message" => "Set added",
+            "session_id" => $sessionId,
+
         ],200);
         //
     }

@@ -71,6 +71,6 @@ export const workoutSets = async (weight:number,exercise_id:number,rir:number,re
    if(!response.ok || !data.success){
     throw new Error(data.message || 'Failed to load workout sets');
    }
-   return data.data;
+   return data;
 
 }
