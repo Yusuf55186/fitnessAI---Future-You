@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\WorkoutExercise;
 use App\Models\WorkoutSession;
-use App\Models\WorkoutSession;
 class WorkoutSetController extends Controller
 {
     /**
@@ -20,11 +19,9 @@ class WorkoutSetController extends Controller
         $workoutSets = $workoutSets->map(function ($workoutSet){
             unset($workoutSet->user_id);
             return ($workoutSet);
-            return ($workoutSet);
         });
         return response()->json([
             "success" => true,
-            "data" => $workoutSets,
             "data" => $workoutSets,
             "message" => "Sets viewed"
         ],200);
@@ -38,36 +35,52 @@ class WorkoutSetController extends Controller
     {
         $validated = $request->validate([
             'reps' => 'required|integer',
-            Rule::unique('workout_sets', 'set_number')
-            ->where('workout_exercise_id', $request->input('workout_exercise_id')),
             'weight' => 'required|numeric',
             'rir' => 'required|integer',
             'session_id' => 'exists:workout_sessions,id|integer|nullable',
             'exercise_id' => 'required|exists:exercises,id|integer',
         ]);
         if ($validated['session_id'] === null){
-            WorkoutSession::create(
+            
+            $session = WorkoutSession::create(
                 [
                  'name' => "Workout"
-                ,'note' => null
+                ,'note' => "Test workout"
                 ,'date' => now()->toDateString()
                 , 'user_id' => $request->user()->id
                     ]
                 );
-            WorkoutExercise::create(
+                $sessionId = $session->id;
+            $workoutExercise = WorkoutExercise::create(
                 [
                     'workout_session_id' => $session->id,
-                    'exercise_id' => $validated['exercise_id']
+                    'exercise_id' => $validated['exercise_id'],
                 ]
-            )
+            );
+            $workoutSet = WorkoutSet::create([
+            "workout_exercise_id" => $workoutExercise->id,
+            "rir" => $validated['rir'],
+            "reps" => $validated["reps"],
+            "weight" => $validated["weight"],
+            "set_number" => 1,
+            
+          ]);
         }
-        $valWorkoutExercise = WorkoutExercise::findOrFail($validated['workout_exercise_id']);
-        if($valWorkoutExercise->session->user_id !== $request->user()->id){
-            return response()->json([
-                'message' => 'nice try buddy'
-            ],403);
+        else {
+            $sessionId = $validated["session_id"];
+            $workoutExercise = WorkoutExercise::where("workout_session_id","=",$validated["session_id"])->
+            where("exercise_id","=",$validated["exercise_id"])->firstOrCreate();
+            $set_number = $workoutExercise->workoutSets()->count() + 1;
+            
+            $workoutSet = WorkoutSet::create([
+                "workout_exercise_id" => $workoutExercise->id,
+            "rir" => $validated['rir'],
+            "reps" => $validated["reps"],
+            "weight" => $validated["weight"],
+            "set_number" => $set_number
+            ]);
         }
-        $workoutSet = WorkoutSet::create($validated);
+
         unset($workoutSet->user_id);
         return response()->json([
             "success" => true,
