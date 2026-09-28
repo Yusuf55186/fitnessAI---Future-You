@@ -5,6 +5,8 @@ import { useState } from 'react';
 import type { language } from './types/language';
 import { AuthWrapper } from './Auth/AuthWrapper';
 import { WorkoutSessionPage } from './WorkoutSession/WorkoutSessionPage';
+import { WorkoutHistoryPage } from './WorkoutHistory/WorkoutHistoryPage';
+
 export const App = () => {
   const [language, setLanguage] = useState<language>('nl');
   const token = localStorage.getItem('token');
@@ -34,7 +36,17 @@ export const App = () => {
           )
         }
           ></Route>
-
+ </Route>
+ <Route 
+        path="/history" 
+        element={
+          token ? (
+        <WorkoutHistoryPage />
+          ):(
+            <Navigate to={'/auth'} />
+          )
+        }
+          >
         </Route>
 
         <Route 

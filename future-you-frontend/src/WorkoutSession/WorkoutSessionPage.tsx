@@ -1,10 +1,11 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../components/ui/Button/Button"
 import { getExercises } from "../api/services";
 import { getWorkoutSession } from "../api/services";
 import { Card } from "../components/ui/Card/Card";
 import { ExerciseCard } from "../Exercise/ExerciseCard";
 import { useParams } from "react-router-dom";
+
 
 type Exercise = {
     id: number,
@@ -86,6 +87,7 @@ useEffect(() => {
 
 
     return (
+        
         <div className="flex flex-col mx-auto w-page-max-width justify-center mt-fy-4">
             <section className="flex flex-col justify-center gap-fy-4">
                 <h1 className="text-fy-xl text-fy-accent font-fy-bold">New Workout</h1>
@@ -159,7 +161,7 @@ useEffect(() => {
                 return (
                     <ExerciseCard  key={workoutExercise.id} id={workoutExercise.exercise_id} onSessionCreated={setSessionId} sessionId={sessionId} existingSets={workoutExercise.workout_sets} name={workoutExercise.exercise.name}></ExerciseCard>
                 )
-            })};
+            })}
            
             
         </div>
