@@ -13,10 +13,10 @@ type Props = {
 export const WorkoutHistoryCard = ({id,name,note,date,children}: Props) => {
     const navigate = () => useNavigate();
 
-    const viewWorkoutHandler = () => {
-        e.preventDefault();
-        navigate();
-    }
+    // const viewWorkoutHandler = () => {
+    //     e.preventDefault();
+    //     navigate();
+    // }
 
     return (
 

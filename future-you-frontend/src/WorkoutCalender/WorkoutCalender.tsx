@@ -10,7 +10,7 @@ type Props = {
     selectedDate:string | null;
     onSelectDate:(date:string) => void
 }
-export const WorkoutCalender = ({language,sessions}:Props) => {
+export const WorkoutCalender = ({language,sessions,onSelectDate,selectedDate}:Props) => {
     const [currentDate,setCurrentDate] = useState<Date>(new Date());
 
     const currentMonth = currentDate.getMonth();
@@ -61,14 +61,30 @@ export const WorkoutCalender = ({language,sessions}:Props) => {
     })}
 
     {days.map((day) => {
+        
         const formattedday = day.toString().padStart(2,"0");
         const dateKey = `${currentYear}-${formattedMonth}-${formattedday}`;
+       const isSelected = selectedDate === dateKey
         const daysessions = sessions.get(dateKey)
+         const Hasworkout = daysessions && daysessions.length > 0;
         return (
-            <div key={day}>{day}</div>
+            <div key={day} onClick={() => onSelectDate(dateKey)}
+              className={`relative min-h-20 rounded-lg p-2 cursor-pointer border ${
+    isSelected
+        ? "border-fy-accent bg-fy-accent/10"
+        : "border-fy-border"
+}`}
+>
+            {Hasworkout && (
+                <div className="w-1.5 h-1.5 rounded-full bg-fy-accent"></div>
+            )}    
+{day}
+            </div>
+            
             
         )
     })}
+    
 </div>
 
     <Button

@@ -46,7 +46,7 @@ export const App = () => {
           path="/history"
           element={
             token ? (
-              <WorkoutHistoryPage />
+              <WorkoutHistoryPage language={language} />
             ) : (
               <Navigate to={'/auth'} />
             )
