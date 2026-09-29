@@ -81,8 +81,8 @@ export const Sidebar = ({activePath}:Props) => {
                         </section>
                         
                     )
-                })};
+                })}
             </nav>
         </aside>
-    );
-};
+    )
+}

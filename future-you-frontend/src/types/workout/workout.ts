@@ -23,7 +23,7 @@ export type WorkoutSession = {
     note: string | null;
     name: string;
     workout_exercises: WorkoutExercise[];
-    date: string | null;
+    date: string | null
     
 
 }

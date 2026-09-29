@@ -10,7 +10,7 @@ export const Navigation = () => {
             <li key={item}>
                 <a>{item}</a>
             </li>
-        );
+        )
     })}
 </ul>
 </nav>

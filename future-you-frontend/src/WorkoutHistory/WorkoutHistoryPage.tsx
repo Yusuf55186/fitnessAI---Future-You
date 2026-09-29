@@ -2,6 +2,8 @@ import { WorkoutHistoryCard } from "./WorkoutHistoryCard"
 import { useState,useEffect } from "react";
 import  { type WorkoutSession } from "../types/workout/workout";
 import { getWorkoutSessions } from "../api/services";
+import { Button } from "../components/ui/Button/Button";
+
 export const WorkoutHistoryPage = () => {
     
         const [sessionsHistory,setSessionsHistory] = useState<WorkoutSession[]>([]);
@@ -29,18 +31,32 @@ export const WorkoutHistoryPage = () => {
     },[])
     return (
         <>
-        <p>{loading}</p>
-        <p className="text-fy-danger">{error}</p>
-       <>
-        {sessionsHistory.map((sessionHistory) => {
+    {error && (
+        <p className="text-fy-danger">
+            {error}
+        </p>
+    )}
+
+    {loading && (
+        <p className="text-fy-muted text-fy-lg text-center ">
+            Loading workouts...
+        </p>
+    )}
+
+    {!loading && !error && (
+        <>
+            {sessionsHistory.map((sessionHistory) => {
             return (
                 <WorkoutHistoryCard key={sessionHistory.id} id={sessionHistory.id} name={sessionHistory.name} note={sessionHistory.note} date={sessionHistory.date} >
-               
+                    <Button variant="primary">View Workout</Button>
                 </WorkoutHistoryCard>
+                
             )
 
         })}
-       </>
-       </>
+        </>
+    )}
+</>
+        
     )
 }

@@ -25,4 +25,4 @@ export const AppShell = ({children,activePath,language,setLanguage}:Props) => {
             </div>
         </div>
     );
-};
+}
