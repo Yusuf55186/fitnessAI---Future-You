@@ -11,7 +11,7 @@ class WorkoutSessionController extends Controller
      */
     public function index(Request $request)
     {
-        $workoutSessions = WorkoutSession::where('user_id','=',$request->user()->id)->get();
+        $workoutSessions = WorkoutSession::where('user_id','=',$request->user()->id)->with('workoutExercises')->get();
         $workoutSessions = $workoutSessions->map(function ($workoutSession){
             unset($workoutSession->user_id);
             return $workoutSession;

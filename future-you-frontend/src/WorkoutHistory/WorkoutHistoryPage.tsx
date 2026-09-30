@@ -5,6 +5,7 @@ import { getWorkoutSessions } from "../api/services";
 import { WorkoutCalender } from "../WorkoutCalender/WorkoutCalender";
 import { type language } from "../types/language";
 import { StreakCard } from "../Streak/StreakCard";
+import { DayOverlay } from "../DayOverlay/DayOverlay";
 type Props = {
     language:language;
 }
@@ -62,25 +63,32 @@ export const WorkoutHistoryPage = ({language}:Props) => {
             Loading workouts...
         </p>
     )}
+    
+    
+       <div className="w-full">
+    <StreakCard
+        sessions={sessionsHistory}
+        language={language}
+    />
 
-    {!loading && !error && (
-        <>
-            {sessionsHistory.map((sessionHistory) => {
-            return (
-                
-                <WorkoutHistoryCard key={sessionHistory.id} id={sessionHistory.id} name={sessionHistory.name} note={sessionHistory.note} date={sessionHistory.date}>
-                    History
-                </WorkoutHistoryCard>
-                )
+    <WorkoutCalender
+        sessions={sessionByDate}
+        language={language}
+        selectedDate={selectedDate}
+        onSelectDate={setSelectedDate}
+    />
 
-        })}
-                <WorkoutCalender sessions={sessionByDate} language={language} selectedDate={selectedDate} onSelectDate={setSelectedDate}></WorkoutCalender>
-                                <StreakCard sessions={sessionsHistory} language={language}></StreakCard>
-                
-            
-        </>
+    {selectedDate && (
+        <DayOverlay
+            date={selectedDate}
+            sessions={sessionByDate.get(selectedDate) ?? []}
+            language={language}
+            onClose={() => setSelectedDate(null)}
+        />
     )}
+    
+</div>
+    
 </>
-        
-    )
-}
+    )}
+

@@ -35,10 +35,7 @@ export const StreakCard = ({language,sessions}:Props) => {
 
     
     }
-    console.log(
-    "session dates:",
-    sessions.map((session) => session.date)
-);
+   
     return (
         <div className="relative mx-auto mb-10 w-full max-w-xl streak-card-show">
 
