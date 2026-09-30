@@ -9,6 +9,7 @@ type Props = {
     onClose: () => void;
 }
 export const DayOverlay = ({date,sessions,language,onClose}:Props) => {
+    
     return (
           <div
             className="
@@ -99,6 +100,7 @@ export const DayOverlay = ({date,sessions,language,onClose}:Props) => {
                 {/* Sessions */}
                 <div className="relative max-h-[60vh] space-y-3 overflow-y-auto p-6">
                     {sessions.map((session) => (
+                        
                         <div
                             key={session.id}
                             className="
