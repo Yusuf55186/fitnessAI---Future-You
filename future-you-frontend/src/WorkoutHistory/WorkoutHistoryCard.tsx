@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Card } from "../components/ui/Card/Card";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../components/ui/Button/Button";
 type Props = {
     id:number;
     name:string;
@@ -11,12 +12,11 @@ type Props = {
     
 }
 export const WorkoutHistoryCard = ({id,name,note,date,children}: Props) => {
-    const navigate = () => useNavigate();
+    const navigate = useNavigate();
 
-    // const viewWorkoutHandler = () => {
-    //     e.preventDefault();
-    //     navigate();
-    // }
+     const viewWorkoutHandler = () => {
+         navigate(`/workout-sessions/${id}`);
+     }
 
     return (
 
@@ -41,7 +41,9 @@ export const WorkoutHistoryCard = ({id,name,note,date,children}: Props) => {
         {date}
     </p>
     {children}
+<Button variant="primary" onClick={viewWorkoutHandler}>View workout</Button>
 </Card>
+
 
     )
 }

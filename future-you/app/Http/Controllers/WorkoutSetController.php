@@ -68,8 +68,10 @@ class WorkoutSetController extends Controller
         }
         else {
             $sessionId = $validated["session_id"];
-            $workoutExercise = WorkoutExercise::where("workout_session_id","=",$validated["session_id"])->
-            where("exercise_id","=",$validated["exercise_id"])->firstOrCreate();
+            $workoutExercise = WorkoutExercise::firstOrCreate([
+                'workout_session_id' => $validated['session_id'],
+                'exercise_id' => $validated['exercise_id']
+            ]);
             $set_number = $workoutExercise->workoutSets()->count() + 1;
             
             $workoutSet = WorkoutSet::create([

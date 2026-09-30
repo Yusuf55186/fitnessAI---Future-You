@@ -227,3 +227,91 @@
    --spacing-fy-topbar: var(--topbar-height);
    --container-fy-page: var(--page-max-width);
  }
+ @keyframes streakCardShow {
+    0% {
+        opacity: 0;
+        transform: translateY(42px) scale(0.9);
+        filter: blur(12px);
+    }
+
+    35% {
+        opacity: 0.45;
+        transform: translateY(24px) scale(0.94);
+        filter: blur(7px);
+    }
+
+    70% {
+        opacity: 0.9;
+        transform: translateY(-4px) scale(1.015);
+        filter: blur(1px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes streakGlowShow {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    60% {
+        opacity: 0.08;
+    }
+
+    100% {
+        opacity: 0.15;
+        transform: scale(1);
+    }
+}
+
+@keyframes streakDevilShow {
+    0%,
+    30% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.75);
+    }
+
+    75% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.04);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes streakContentShow {
+    0%,
+    40% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.streak-card-show {
+    animation: streakCardShow 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.streak-glow-show {
+    animation: streakGlowShow 1.8s ease-out both;
+}
+
+.streak-devil-show {
+    animation: streakDevilShow 1.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.streak-content-show {
+    animation: streakContentShow 1.55s ease-out both;
+}

@@ -2,9 +2,9 @@ import { WorkoutHistoryCard } from "./WorkoutHistoryCard"
 import { useState,useEffect } from "react";
 import  { type WorkoutSession } from "../types/workout/workout";
 import { getWorkoutSessions } from "../api/services";
-import { Button } from "../components/ui/Button/Button";
 import { WorkoutCalender } from "../WorkoutCalender/WorkoutCalender";
 import { type language } from "../types/language";
+import { StreakCard } from "../Streak/StreakCard";
 type Props = {
     language:language;
 }
@@ -67,15 +67,17 @@ export const WorkoutHistoryPage = ({language}:Props) => {
         <>
             {sessionsHistory.map((sessionHistory) => {
             return (
-                <>
-                <WorkoutHistoryCard key={sessionHistory.id} id={sessionHistory.id} name={sessionHistory.name} note={sessionHistory.note} date={sessionHistory.date} >
-                    <Button variant="primary">View Workout</Button>
+                
+                <WorkoutHistoryCard key={sessionHistory.id} id={sessionHistory.id} name={sessionHistory.name} note={sessionHistory.note} date={sessionHistory.date}>
+                    History
                 </WorkoutHistoryCard>
-                <WorkoutCalender sessions={sessionByDate} language={language} selectedDate={selectedDate} onSelectDate={setSelectedDate}></WorkoutCalender>
-                </>
-            )
+                )
 
         })}
+                <WorkoutCalender sessions={sessionByDate} language={language} selectedDate={selectedDate} onSelectDate={setSelectedDate}></WorkoutCalender>
+                                <StreakCard sessions={sessionsHistory} language={language}></StreakCard>
+                
+            
         </>
     )}
 </>
