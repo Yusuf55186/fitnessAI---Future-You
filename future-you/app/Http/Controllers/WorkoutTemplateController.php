@@ -17,7 +17,7 @@ class WorkoutTemplateController extends Controller
             'success' => true,
             'data' => $workoutTemplates,
             'message' => 'Templates viewed'
-        ]);
+        ],200);
         //
     }
 
@@ -26,6 +26,19 @@ class WorkoutTemplateController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|string'
+        ]);
+        $workoutTemplate = WorkoutTemplate::create([
+            'user_id' => $request->user()->id,
+            'name' => $validated['name']
+            
+        ]);
+        return response()->json([
+            'success' => true,
+            'data' => $workoutTemplate,
+            'message' => 'workoutTemplate created'
+        ],201);
         //
     }
 
@@ -34,7 +47,15 @@ class WorkoutTemplateController extends Controller
      */
     public function show(string $id)
     {
+        $workoutTemplate = WorkoutTemplate::with(
+            'workoutTemplateExercises.exercise'
+        )->findOrfail($id);
         //
+        return response()->json([
+            'success' => true,
+            'data' => $workoutTemplate,
+            'message' => 'WorkoutTemplate viewed'
+        ],200);
     }
 
     /**
@@ -42,14 +63,45 @@ class WorkoutTemplateController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $workoutTemplate = WorkoutTemplate::findOrFail($id);
+        
+        if ($workoutTemplate->user_id !== $request->user()->id){
+            return response()->json([
+                'success' => false,
+                'data' => $workoutTemplate,
+                'message' => 'Unauthorized'
+            ],403);
+    }
+    $validated = $request->validate([
+        'name' => 'string|required'
+    ]);
+    $workoutTemplate->update($validated);
+    return response()->json([
+        'success' => true,
+        'data' => $workoutTemplate,
+        'message' => 'WorkoutTemplate updated'
+    ],200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
+        $workoutTemplate = WorkoutTemplate::findOrFail($id);
+        if($request->user()->id !== $workoutTemplate->user_id){
+            return response()->json([
+                'success' => false,
+                'data' => $workoutTemplate,
+                'message' => 'Unauthorized'
+            ],403);
+        }
+        $workoutTemplate->delete();
+        return response()->json([
+            'success' => true,
+            'data' => $workoutTemplate,
+            'message' => 'WorkoutTemplate deleted'
+        ],200);
         //
     }
 }
