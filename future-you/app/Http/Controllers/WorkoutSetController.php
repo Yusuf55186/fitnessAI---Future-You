@@ -33,6 +33,7 @@ class WorkoutSetController extends Controller
      */
     public function store(Request $request)
     {
+        
         $validated = $request->validate([
             'reps' => 'required|integer',
             'weight' => 'required|numeric',
@@ -40,16 +41,32 @@ class WorkoutSetController extends Controller
             'session_id' => 'exists:workout_sessions,id|integer|required',
             'exercise_id' => 'required|exists:exercises,id|integer',
         ]);
-        
+        $workoutExercise = WorkoutExercise::where('workout_session_id','=',$validated['session_id'])->where('exercise_id','=',$validated['exercise_id'])->firstOrFail();
 
-        unset($workoutSet->user_id);
+        if ($workoutExercise->session->user_id !== $request->user()->id){
+            return response()->json([
+                'success' => false,
+                'data' => $workoutExercise,
+                'message' => 'Unauthorized'
+            ],403);
+        }
+       
+         $workoutSet = WorkoutSet::create([
+            "workout_exercise_id" => $workoutExercise->id,
+            "rir" => $validated['rir'],
+            "reps" => $validated["reps"],
+            "weight" => $validated["weight"],
+            "set_number" => $workoutExercise->workoutSets()->count() + 1,
+            
+          ]);
+        
+        
         return response()->json([
             "success" => true,
             "data" => $workoutSet,
             "message" => "Set added",
-            "session_id" => $sessionId,
 
-        ],200);
+        ],201);
         //
     }
 

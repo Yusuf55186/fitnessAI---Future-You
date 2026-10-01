@@ -23,5 +23,6 @@ class WorkoutExercise extends Model
     return $this->hasMany(WorkoutSet::class)
         ->orderBy('set_number', 'asc');
 }
+
     //
 }
