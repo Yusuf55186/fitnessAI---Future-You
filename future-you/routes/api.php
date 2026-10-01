@@ -7,6 +7,8 @@ use App\Http\Controllers\WorkoutExerciseController;
 use App\Http\Controllers\WorkoutSessionController;
 use App\Http\Controllers\WorkoutSetController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WorkoutTemplateController;
+use App\Http\Controllers\WorkoutTemplateExerciseController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -41,6 +43,13 @@ Route::delete('/workout-sets/{id}',[WorkoutSetController::class,'destroy'])->mid
 Route::post('/user/register',[AuthController::class,'register']);
 Route::post('/user/login',[AuthController::class,'login']);
 Route::post('/user/logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
+Route::get('/workout-templates',[WorkoutTemplateController::class,'index'])->middleware('auth:sanctum');
+Route::post('/workout-templates',[WorkoutTemplateController::class,'store'])->middleware('auth:sanctum');
+Route::get('/workout-templates/{id}',[WorkoutTemplateController::class,'show'])->middleware('auth:sanctum');
+Route::patch('/workout-templates/{id}',[WorkoutTemplateController::class,'update'])->middleware('auth:sanctum');
+Route::delete('/workout-templates/{id}',[WorkoutTemplateController::class,'destroy'])->middleware('auth:sanctum');
+Route::post('/workout-templates-exercises',[WorkoutTemplateExerciseController::class,'store'])->middleware('auth:sanctum');
+Route::delete('/workout-templates-exercises/{id}',[WorkoutTemplateExerciseController::class,'destroy'])->middleware('auth:sanctum');
 
 
 
