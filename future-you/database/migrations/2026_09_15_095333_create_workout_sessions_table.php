@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('note');
             $table->foreignIdFor(User::class);
             $table->date('date')->nullable();
+            $table->foreignId('workout_template_id')->nullable()->constrained() ->nullOnDelete();
         });
     }
 

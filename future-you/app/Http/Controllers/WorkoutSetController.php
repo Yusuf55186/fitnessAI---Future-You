@@ -37,51 +37,10 @@ class WorkoutSetController extends Controller
             'reps' => 'required|integer',
             'weight' => 'required|numeric',
             'rir' => 'required|integer',
-            'session_id' => 'exists:workout_sessions,id|integer|nullable',
+            'session_id' => 'exists:workout_sessions,id|integer|required',
             'exercise_id' => 'required|exists:exercises,id|integer',
         ]);
-        if ($validated['session_id'] === null){
-            
-            $session = WorkoutSession::create(
-                [
-                 'name' => "Workout"
-                ,'note' => "Test workout"
-                ,'date' => now()->toDateString()
-                , 'user_id' => $request->user()->id
-                    ]
-                );
-                $sessionId = $session->id;
-            $workoutExercise = WorkoutExercise::create(
-                [
-                    'workout_session_id' => $session->id,
-                    'exercise_id' => $validated['exercise_id'],
-                ]
-            );
-            $workoutSet = WorkoutSet::create([
-            "workout_exercise_id" => $workoutExercise->id,
-            "rir" => $validated['rir'],
-            "reps" => $validated["reps"],
-            "weight" => $validated["weight"],
-            "set_number" => 1,
-            
-          ]);
-        }
-        else {
-            $sessionId = $validated["session_id"];
-            $workoutExercise = WorkoutExercise::firstOrCreate([
-                'workout_session_id' => $validated['session_id'],
-                'exercise_id' => $validated['exercise_id']
-            ]);
-            $set_number = $workoutExercise->workoutSets()->count() + 1;
-            
-            $workoutSet = WorkoutSet::create([
-                "workout_exercise_id" => $workoutExercise->id,
-            "rir" => $validated['rir'],
-            "reps" => $validated["reps"],
-            "weight" => $validated["weight"],
-            "set_number" => $set_number
-            ]);
-        }
+        
 
         unset($workoutSet->user_id);
         return response()->json([

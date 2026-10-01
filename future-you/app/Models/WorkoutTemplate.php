@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\WorkoutTemplateExercise;
 use App\Models\User;
+use App\Models\WorkoutSession;
 use Illuminate\Database\Eloquent\Model;
 
 class WorkoutTemplate extends Model
@@ -17,6 +18,9 @@ class WorkoutTemplate extends Model
         }
         public function workoutTemplateExercises(){
             return $this->hasMany(WorkoutTemplateExercise::class);
+        }
+        public function workoutSessions() {
+            return $this->hasMany(WorkoutSession::class);
         }
         
     //
