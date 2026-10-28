@@ -185,7 +185,7 @@ useEffect(() => {
                 )}
 
                 {selectedExercises.map((selectedexer) => (
-                    <ExerciseCard onSessionCreated={setSessionId} existingSets={[]} sessionId={sessionId}  key={selectedexer.id} name={selectedexer.name} id={selectedexer.id}
+                    <ExerciseCard existingSets={[]} sessionId={sessionId}  key={selectedexer.id} name={selectedexer.name} id={selectedexer.id}
                     
                     />
                 ))}
@@ -201,7 +201,7 @@ useEffect(() => {
             </section>
             {session?.workout_exercises.map((workoutExercise) => {
                 return (
-                    <ExerciseCard onSessionCreated={setSessionId}  key={workoutExercise.id} id={workoutExercise.exercise_id} sessionId={sessionId} existingSets={workoutExercise.workout_sets} name={workoutExercise.exercise.name}></ExerciseCard>
+                    <ExerciseCard key={workoutExercise.id} id={workoutExercise.exercise_id} sessionId={sessionId} existingSets={workoutExercise.workout_sets} name={workoutExercise.exercise.name}></ExerciseCard>
                 )
             })}
            

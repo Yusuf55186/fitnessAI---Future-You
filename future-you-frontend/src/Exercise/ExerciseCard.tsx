@@ -8,7 +8,6 @@ type Props = {
     id:number;
     name:string;
     sessionId: number | null;
-    onSessionCreated: (sessionId:number) => void;
     existingSets: workoutSet[];
 }
 type workoutSet = {
@@ -17,7 +16,7 @@ type workoutSet = {
     reps:number;
     rir:number;
 }
-export const ExerciseCard = ({id,name,sessionId,onSessionCreated,existingSets}:Props) => {
+export const ExerciseCard = ({id,name,sessionId,existingSets}:Props) => {
     const [weight,setWeight] = useState<string>('');
     const [rir,setRir] = useState<string>('');
     const [reps,setReps] = useState<string>('');
@@ -31,8 +30,8 @@ export const ExerciseCard = ({id,name,sessionId,onSessionCreated,existingSets}:P
     const convertedReps = Number(reps);
     const convertedRIR = Number(rir);
        
+        if (sessionId === null) return;
         const response = await workoutSets(convertedWeight,id,convertedRIR,convertedReps,sessionId)
-        onSessionCreated(response.session_id);
         setLoggedSets([
             ...loggedSets,response.data
         ])
