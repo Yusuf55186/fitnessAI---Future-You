@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -29,6 +28,10 @@ class DatabaseSeeder extends Seeder
         ]
         );
 
-        $this->call(ExerciseSeeder::class);
-    }
+        
+            $this->call([
+    ExerciseSeeder::class,
+    WorkoutTemplateSeeder::class,
+]);
+}
 }
