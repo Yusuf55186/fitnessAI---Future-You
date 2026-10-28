@@ -27,6 +27,14 @@ export const translations = {
             "Ongelooflijk! Wat een machine! 🏆"
         ]
     },
+    // nl
+streakCard: {
+    currentStreak: "Huidige streak",
+    days: "dagen",
+    message: (days: number) =>
+        `${days}? Oké... misschien ben je toch niet helemaal nutteloos.`,
+},
+
 
     en: {
         morninglabel:"GOOD MORNING",

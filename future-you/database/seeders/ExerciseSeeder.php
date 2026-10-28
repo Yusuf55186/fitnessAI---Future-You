@@ -36,6 +36,7 @@ class ExerciseSeeder extends Seeder
     "Lateral Raise",
     "Cable Lateral Raise",
     "Reverse Pec Deck",
+    "Face Pull",
 
     // Biceps
     "Barbell Curl",
@@ -75,6 +76,7 @@ class ExerciseSeeder extends Seeder
 "Leg Extension",
 "Romanian Deadlift",
 "Seated Leg Curl",
+"Leg Curl",
 "Lying Leg Curl",
 "Standing Calf Raise",
 "Seated Calf Raise",
