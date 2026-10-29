@@ -14,6 +14,7 @@ export const translations = {
         streakDay: "dag",
         streakDays: "dagen",
         noWorkouts: "Geen trainingen op deze dag",
+        template: "Kies een template om je workout te beginnen absolute beest!",
         today: "Vandaag",
         close: "Sluiten",
         monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
@@ -47,6 +48,7 @@ export const translations = {
         streakDay: "day",
         streakDays: "days",
         noWorkouts: "No workouts on this day",
+        template:"Choose your template to begin your workout bodybuilder!",
         today: "Today",
         close: "Close",
         monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -96,5 +98,6 @@ export const translations = {
             message: (days: number) =>
                 `${days}? طب ماشي... شكلك مش فاشل خالص أهو.`,
         },
+        template:"اختار التمبلت عشان تبدأ التمرينة يا وحش 💪",
     },
 };

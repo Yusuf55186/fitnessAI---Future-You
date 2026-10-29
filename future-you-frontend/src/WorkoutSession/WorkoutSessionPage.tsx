@@ -5,10 +5,14 @@ import { Card } from "../components/ui/Card/Card";
 import { ExerciseCard } from "../Exercise/ExerciseCard";
 import { useNavigate, useParams } from "react-router-dom";
 import type { WorkoutSession, WorkoutTemplate } from "../types/workout/workout";
+import { translations } from "../il8n/translations";
+import type { language } from "../types/language";
 
-
+type Props = {
+    language:language
+}
 type Exercise = { id: number; name: string };
-export const WorkoutSessionPage = () => {
+export const WorkoutSessionPage = ({language}:Props) => {
     const [isAddExerciseOpen,setisAddExercise] = useState<boolean>(false); 
     const [Exercise,setExercise] = useState<Exercise[]>([]);
     const [session,setSession] = useState<WorkoutSession | null>(null);
@@ -96,8 +100,8 @@ useEffect(() => {
         return (
             <main className="mx-auto flex w-page-max-width flex-col gap-fy-4 mt-fy-4">
                 <section>
-                    <h1 className="text-fy-xl text-fy-accent font-fy-bold">Start a workout</h1>
-                    <p className="text-fy-text-secondary">Choose a workout template to create a session.</p>
+                    <h1 className="text-fy-xl text-fy-accent font-fy-bold">{translations[language].workoutday}</h1>
+                    <p className="text-fy-text-secondary">{translations[language].template}</p>
                 </section>
                 {templatesLoading ? <p>Loading workout templates…</p> : templates.length === 0 ? (
                     <Card><p>No workout templates available yet.</p></Card>

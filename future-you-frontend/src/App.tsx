@@ -31,8 +31,8 @@ export const App = () => {
         )
       }
     >
-      <Route path="/workout-sessions" element={<WorkoutSessionPage />} />
-      <Route path="/workout-sessions/:id" element={<WorkoutSessionPage />} />
+      <Route path="/workout-sessions" element={<WorkoutSessionPage language={language} />} />
+      <Route path="/workout-sessions/:id" element={<WorkoutSessionPage language={language} />} />
       <Route
         path="/history"
         element={<WorkoutHistoryPage language={language} />}
