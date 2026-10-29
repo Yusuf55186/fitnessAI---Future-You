@@ -130,14 +130,14 @@ export const StreakCard = ({language,sessions}:Props) => {
                     </span>
 
                     <span className="text-lg font-semibold text-fy-muted">
-                        days
+                        {translations[language].streakCard.days}
                     </span>
                 </div>
 
                 <p className="mt-3 max-w-sm text-sm text-fy-muted">
-                    {streakCounter}? Oke... misschien ben je toch niet helemaal nutteloos.
+                    {translations[language].streakCard.message(streakCounter)}
                 </p>
-
+                
             </div>
 
             <div

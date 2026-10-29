@@ -72,6 +72,14 @@ class WorkoutTemplateSeeder extends Seeder
         "Hammer Curl",
         "Cable Crunch",
     ],
+    "Batman Split" => [
+        "Gotham Redder",
+"I am Vengence",
+"Ik moet de stad redden",
+"Ik ben de nacht",
+"Joker",
+"laughing the split",
+    ]
 ];
         foreach($templates as $templateName => $exerciseNames){
             

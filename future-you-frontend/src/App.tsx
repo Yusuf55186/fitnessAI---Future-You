@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { AppShell } from './Layout/AppShell/AppShell';
 import { useState } from 'react';
@@ -17,58 +17,35 @@ export const App = () => {
   
     
     <Router>
-      <Routes>
-        <Route path="/auth" element={<AuthWrapper />} />
+  <Routes>
+    <Route path="/auth" element={<AuthWrapper />} />
 
-        <Route
-          path="/workout-sessions"
-          element={
-            token ? (
-              <WorkoutSessionPage />
-            ) : (
-              <Navigate to={'/auth'} />
-            )
-          }
-        />
+    <Route
+      element={
+        token ? (
+          <AppShell activePath='' language={language} setLanguage={setLanguage}>
+            <Outlet />
+          </AppShell>
+        ) : (
+          <Navigate to="/auth" />
+        )
+      }
+    >
+      <Route path="/workout-sessions" element={<WorkoutSessionPage />} />
+      <Route path="/workout-sessions/:id" element={<WorkoutSessionPage />} />
+      <Route
+        path="/history"
+        element={<WorkoutHistoryPage language={language} />}
+      />
+      <Route
+        path="/dashboard"
+        element={<Dashboard language={language} username="Yusuf" />}
+      />
+    </Route>
 
-        <Route
-          path="/workout-sessions/:id"
-          element={
-            token ? (
-              <WorkoutSessionPage />
-            ) : (
-              <Navigate to={'/auth'} />
-            )
-          }
-        />
-
-        <Route
-          path="/history"
-          element={
-            token ? (
-              <WorkoutHistoryPage language={language} />
-            ) : (
-              <Navigate to={'/auth'} />
-            )
-          }
-        />
-
-        <Route
-          path="/dashboard"
-          element={
-            token ? (
-              <AppShell language={language} setLanguage={setLanguage} activePath="/dashboard">
-                <Dashboard language={language} username="Yusuf" />
-              </AppShell>
-            ) : (
-              <Navigate to={'/auth'} />
-            )
-          }
-        />
-
-        <Route path="/" element={<Navigate to={token ? "/dashboard" : "/auth"} />} />
-      </Routes>
-    </Router>
+    <Route path="/" element={<Navigate to={token ? "/dashboard" : "/auth"} />} />
+  </Routes>
+</Router>
     </>
   );
 };

@@ -80,7 +80,14 @@ class ExerciseSeeder extends Seeder
 "Lying Leg Curl",
 "Standing Calf Raise",
 "Seated Calf Raise",
+"Gotham Redder",
+"I am Vengence",
+"Ik moet de stad redden",
+"Ik ben de nacht",
+"Joker",
+"laughing the split",
 ];
+
     foreach ($exercises as $exerciseName){
         Exercise::firstOrCreate([
        "name" => $exerciseName,

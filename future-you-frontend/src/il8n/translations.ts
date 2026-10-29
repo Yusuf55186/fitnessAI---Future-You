@@ -1,16 +1,14 @@
-
 export const translations = {
-
     nl: {
-        morninglabel:"GOEDEMORGEN",
+        morninglabel: "GOEDEMORGEN",
         greeting: "Hallo",
-        subtitle:"Klaar om te trainen?",
-        workoutday:"Traning van vandaag",
-        workout:"Pushdag",
-        workoutexercise:"oefeningen",
-        buttonworkout:"Start training",
-        week:"Deze week",
-        humor:"Die gewichten tillen zichzelf niet hè 👀",
+        subtitle: "Klaar om te trainen?",
+        workoutday: "Training van vandaag",
+        workout: "Pushdag",
+        workoutexercise: "oefeningen",
+        buttonworkout: "Start training",
+        week: "Deze week",
+        humor: "Die gewichten tillen zichzelf niet hè 👀",
         history: "Trainingsgeschiedenis",
         streak: "Streak",
         streakDay: "dag",
@@ -25,28 +23,26 @@ export const translations = {
             "Goed bezig, houd vol! 🔥",
             "Je bent on fire! 🔥🔥",
             "Ongelooflijk! Wat een machine! 🏆"
-        ]
+        ],
+        streakCard: {
+            currentStreak: "Huidige streak",
+            days: "dagen",
+            message: (days: number) =>
+                `${days}? Oké... misschien ben je toch niet helemaal nutteloos.`,
+        },
     },
-    // nl
-streakCard: {
-    currentStreak: "Huidige streak",
-    days: "dagen",
-    message: (days: number) =>
-        `${days}? Oké... misschien ben je toch niet helemaal nutteloos.`,
-},
-
 
     en: {
-        morninglabel:"GOOD MORNING",
+        morninglabel: "GOOD MORNING",
         greeting: "Hello",
-        subtitle:"Ready to train",
-        workoutday:"Today's Workout",
-        workout:"Push day",
-        workoutexercise:"exercises",
-        buttonworkout:"Start workout",
-        week:"This Week",
-        humor:"Those weights aren't gonna lift themselves 👀",
-        history: "Workout History",
+        subtitle: "Ready to train?",
+        workoutday: "Today's workout",
+        workout: "Push day",
+        workoutexercise: "exercises",
+        buttonworkout: "Start workout",
+        week: "This week",
+        humor: "Those weights aren't gonna lift themselves 👀",
+        history: "Workout history",
         streak: "Streak",
         streakDay: "day",
         streakDays: "days",
@@ -60,35 +56,45 @@ streakCard: {
             "Good start, keep going! 🔥",
             "You're on fire! 🔥🔥",
             "Incredible! What a machine! 🏆"
-        ]
+        ],
+        streakCard: {
+            currentStreak: "Current streak",
+            days: "days",
+            message: (days: number) =>
+                `${days}? Okay... maybe you're not completely useless after all.`,
+        },
     },
 
     arz: {
-        morninglabel:"صباح الخير",
-        greeting: "يا مساء الفل",
-        subtitle:"جاهز تتمرن؟",
-        workoutday:"تمرينة النهارده",
-        workout:"تمرينة Push",
-        workoutexercise:"تمارين",
-        buttonworkout:"ابدأ التمرينة",
-        week:"الأسبوع ده",
-        humor:"يلا يا نجم، الحديد مش هيرفع نفسه 😂",
+        morninglabel: "صباح الخير",
+        greeting: "أهلاً",
+        subtitle: "جاهز تتمرن؟",
+        workoutday: "تمرينة النهارده",
+        workout: "يوم Push",
+        workoutexercise: "تمارين",
+        buttonworkout: "ابدأ التمرينة",
+        week: "الأسبوع ده",
+        humor: "يلا يا نجم، الحديد مش هيرفع نفسه 😂",
         history: "تاريخ التمرينات",
-        streak: "سلسلة",
+        streak: "سلسلة التمرين",
         streakDay: "يوم",
         streakDays: "أيام",
         noWorkouts: "مفيش تمارين النهارده",
         today: "النهارده",
         close: "قفل",
         monthNames: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
-        dayNames: ["الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
+        dayNames: ["الاتنين", "التلات", "الأربع", "الخميس", "الجمعة", "السبت", "الأحد"],
         streakMood: [
             "يلا نبدأ! 💪",
-            "كويس، كمّل! 🔥",
-            "انت ولعت! 🔥🔥",
-            "خرافي! يا ماكينة! 🏆"
-        ]
-    }
-
-
+            "حلو، كمّل! 🔥",
+            "إنت مولّع! 🔥🔥",
+            "جامد جداً! يا ماكينة! 🏆"
+        ],
+        streakCard: {
+            currentStreak: "الستريك الحالي",
+            days: "أيام",
+            message: (days: number) =>
+                `${days}? طب ماشي... شكلك مش فاشل خالص أهو.`,
+        },
+    },
 };
