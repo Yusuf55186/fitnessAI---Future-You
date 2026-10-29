@@ -6,6 +6,7 @@ import type { language } from './types/language';
 import { AuthWrapper } from './Auth/AuthWrapper';
 import { WorkoutSessionPage } from './WorkoutSession/WorkoutSessionPage';
 import { WorkoutHistoryPage } from './WorkoutHistory/WorkoutHistoryPage';
+import { translations } from './il8n/translations';
 
 
 export const App = () => {
@@ -39,7 +40,7 @@ export const App = () => {
       />
       <Route
         path="/dashboard"
-        element={<Dashboard language={language} username="Yusuf" />}
+        element={<Dashboard language={language} username={translations[language].name}/>}
       />
     </Route>
 

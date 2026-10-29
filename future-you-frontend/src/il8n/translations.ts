@@ -16,6 +16,7 @@ export const translations = {
         noWorkouts: "Geen trainingen op deze dag",
         template: "Kies een template om je workout te beginnen absolute beest!",
         today: "Vandaag",
+        name:"Yusuf",
         close: "Sluiten",
         monthNames: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
         dayNames: ["Ma", "Di", "Wo", "Do", "Vr", "Za", "Zo"],
@@ -44,6 +45,7 @@ export const translations = {
         week: "This week",
         humor: "Those weights aren't gonna lift themselves 👀",
         history: "Workout history",
+        name:"Yusuf",
         streak: "Streak",
         streakDay: "day",
         streakDays: "days",
@@ -99,5 +101,6 @@ export const translations = {
                 `${days}? طب ماشي... شكلك مش فاشل خالص أهو.`,
         },
         template:"اختار التمبلت عشان تبدأ التمرينة يا وحش 💪",
+        name: "يوسف",
     },
 };
