@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     /**
@@ -28,12 +28,25 @@ class PostController extends Controller
         $user_id = $request->user()->id;
         $validated = $request->validate([
             'title' => "string|max:255|required",
-            'image_url' => "string|max:20|nullable",
-            'content' => "string|max:255'|required",
-            'category_id' => "string|exists:category,id",
-            'user_id' => $user_id,
+            'image_url' => "image|max:2048|nullable",
+            'content' => "string|max:255|required",
+            'category_id' => "integer|exists:categories,id",
         ]);
-        $post = Post::create([$validated]);
+        $path = null;
+        if ($request->hasFile('image_url')){
+          $disk = Storage::disk('public');
+         $path = $disk->putFile("posts",$validated['image_url']);
+        }
+         
+        $post = Post::create([
+            'user_id' => $user_id,
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'image_url' => $path,
+            'category_id' => $validated['category_id']
+            
+
+        ]);
         return response()->json([
             'success' => true,
             'data' => $post,
@@ -41,12 +54,19 @@ class PostController extends Controller
         ],201);
     
     }
+    
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
+        $post = Post::findOrFail($id);
+        return response()->json([
+            'success' => true,
+            'data' => $post,
+            'message' => 'post successfully viewed'
+        ]);
         //
     }
 

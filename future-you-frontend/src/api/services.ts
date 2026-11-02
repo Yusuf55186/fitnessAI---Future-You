@@ -1,6 +1,6 @@
 import { API_URL, AuthHeaders } from './config';
 import type { ApiResponse, CreatedWorkoutSession, WorkoutSession, WorkoutSetResponse, WorkoutTemplate } from '../types/workout/workout';
-
+import type { Post } from "../types/posts"
 export const getWorkoutTemplates = async (): Promise<WorkoutTemplate[]> => {
     const response = await fetch(`${API_URL}/workout-templates`, { headers: AuthHeaders() });
     const result: ApiResponse<WorkoutTemplate[]> = await response.json();
@@ -109,4 +109,40 @@ export const workoutSets = async (
    }
    return data;
 
+}
+export const createPosts = async (
+    title:string,
+    content:string,
+    category_id:number,
+    image_url?:File,
+):Promise<ApiResponse<Post>> => {
+     let formData = new FormData();
+    formData.append('title',title);
+    formData.append('content',content);
+    formData.append('category_id',String(category_id));
+    if (image_url){
+        formData.append('image_url',image_url);
+    }
+    const response = await fetch (`${API_URL}/posts`, {
+        headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+        method: 'POST',   
+        body:formData,
+        
+    });
+   
+    
+  const data: ApiResponse<Post> = await response.json();
+    if (!response.ok || !data.success){
+            throw new Error(data.message || 'Failed to load Posts');
+    }
+    return data;
+}
+export const getPosts = async () => {
+    const response = await fetch (`${API_URL}/posts`, {headers: AuthHeaders(),});
+    const data = await response.json();
+    if (!response.ok || !data.success){
+            throw new Error(data.message || 'Failed to load Posts');
+    }
+    return data;
 }

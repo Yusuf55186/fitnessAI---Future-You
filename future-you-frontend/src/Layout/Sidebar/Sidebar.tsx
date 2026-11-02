@@ -42,11 +42,24 @@ export const Sidebar = ({activePath}:Props) => {
                 },
                 {
                     label:"Statistics",
-                    href:"/statistics"
+                    href:"/statistics",
+                    subtitle:""
+
+                    
                 },
-                
             ]
-        }
+        },
+        {
+                    title:"Community",
+                    items:[
+                        {
+                        label:"Futurize",
+                        href:"/posts",
+                        subtitle:"Deel je fitnessprogressie, stel vragen en praat met andere sporters."
+                        }
+                    
+                    ]
+                }
     ]
     return (
         <aside className="w-fy-sidebar shrink-0 border-r border-fy-border p-fy-5">
@@ -71,7 +84,15 @@ export const Sidebar = ({activePath}:Props) => {
                                         isActive ? "bg-fy-accent text-fy-text-on-accent font-fy-semibold"
                                         : "text-fy-text-muted"
                                     }`}>
+                                        
                                         {item.label}
+
+                                        <p className="text-fy-accent text-sm relaxed py-4 font-fy-bold">
+                                        {item.subtitle}
+                                        </p>
+                                        
+                                        
+                                        
                                         </a>
                                 </li>
                                 

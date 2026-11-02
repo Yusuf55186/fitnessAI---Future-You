@@ -7,6 +7,7 @@ use App\Http\Controllers\WorkoutExerciseController;
 use App\Http\Controllers\WorkoutSessionController;
 use App\Http\Controllers\WorkoutSetController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\WorkoutTemplateController;
 use App\Http\Controllers\WorkoutTemplateExerciseController;
 Route::get('/user', function (Request $request) {
@@ -50,7 +51,9 @@ Route::patch('/workout-templates/{id}',[WorkoutTemplateController::class,'update
 Route::delete('/workout-templates/{id}',[WorkoutTemplateController::class,'destroy'])->middleware('auth:sanctum');
 Route::post('/workout-templates-exercises',[WorkoutTemplateExerciseController::class,'store'])->middleware('auth:sanctum');
 Route::delete('/workout-templates-exercises/{id}',[WorkoutTemplateExerciseController::class,'destroy'])->middleware('auth:sanctum');
-
+Route::get('/posts',[PostController::class,'index'])->middleware('auth:sanctum');
+Route::post('/posts',[PostController::class,'store'])->middleware('auth:sanctum');
+Route::get('/posts/{id}',[PostController::class,'show'])->middleware('auth:sanctum');
 
 
 

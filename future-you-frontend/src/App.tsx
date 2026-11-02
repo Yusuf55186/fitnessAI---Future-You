@@ -7,7 +7,7 @@ import { AuthWrapper } from './Auth/AuthWrapper';
 import { WorkoutSessionPage } from './WorkoutSession/WorkoutSessionPage';
 import { WorkoutHistoryPage } from './WorkoutHistory/WorkoutHistoryPage';
 import { translations } from './il8n/translations';
-
+import { Posts } from './Posts/Posts';
 
 export const App = () => {
   const [language, setLanguage] = useState<language>('nl');
@@ -43,7 +43,10 @@ export const App = () => {
         element={<Dashboard language={language} username={translations[language].name}/>}
       />
     </Route>
-
+    <Route 
+    path="/posts"
+    element={<Posts />}
+    />
     <Route path="/" element={<Navigate to={token ? "/dashboard" : "/auth"} />} />
   </Routes>
 </Router>
