@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getPosts } from "../api/services"
 import { createPosts } from "../api/services";
 import { type CreatePostPayload } from "../types/posts";
+import { IMAGE_API_URL } from "../api/config";
 type Post = CreatePostPayload & {
   id: number;
 };
@@ -86,7 +87,26 @@ const [error,setError] = useState<string | null> (null);
       className="w-full resize-y rounded-lg border border-fy-border bg-fy-bg px-4 py-3 text-fy-text placeholder:text-fy-text-muted outline-none transition focus:border-fy-accent focus:ring-2 focus:ring-fy-accent/20"
     />
   </div>
+<div>
+    <label
+    htmlFor="post-img"
+          className="mb-2 block text-sm font-semibold text-fy-text"
+>  
+Je Afbeelding
+    </label>
+    <input 
+    type="file"
+    accept="image/*"
+    id={'post-img'}
+    onChange={(e) =>
+      setCreatePost({
+        ...createPost,
+        image_url: e.target.files?.[0],
+      })
 
+    }
+    />
+</div>
   <button
     type="submit"
     className="rounded-lg bg-fy-accent px-5 py-3 font-semibold text-fy-text-on-accent transition hover:bg-fy-accent-hover"
@@ -98,7 +118,6 @@ const [error,setError] = useState<string | null> (null);
             {Posts.map((post) => {
                 return (
                     <>
-                 
 
       {/* Acties en tekst */}
       <div className="p-4 w-">
@@ -124,6 +143,13 @@ const [error,setError] = useState<string | null> (null);
           {post.content}
         </p>
       </div>
+      {post.image_url && (
+  <img
+    src={`${IMAGE_API_URL}/storage/${post.image_url}`}
+    alt={post.title}
+    className="mt-4 max-h-[500px] w-full rounded-lg object-cover"
+  />
+)}
       </>
                 )
             })}
