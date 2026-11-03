@@ -41,6 +41,7 @@ const [error,setError] = useState<string | null> (null);
     
     return (
         <section className="w-full h-min-screen flex justify-center items-center mt-4">
+          <div>{error}</div>
            <form
   onSubmit={(e) => {
     e.preventDefault();
@@ -48,6 +49,7 @@ const [error,setError] = useState<string | null> (null);
   }}
   className="w-full max-w-xl space-y-5 rounded-xl border border-fy-border bg-fy-surface p-6"
 >
+  
   <div>
     <label
       htmlFor="post-title"
@@ -55,6 +57,7 @@ const [error,setError] = useState<string | null> (null);
     >
       Titel
     </label>
+
     <input
       id="post-title"
       name="title"
@@ -120,7 +123,7 @@ Je Afbeelding
                     <>
 
       {/* Acties en tekst */}
-      <div className="p-4 w-">
+      <div key={post.id} className="p-4 w-">
         <div className="mb-4 flex items-center gap-4">
           <button
             type="button"
@@ -137,19 +140,19 @@ Je Afbeelding
             ◯
           </button>
         </div>
-
-        <h2 className="font-semibold text-fy-text">{post.title}</h2>
-        <p className="mt-1 whitespace-pre-wrap text-sm leading-6 text-fy-text-secondary">
-          {post.content}
-        </p>
-      </div>
-      {post.image_url && (
+         {post.image_url && (
   <img
     src={`${IMAGE_API_URL}/storage/${post.image_url}`}
     alt={post.title}
     className="mt-4 max-h-[500px] w-full rounded-lg object-cover"
   />
 )}
+        <h2 className="font-semibold text-fy-text">{post.title}</h2>
+        <p className="mt-1 whitespace-pre-wrap text-sm leading-6 text-fy-text-secondary">
+          {post.content}
+        </p>
+      </div>
+     
       </>
                 )
             })}

@@ -116,7 +116,7 @@ export const createPosts = async (
     category_id:number,
     image_url?:File,
 ):Promise<ApiResponse<Post>> => {
-     let formData = new FormData();
+     const formData = new FormData();
     formData.append('title',title);
     formData.append('content',content);
     formData.append('category_id',String(category_id));
