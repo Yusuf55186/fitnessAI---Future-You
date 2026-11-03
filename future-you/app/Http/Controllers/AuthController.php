@@ -84,12 +84,15 @@ public function login(Request $request){
             'message' => 'Invalid credentials'
         ],401);
     }
+        $userName = $user->name;
+
     $token = $user->createToken('Future You API');
     return response()->json([
         'success' => true,
         'data' => [
             'user' => $user,
-            'token' => $token->plainTextToken
+            'token' => $token->plainTextToken,
+            'username' => $userName,
         ],
         'message' => 'User logged in successfully'
     ],200);
