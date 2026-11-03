@@ -2,13 +2,13 @@ import { StatCard } from "../../features/components/dashboard/StatCard";
 import { WorkoutCard } from "../../features/components/workouts/Workout";
 import { translations } from "../../il8n/translations";
 import type { language } from "../../types/language";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useEffect } from "react";
 import { getWorkoutSessions} from "../../api/services";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-    username:string;
+    username:ReactNode;
     language:language;
 }
 export const Dashboard = ({username,language}:Props) => {

@@ -13,14 +13,14 @@ export const Register = ({ onToggle }:Props) => {
     const [loading,setLoading] = useState(false);
     const [passwordConfirm,setPasswordConfirm] = useState('');
     const navigate = useNavigate();
-    const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleRegister = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
                 setError('');
                  const response = await registerUser(name,email,password,passwordConfirm);
                  localStorage.setItem('token',response.token);
+                 localStorage.setItem('username',response.user.name)
                 navigate('/dashboard');
             }
             catch (err:any) {
@@ -45,7 +45,7 @@ export const Register = ({ onToggle }:Props) => {
                 <h2 className="text-fy-text text-fy-2xl font-fy-bold text-center ">Register</h2>
                                   {error && <p className="text-fy-danger">{error}</p>}
 
-                <form className="flex flex-col gap-fy-4" onSubmit={handleRegister}>
+                <form className="flex flex-col gap-fy-4" onSubmit={(e) => {e.preventDefault(); handleRegister();}}>
                 <div>
                     <label htmlFor="name" className="text-fy-text text-fy-sm " >Name</label>
                     <input type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} required className="text-fy-sm text-fy-text w-full px-fy-3 py-fy-2 mt-fy-1 border border-fy-border bg-fy-surface rounded-fy-md focus:outline-none focus:ring-fy-accent" />

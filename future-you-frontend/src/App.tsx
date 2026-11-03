@@ -12,7 +12,7 @@ import { Posts } from './Posts/Posts';
 export const App = () => {
   const [language, setLanguage] = useState<language>('nl');
   const token = localStorage.getItem('token');
-
+  const userName = localStorage.getItem('username');
   return (
     <>
   
@@ -34,19 +34,20 @@ export const App = () => {
     >
       <Route path="/workout-sessions" element={<WorkoutSessionPage language={language} />} />
       <Route path="/workout-sessions/:id" element={<WorkoutSessionPage language={language} />} />
+      <Route 
+    path="/posts"
+    element={<Posts />}
+    />
       <Route
         path="/history"
         element={<WorkoutHistoryPage language={language} />}
       />
       <Route
         path="/dashboard"
-        element={<Dashboard language={language} username={translations[language].name}/>}
+        element={<Dashboard language={language} username={userName}/>}
       />
     </Route>
-    <Route 
-    path="/posts"
-    element={<Posts />}
-    />
+    
     <Route path="/" element={<Navigate to={token ? "/dashboard" : "/auth"} />} />
   </Routes>
 </Router>

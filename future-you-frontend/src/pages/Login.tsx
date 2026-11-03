@@ -11,8 +11,8 @@ export const Login = ({ onToggle }: Props) => {
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState('');
     const navigate = useNavigate();
-    const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleLogin = () => {
+        
         const fetchData = async () => {
             try{
                 setLoading(true);
@@ -36,7 +36,7 @@ fetchData()
             <div className="bg-fy-surface gap-fy-4 p-fy-6 rounded-fy-lg flex flex-col border border-fy-border ">
                 <h2 className="text-fy-text text-fy-2xl font-fy-bold text-center ">Login</h2>
                 {error && <p className="text-fy-danger">{error}</p>}
-                <form className="flex flex-col gap-fy-4" onSubmit={handleLogin}>
+                <form className="flex flex-col gap-fy-4" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
                     <div>
                         <label htmlFor="email" className="text-fy-sm text-fy-text">Email</label>
                         <input type="email" id="email" name="email" value={email} required onChange={(e) => setEmail(e.target.value)}  className="text-fy-sm text-fy-text w-full px-fy-3 py-fy-2 mt-fy-1 border border-fy-border bg-fy-surface rounded-fy-md focus:outline-none focus:ring-fy-accent" />
