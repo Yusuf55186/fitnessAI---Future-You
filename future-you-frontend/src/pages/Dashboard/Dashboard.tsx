@@ -2,15 +2,17 @@ import { StatCard } from "../../features/components/dashboard/StatCard";
 import { WorkoutCard } from "../../features/components/workouts/Workout";
 import { translations } from "../../il8n/translations";
 import type { language } from "../../types/language";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { getWorkoutSessions} from "../../api/services";
+// import { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-    username:ReactNode;
+    username:string;
     language:language;
 }
+
 export const Dashboard = ({username,language}:Props) => {
     const stats = [
         {
@@ -53,6 +55,7 @@ export const Dashboard = ({username,language}:Props) => {
     const StartWorkouthandler = () => {
         navigate("/workout-sessions");
     } 
+    console.log(username);
     return (
         <div>
             <section className="flex flex-col gap-fy-2">

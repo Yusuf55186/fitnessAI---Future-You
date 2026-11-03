@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
-
-export const AuthWrapper = () => {
+type Props = {
+    onRegistered: (username:string) => void;
+    onLogged: (username:string) => void;
+}
+export const AuthWrapper = ({onRegistered, onLogged}:Props) => {
     const [isLogin, setLogin] = useState(true);
-
     return (
         <div className="w-full min-h-screen bg-fy-bg flex items-center justify-center">
             <div className="relative w-full max-w-md">
@@ -17,7 +19,7 @@ export const AuthWrapper = () => {
                         transform: isLogin ? 'translateX(0)' : 'translateX(-50px)'
                     }}
                 >
-                    <Login onToggle={() => setLogin(false)} />
+                    <Login onLogged={onLogged} onToggle={() => setLogin(false)} />
                 </div>
 
                 {/* Register Form */}
@@ -29,7 +31,7 @@ export const AuthWrapper = () => {
                         transform: !isLogin ? 'translateX(0)' : 'translateX(50px)'
                     }}
                 >
-                    <Register onToggle={() => setLogin(true)} />
+                    <Register onRegistered={onRegistered} onToggle={() => setLogin(true)} />
                 </div>
             </div>
         </div>

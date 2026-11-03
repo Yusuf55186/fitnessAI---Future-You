@@ -6,20 +6,21 @@ import type { language } from './types/language';
 import { AuthWrapper } from './Auth/AuthWrapper';
 import { WorkoutSessionPage } from './WorkoutSession/WorkoutSessionPage';
 import { WorkoutHistoryPage } from './WorkoutHistory/WorkoutHistoryPage';
-import { translations } from './il8n/translations';
 import { Posts } from './Posts/Posts';
 
 export const App = () => {
   const [language, setLanguage] = useState<language>('nl');
+    const [username,setUsername] = useState(
+     () => localStorage.getItem('username') ?? ""
+    );
   const token = localStorage.getItem('token');
-  const userName = localStorage.getItem('username');
   return (
     <>
   
     
     <Router>
   <Routes>
-    <Route path="/auth" element={<AuthWrapper />} />
+    <Route path="/auth" element={<AuthWrapper onLogged={setUsername} onRegistered={setUsername} />} />
 
     <Route
       element={
@@ -36,7 +37,7 @@ export const App = () => {
       <Route path="/workout-sessions/:id" element={<WorkoutSessionPage language={language} />} />
       <Route 
     path="/posts"
-    element={<Posts />}
+    element={<Posts username={username} />}
     />
       <Route
         path="/history"
@@ -44,7 +45,7 @@ export const App = () => {
       />
       <Route
         path="/dashboard"
-        element={<Dashboard language={language} username={userName}/>}
+        element={<Dashboard language={language} username={username}/>}
       />
     </Route>
     

@@ -4,8 +4,9 @@ import { loginUser } from "../api/services";
 import { Button } from "../components/ui/Button/Button";
 type Props = {
     onToggle: () => void;
+    onLogged: (username:string) => void;
 }
-export const Login = ({ onToggle }: Props) => {
+export const Login = ({ onToggle,onLogged }: Props) => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [loading,setLoading] = useState(false);
@@ -18,6 +19,9 @@ export const Login = ({ onToggle }: Props) => {
                 setLoading(true);
                 const response = await loginUser(email,password)
                     localStorage.setItem('token',response.token);
+                    const username = response.username;
+                    localStorage.setItem("username", username);
+                    onLogged(username);
                     navigate('/dashboard');
                 }
                 catch (err:any){

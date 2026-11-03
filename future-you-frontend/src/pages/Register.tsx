@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button/Button';
 type Props = {
     onToggle: () => void;
+    onRegistered: (username:string) => void;
 }
-export const Register = ({ onToggle }:Props) => {
+export const Register = ({ onToggle,onRegistered }:Props) => {
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
@@ -19,8 +20,11 @@ export const Register = ({ onToggle }:Props) => {
                 setLoading(true);
                 setError('');
                  const response = await registerUser(name,email,password,passwordConfirm);
-                 localStorage.setItem('token',response.token);
-                 localStorage.setItem('username',response.user.name)
+                localStorage.setItem('token',response.token);
+               const username = response.user.name;
+onRegistered(username);
+localStorage.setItem("username", username);
+                 
                 navigate('/dashboard');
             }
             catch (err:any) {

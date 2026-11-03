@@ -11,7 +11,10 @@ type LikedPosts = {
   count:number;
   post_id:number;
 }
-export const Posts = () => {
+type Props = {
+  username:string;
+}
+export const Posts = ({username}:Props) => {
     const [Posts,setPosts] = useState<Post[]>([]);
     const [createPost,setCreatePost] = useState<CreatePostPayload>({title:'',content:'',category_id:1,});
     const [likeButton,setLikeButton] = useState <LikedPosts[]>([]);
@@ -187,10 +190,10 @@ const [error,setError] = useState<string | null> (null);
           <div className="p-5 sm:p-6">
             <div className="mb-4 flex items-center gap-3">
               <div className="grid size-10 place-items-center rounded-full bg-fy-surface-elevated font-bold text-fy-accent">
-                F
+                {username.charAt(0).toUpperCase()}
               </div>
-              <p className="text-sm font-semibold text-fy-text">
-                Futurize community
+              <p  className="text-sm font-semibold text-fy-text">
+                {username}
               </p>
             </div>
 
