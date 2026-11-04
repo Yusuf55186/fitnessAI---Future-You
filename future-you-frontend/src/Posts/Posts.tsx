@@ -5,6 +5,10 @@ import { type CreatePostPayload } from "../types/posts";
 import { IMAGE_API_URL } from "../api/config";
 type Post = CreatePostPayload & {
   id: number;
+  user:{
+    id:number,
+    name:string;
+  }
 };
 type LikedPosts = {
   liked:boolean;
@@ -190,10 +194,10 @@ const [error,setError] = useState<string | null> (null);
           <div className="p-5 sm:p-6">
             <div className="mb-4 flex items-center gap-3">
               <div className="grid size-10 place-items-center rounded-full bg-fy-surface-elevated font-bold text-fy-accent">
-                {username.charAt(0).toUpperCase()}
+                {(post.user?.name ?? username).charAt(0).toUpperCase()}
               </div>
               <p  className="text-sm font-semibold text-fy-text">
-                {username}
+                {post.user?.name ?? username}
               </p>
             </div>
 
