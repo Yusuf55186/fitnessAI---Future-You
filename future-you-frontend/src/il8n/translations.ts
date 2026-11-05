@@ -109,6 +109,7 @@ subtitleFuturize: "جرّب طريقة جديدة للتمرين، مش بس ت�
 communityFeed: "بوستات المجتمع",
 communityDescription: "شوف الوحوش التانية بتعمل إيه 💪",
 community: "المجتمع",
+
 myPosts: "بوستاتي",
 myPostsDescription: "كل اللي إنت شاركته مع الوحوش",
 yourActivity: "نشاطك",

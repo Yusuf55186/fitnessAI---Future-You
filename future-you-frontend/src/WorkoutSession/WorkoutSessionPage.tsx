@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type { WorkoutSession, WorkoutTemplate } from "../types/workout/workout";
 import { translations } from "../il8n/translations";
 import type { language } from "../types/language";
+import { WorkoutTimer } from "../components/WorkoutTimer/WorkoutTimer";
 
 type Props = {
     language:language
@@ -34,9 +35,9 @@ export const WorkoutSessionPage = ({language}:Props) => {
             const data = await getExercises();
             setExercise(data);
             }
-            catch (err:any) {
+            catch (err:unknown) {
                 
-                setError(err.message || "Failed getting Exerciese")
+                setError(err instanceof Error ? err.message : "Failed getting Exerciese")
             }
             finally {
                 setloading(false)
@@ -98,6 +99,7 @@ useEffect(() => {
 
     if (!id) {
         return (
+            <>
             <main className="mx-auto flex w-page-max-width flex-col gap-fy-4 mt-fy-4">
                 <section>
                     <h1 className="text-fy-xl text-fy-accent font-fy-bold">{translations[language].workoutday}</h1>
@@ -128,12 +130,13 @@ useEffect(() => {
                 )}
                 {error && <p className="text-fy-danger" role="alert">{error}</p>}
             </main>
+            </>
         );
     }
 
-
     return (
-        
+        <>
+        <WorkoutTimer created_at={session?.created_at} />
         <div className="flex flex-col mx-auto w-page-max-width justify-center mt-fy-4">
             <section className="flex flex-col justify-center gap-fy-4">
                 <h1 className="text-fy-xl text-fy-accent font-fy-bold">New Workout</h1>
@@ -180,6 +183,7 @@ useEffect(() => {
                         
                         
                       </Card> 
+    
                       </> 
                   
                     
@@ -207,11 +211,9 @@ useEffect(() => {
                 return (
                     <ExerciseCard key={workoutExercise.id} id={workoutExercise.exercise_id} sessionId={sessionId} existingSets={workoutExercise.workout_sets} name={workoutExercise.exercise.name}></ExerciseCard>
                 )
-            })}
-           
+            })}    
             
         </div>
-        
-        
+        </> 
    )
    }

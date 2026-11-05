@@ -3,13 +3,25 @@ import { Navigation } from "../Navigation";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import { Account } from "../Account";
 import type { language } from "../../types/language";
-
+import { useState } from "react";
 type Props = {
     language: language;
     setLanguage: (language: language) => void;
 };
 
-export const Header = ({ language, setLanguage }: Props) => {
+export const Header = ({ language,setLanguage}: Props) => {
+    const [username] = useState<string>(() => {
+  const storedUser = localStorage.getItem("user");
+
+  if (!storedUser) return "";
+
+  try {
+    const user = JSON.parse(storedUser);
+    return user.name ?? "";
+  } catch {
+    return "";
+  }
+});
     return (
         <header
             className="
@@ -38,8 +50,8 @@ export const Header = ({ language, setLanguage }: Props) => {
 
                 <div className="h-7 w-px bg-fy-border" />
 
-                <Account />
+                <Account username={username} />
             </div>
         </header>
     );
-};
+}

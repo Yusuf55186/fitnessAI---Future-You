@@ -17,6 +17,7 @@
         "@laravel/multiplex": "^0.4.1"
     },
     "dependencies": {
+        "react-i18next": "^17.1.12",
         "react-router-dom": "^7.18.4"
     }
 }

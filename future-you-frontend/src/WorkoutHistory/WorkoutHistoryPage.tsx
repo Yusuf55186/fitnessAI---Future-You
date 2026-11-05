@@ -1,4 +1,3 @@
-import { WorkoutHistoryCard } from "./WorkoutHistoryCard"
 import { useState,useEffect } from "react";
 import  { type WorkoutSession } from "../types/workout/workout";
 import { getWorkoutSessions } from "../api/services";
@@ -40,8 +39,8 @@ export const WorkoutHistoryPage = ({language}:Props) => {
             setSessionsHistory(data);
         
             }
-            catch (err:any) {
-                setError(err.message || "Failed to fetch Active sessions");
+            catch (err:unknown) {
+                setError(err instanceof Error ? err.message : "Failed to fetch Active sessions");
             }
             finally {
                 setloading(false);
