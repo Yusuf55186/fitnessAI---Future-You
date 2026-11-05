@@ -3,7 +3,9 @@ import { getPosts } from "../api/services"
 import { createPosts } from "../api/services";
 import { type CreatePostPayload } from "../types/posts";
 import { IMAGE_API_URL } from "../api/config";
-type Post = CreatePostPayload & {
+import type { language } from "../types/language";
+import { translations } from "../il8n/translations";
+export type Post = CreatePostPayload & {
   id: number;
   user:{
     id:number,
@@ -17,8 +19,9 @@ type LikedPosts = {
 }
 type Props = {
   username:string;
+  language:language
 }
-export const Posts = ({username}:Props) => {
+export const Posts = ({username,language}:Props) => {
     const [Posts,setPosts] = useState<Post[]>([]);
     const [createPost,setCreatePost] = useState<CreatePostPayload>({title:'',content:'',category_id:1,});
     const [likeButton,setLikeButton] = useState <LikedPosts[]>([]);
@@ -30,13 +33,16 @@ const [error,setError] = useState<string | null> (null);
                  setPosts(response.data);
                  
             }
-            catch(err:any){
-                setError(err.message || "Couldn't load Posts");
-            }
+             catch (e:unknown){
+          setError(e instanceof Error ? e.message : "Failed to load UserPosts");
+        }
             
         }
         fetchPosts();
     },[])
+
+
+    
    const SubmitHandler = async () => {
   try {
     const response = await createPosts(
@@ -106,13 +112,13 @@ const [error,setError] = useState<string | null> (null);
         </label>
         <input
           id="post-title"
-          name="title"
+          name={translations[language].createPost}
           type="text"
           value={createPost.title}
           onChange={(e) =>
             setCreatePost({ ...createPost, title: e.target.value })
           }
-          placeholder="Waar ben je trots op?"
+          placeholder=""
           className="w-full rounded-xl border border-fy-border bg-fy-bg px-4 py-3 text-fy-text placeholder:text-fy-text-muted outline-none transition focus:border-fy-accent focus:ring-2 focus:ring-fy-accent/20"
         />
       </div>

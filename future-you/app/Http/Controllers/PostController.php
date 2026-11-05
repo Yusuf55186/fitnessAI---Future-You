@@ -69,6 +69,16 @@ class PostController extends Controller
         ]);
         //
     }
+    public function showUserPosts(Request $request)
+    {
+        $userPost = Post::where('user_id',$request->user()->id)->get();
+        return response()->json([
+            'success' => true,
+            'data' => $userPost,
+            'message' => 'User posts successfully viewed'
+             
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.

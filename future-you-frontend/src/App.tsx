@@ -6,7 +6,7 @@ import type { language } from './types/language';
 import { AuthWrapper } from './Auth/AuthWrapper';
 import { WorkoutSessionPage } from './WorkoutSession/WorkoutSessionPage';
 import { WorkoutHistoryPage } from './WorkoutHistory/WorkoutHistoryPage';
-import { Posts } from './Posts/Posts';
+import FuturizePage from './Posts/FuturizePosts';
 
 export const App = () => {
   const [language, setLanguage] = useState<language>('nl');
@@ -37,7 +37,7 @@ export const App = () => {
       <Route path="/workout-sessions/:id" element={<WorkoutSessionPage language={language} />} />
       <Route 
     path="/posts"
-    element={<Posts username={username} />}
+    element={<FuturizePage language={language} />}
     />
       <Route
         path="/history"

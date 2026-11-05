@@ -53,6 +53,7 @@ Route::post('/workout-templates-exercises',[WorkoutTemplateExerciseController::c
 Route::delete('/workout-templates-exercises/{id}',[WorkoutTemplateExerciseController::class,'destroy'])->middleware('auth:sanctum');
 Route::get('/posts',[PostController::class,'index'])->middleware('auth:sanctum');
 Route::post('/posts',[PostController::class,'store'])->middleware('auth:sanctum');
+Route::get('/posts/own-posts',[PostController::class,'showUserPosts'])->middleware('auth:sanctum');
 Route::get('/posts/{id}',[PostController::class,'show'])->middleware('auth:sanctum');
 
 

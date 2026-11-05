@@ -32,9 +32,8 @@ export const StreakCard = ({language,sessions}:Props) => {
     checkDate.setDate(checkDate.getDate() -1)
     dateKey = formatDate(checkDate);
     hasWorkout = sessions.some((session) => session.date === dateKey)
-
-    
     }
+    
    
     return (
         <div className="relative mx-auto mb-10 w-full max-w-xl streak-card-show">

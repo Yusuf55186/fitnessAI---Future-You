@@ -146,3 +146,14 @@ export const getPosts = async () => {
     }
     return data;
 }
+export const getUserPosts = async () => {
+    const response = await fetch(`${API_URL}/posts/own-posts`,{
+        headers:AuthHeaders(),
+        method:'GET',
+        });
+        const data: ApiResponse<Post[]> = await response.json();
+        if (!response.ok || !data.success){
+            throw new Error(data.message || "Failed to load User Posts");
+        }
+        return data;
+}
