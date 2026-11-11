@@ -202,6 +202,7 @@ const [error,setError] = useState<string | null> (null);
               <div className="grid size-10 place-items-center rounded-full bg-fy-surface-elevated font-bold text-fy-accent">
                 {(post.user?.name ?? username).charAt(0).toUpperCase()}
               </div>
+             
               <p  className="text-sm font-semibold text-fy-text">
                 {post.user?.name ?? username}
               </p>
