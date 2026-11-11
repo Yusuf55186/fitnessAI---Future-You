@@ -7,6 +7,7 @@ import { Button } from "../ui/Button/Button";
 export const WorkoutTimer = ({created_at}:Props) => {
     const [Timepassed,setTimePassed] = useState<number>(0);
     const [startTime, setStartTime] = useState<number>(() => {
+        console.log(created_at)
         const parsedDate = new Date(created_at);
         return parsedDate.getTime();
     });
@@ -19,7 +20,7 @@ export const WorkoutTimer = ({created_at}:Props) => {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [created_at, isRunning,startTime]);
+    },[created_at, isRunning,startTime]);
     const formattedHours   = Math.floor(Timepassed / 3600).toString().padStart(2,"0");
     const formattedMinutes = Math.floor((Timepassed /60) % 60).toString().padStart(2,"0");
     const formattedSeconds = Math.floor(Timepassed % 60).toString().padStart(2,"0");
@@ -40,6 +41,7 @@ export const WorkoutTimer = ({created_at}:Props) => {
         pauseStarted.current = null;
         }
     }
+    
 
     return (
         <div className="flex justify-center items-center">
@@ -53,6 +55,7 @@ export const WorkoutTimer = ({created_at}:Props) => {
     <span className="text-fy-success font-fy-bold text-fy-xl">{time}</span>
     <Button onClick={() => stopWorkoutHandler()} variant="secondary">STOP</Button>
         <Button onClick={() => resumeWorkoutHandler()} variant="primary">Resume</Button>
+        {/* <Button onClick={() => resetWorkoutHandler()} variant="ghost">Reset</Button> */}
     </div>
     </div>
     </div>

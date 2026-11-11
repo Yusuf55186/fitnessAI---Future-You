@@ -136,7 +136,7 @@ useEffect(() => {
 
     return (
         <>
-        <WorkoutTimer created_at={session?.created_at} />
+        {session?.created_at && <WorkoutTimer created_at={session.created_at} />}
         <div className="flex flex-col mx-auto w-page-max-width justify-center mt-fy-4">
             <section className="flex flex-col justify-center gap-fy-4">
                 <h1 className="text-fy-xl text-fy-accent font-fy-bold">New Workout</h1>
