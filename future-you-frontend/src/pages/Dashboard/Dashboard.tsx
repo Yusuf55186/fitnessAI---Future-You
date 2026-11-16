@@ -55,7 +55,6 @@ export const Dashboard = ({username,language}:Props) => {
     const StartWorkouthandler = () => {
         navigate("/workout-sessions");
     } 
-    console.log(username);
     return (
         <div>
             <section className="flex flex-col gap-fy-2">
@@ -68,15 +67,14 @@ export const Dashboard = ({username,language}:Props) => {
                 </section>
                 <section className="mt-fy-7">
         <h2 className="text-fy-xl font-fy-semibold text-fy-text">
+            
             {translations[language].workout}
         </h2>
-        <p>{workoutSessions.length}workouts</p>
-
         <WorkoutCard
         language={language}
             onStart={StartWorkouthandler}
             sessionName={translations[language].workoutday}
-            exerciseCount={6}
+            exerciseCount={workoutSessions.length}
             durationTime={45}
         />
     </section>

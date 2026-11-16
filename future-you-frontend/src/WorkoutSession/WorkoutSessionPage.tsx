@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "../components/ui/Button/Button"
-import { createWorkoutSession, getExercises, getWorkoutSession, getWorkoutTemplates } from "../api/services";
+import { createWorkoutSession, finishWorkout, getExercises, getWorkoutSession, getWorkoutTemplates } from "../api/services";
 import { Card } from "../components/ui/Card/Card";
 import { ExerciseCard } from "../Exercise/ExerciseCard";
 import { useNavigate, useParams } from "react-router-dom";
@@ -25,6 +25,7 @@ export const WorkoutSessionPage = ({language}:Props) => {
     const [selectedTemplateId, setSelectedTemplateId] = useState<number | null>(null);
     const [templatesLoading, setTemplatesLoading] = useState(true);
     const [startingSession, setStartingSession] = useState(false);
+    
     const alreadySelected = (id: number) => selectedExercises.some((selectedExercise) => selectedExercise.id === id);
     const { id } = useParams();
     const navigate = useNavigate();
@@ -96,7 +97,14 @@ useEffect(() => {
             setStartingSession(false);
         }
     };
-
+    const handleEndSession = async () => {
+        try {
+            const updateSession = await finishWorkout(sessionId);
+            setSession(updateSession);
+        } catch (e: unknown) {
+            setError(e instanceof Error ? e.message : "Couldnt Finish Workout");
+        }
+    };
     if (!id) {
         return (
             <>
@@ -214,6 +222,7 @@ useEffect(() => {
             })}    
             
         </div>
+        <Button variant="action"onClick={handleEndSession}>Stop Workout</Button>
         </> 
    )
    }

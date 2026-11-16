@@ -2,11 +2,9 @@ import { useEffect, useRef, useState } from "react"
 import { Button } from "../ui/Button/Button";
  type Props = {
         created_at:string;
-        isReset:boolean;
     }
 export const WorkoutTimer = ({created_at}:Props) => {
     const [Timepassed,setTimePassed] = useState<number>(0);
-    const isReset = useState(() => {Date.now();})
     const [startTime, setStartTime] = useState<number>(() => {
         console.log(created_at)
         const parsedDate = new Date(created_at);
@@ -21,7 +19,7 @@ export const WorkoutTimer = ({created_at}:Props) => {
         }, 1000);
 
         return () => clearInterval(interval);
-    },[created_at, isRunning,startTime,isReset]);
+    },[created_at, isRunning,startTime,]);
     const formattedHours   = Math.floor(Timepassed / 3600).toString().padStart(2,"0");
     const formattedMinutes = Math.floor((Timepassed /60) % 60).toString().padStart(2,"0");
     const formattedSeconds = Math.floor(Timepassed % 60).toString().padStart(2,"0");

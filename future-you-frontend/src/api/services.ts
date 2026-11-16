@@ -18,7 +18,16 @@ export const createWorkoutSession = async (workoutTemplateId: number): Promise<C
     if (!response.ok || !result.success) throw new Error(result.message || 'Failed to start workout session');
     return result.data;
 };
-
+export const finishWorkout = async (id:number): Promise<WorkoutSession> => {
+    const response = await fetch(`${API_URL}/workout-sessions/${id}/finish`,{
+        method: 'PATCH',
+        headers: AuthHeaders(),
+       
+    });
+    const result: ApiResponse<WorkoutSession> = await response.json();
+    if (!response.ok || !result.success) throw new Error(result.message || 'Failed to finish workout session');
+    return result.data;
+};
 export const getWorkoutSessions = async () => {
     const response = await fetch(`${API_URL}/workout-sessions`, {
         headers: AuthHeaders()

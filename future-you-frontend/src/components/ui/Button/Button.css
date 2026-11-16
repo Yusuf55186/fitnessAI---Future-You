@@ -32,3 +32,10 @@
 .button--ghost:hover{
     color: var(--color-text-secondary);
 }
+.button--action{
+    background-color: var(--color-action);
+    color:var(--color-action-text);
+}
+.button--action:hover{
+    background-color: var(--color-action-hover);
+}
