@@ -144,4 +144,19 @@ class WorkoutSessionController extends Controller
         ],200);
         //
     }
-}
+    public function finish(Request $request,int $id)
+    {
+        $user_id = $request->user()->id;
+        $session = WorkoutSession::where('id','=',$id)->where('user_id',$user_id)->firstOrFail();
+        if ($session->finished_at === null){
+            $session->finished_at = now();
+            $session->save();
+        }
+        return response()->json([
+    'success' => true,
+    'data' => $session,
+    'message' => 'Workout afgerond.',
+]);
+
+        }
+    }

@@ -32,10 +32,11 @@ Route::post('/workout-sessions', [WorkoutSessionController::class, 'store'])
 ->middleware('auth:sanctum');
 Route::get('workout-sessions/{id}',[WorkoutSessionController::class,'show'])
 ->middleware('auth:sanctum');
-Route::patch('workout-sessions/{id}',[WorkoutSessionController::class,'update'])
-->middleware('auth:sanctum');
+Route::patch('/workout-sessions/{id}/finish', [WorkoutSessionController::class, 'finish'])
+    ->middleware('auth:sanctum');
 Route::delete('workout-sessions/{id}',[WorkoutSessionController::class,'destroy'])
 ->middleware('auth:sanctum');
+Route::patch('/workout_sessions/{id}',[WorkoutSessionController::class,'finish'])->middleware('auth:sanctum');
 Route::get('/workout-sets',[WorkoutSetController::class,'index'])->middleware('auth:sanctum');
 Route::post('/workout-sets',[WorkoutSetController::class,'store'])->middleware('auth:sanctum');
 Route::get('/workout-sets/{id}',[WorkoutSetController::class,'show'])->middleware('auth:sanctum');
