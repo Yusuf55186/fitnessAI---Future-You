@@ -5,13 +5,12 @@ import { Button } from "../ui/Button/Button";
     }
 export const WorkoutTimer = ({created_at}:Props) => {
     const [Timepassed,setTimePassed] = useState<number>(0);
-    const [resetTimer,setResetTimer] = useState(() => {
-        const savedReset = localStorage.getItem('setTimer') ?? "";
-    })
     const [startTime, setStartTime] = useState<number>(() => {
         console.log(created_at)
         const parsedDate = new Date(created_at);
-        return parsedDate.getTime();
+         const savedReset = localStorage.getItem("setTimer");
+        const resetTime = savedReset !== null ? Number(savedReset) : parsedDate.getTime();
+        return resetTime;
     });
     const [isRunning, setIsRunning] = useState(true);
     const pauseStarted = useRef<null | number>(null);
@@ -46,7 +45,8 @@ export const WorkoutTimer = ({created_at}:Props) => {
     function resetWorkoutHandler() : void {
             const reset = Date.now();
             setStartTime(reset);
-            const resetTimestamp = localStorage.setItem('setTimer',reset.toString());
+           localStorage.setItem('setTimer',reset.toString());
+              
         }
 
     return (
@@ -59,7 +59,7 @@ export const WorkoutTimer = ({created_at}:Props) => {
              </i>
              
     <span className="text-fy-success font-fy-bold text-fy-xl">{time}</span>
-        <Button onClick={() => stopWorkoutHandler()} variant="secondary">STOP</Button>
+        <Button onClick={() => stopWorkoutHandler()} variant="secondary">Pause</Button>
         <Button onClick={() => resumeWorkoutHandler()} variant="primary">Resume</Button>
         <Button onClick={() => resetWorkoutHandler()} variant="ghost">Reset</Button>
     </div>
