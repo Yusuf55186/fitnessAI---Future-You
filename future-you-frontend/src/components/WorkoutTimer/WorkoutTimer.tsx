@@ -34,11 +34,13 @@ export const WorkoutTimer = ({created_at}:Props) => {
         
          }
     }
+    
     function resumeWorkoutHandler() : void {
+        setIsRunning(true);
         if (pauseStarted.current){
             const pauseDurationMs = Date.now() - pauseStarted.current;
             setStartTime(pauseDurationMs + startTime);
-        setIsRunning(true);
+        
         pauseStarted.current = null;
         }
     }
