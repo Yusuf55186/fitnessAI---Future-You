@@ -27,7 +27,7 @@ class WorkoutTemplateExerciseController extends Controller
             ],201);
     }
     public function destroy(string $id, Request $request) {
-        $workoutExerciseTemplate = WorkoutExerciseTemplate::findOrFail($id);
+        $workoutExerciseTemplate = WorkoutTemplateExercise::findOrFail($id);
         if($request->user()->id !== $workoutExerciseTemplate->workoutTemplate->user_id){
             return response()->json([
             'success' => false,

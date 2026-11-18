@@ -341,3 +341,6 @@
 .showWorkoutCard {
    animation: showCard 1.5s ease-in-out;
 }
+.logo-transition{
+   transition:var(--transition-fast)
+}

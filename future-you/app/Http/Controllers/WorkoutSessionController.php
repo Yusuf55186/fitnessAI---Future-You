@@ -147,7 +147,12 @@ class WorkoutSessionController extends Controller
     public function finish(Request $request,int $id)
     {
         $user_id = $request->user()->id;
-        $session = WorkoutSession::where('id','=',$id)->where('user_id',$user_id)->firstOrFail();
+        $session =  WorkoutSession::with([
+    'workoutExercises.exercise',
+    'workoutExercises.workoutSets',])->where('id', $id)
+    ->where('user_id', $user_id)
+    ->firstOrFail(); WorkoutSession::where('id','=',$id)
+    ->where('user_id',$user_id)->firstOrFail();
         if ($session->finished_at === null){
             $session->finished_at = now();
             $session->save();

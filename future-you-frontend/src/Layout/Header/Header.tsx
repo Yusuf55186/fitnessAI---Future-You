@@ -4,24 +4,20 @@ import { LanguageSwitcher } from "../LanguageSwitcher";
 import { Account } from "../Account";
 import type { language } from "../../types/language";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 type Props = {
     language: language;
     setLanguage: (language: language) => void;
 };
 
 export const Header = ({ language,setLanguage}: Props) => {
-    const [username] = useState<string>(() => {
-  const storedUser = localStorage.getItem("user");
-
-  if (!storedUser) return "";
-
-  try {
-    const user = JSON.parse(storedUser);
-    return user.name ?? "";
-  } catch {
-    return "";
-  }
-});
+    const navigate = useNavigate();
+    const [username] = useState(
+     () => localStorage.getItem('username') ?? ""
+    );
+    const NavigateToHome = () => {
+        navigate('/')
+    }
     return (
         <header
             className="
@@ -35,7 +31,7 @@ export const Header = ({ language,setLanguage}: Props) => {
             "
         >
             <div className="flex shrink-0 items-center">
-                <Logo />
+                <Logo className="cursor-pointer hover:scale-105 translate-y-1 logo-transition ease-in" onClick={NavigateToHome} />
             </div>
 
             <nav className="hidden lg:flex items-center">
