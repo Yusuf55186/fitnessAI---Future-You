@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { AppShell } from './Layout/AppShell/AppShell';
 import { useState } from 'react';
@@ -6,26 +6,51 @@ import type { language } from './types/language';
 import { AuthWrapper } from './Auth/AuthWrapper';
 import { WorkoutSessionPage } from './WorkoutSession/WorkoutSessionPage';
 import { WorkoutHistoryPage } from './WorkoutHistory/WorkoutHistoryPage';
-import FuturizePage from './Posts/FuturizePosts';
+import   FuturizePage  from './Posts/FuturizePosts';
+import { AccountPage } from './components/AccountPage';
+import { logoutUser } from './api/services';
 
 export const App = () => {
   const [language, setLanguage] = useState<language>('nl');
     const [username,setUsername] = useState(
      () => localStorage.getItem('username') ?? ""
     );
-  const token = localStorage.getItem('token');
+    const [email,setEmail] = useState(
+     () => localStorage.getItem('email') ?? ""
+    );
+ const [token, setToken] = useState(() => localStorage.getItem('token'));
+ const handleLogOut = async () => {
+      await logoutUser();
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
+      setToken(null);
+    } 
   return (
     <>
   
     
     <Router>
   <Routes>
-    <Route path="/auth" element={<AuthWrapper onLogged={setUsername} onRegistered={setUsername} />} />
+    <Route
+      path="/auth"
+      element={
+        <AuthWrapper
+          onLogged={(name, email) => {
+            setUsername(name);
+            setEmail(email);
+            setToken(localStorage.getItem('token'))
+
+          }}
+          onRegistered={setUsername}
+        />
+      }
+    />
 
     <Route
       element={
         token ? (
-          <AppShell activePath='' language={language} setLanguage={setLanguage}>
+          <AppShell onLogout={handleLogOut} activePath='' language={language} setLanguage={setLanguage}>
             <Outlet />
           </AppShell>
         ) : (
@@ -39,6 +64,12 @@ export const App = () => {
     path="/posts"
     element={<FuturizePage language={language} />}
     />
+    <Route
+    path='/account'
+  
+    element={<AccountPage name={username} email={email} />}
+    >
+    </Route>
       <Route
         path="/history"
         element={<WorkoutHistoryPage language={language} />}

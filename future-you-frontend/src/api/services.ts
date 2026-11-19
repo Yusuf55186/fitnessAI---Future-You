@@ -166,3 +166,15 @@ export const getUserPosts = async () => {
         }
         return data;
 }
+export const logoutUser = async () => {
+const response = await fetch(`${API_URL}/user/logout`,{
+headers:AuthHeaders(),
+method:'POST',
+});
+const data = await response.json();
+if (!response.ok || !data.success){
+            throw new Error(data.message || "Logout Failed");
+        }
+        return data;
+
+}

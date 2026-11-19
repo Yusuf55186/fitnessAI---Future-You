@@ -4,13 +4,15 @@ import { LanguageSwitcher } from "../LanguageSwitcher";
 import { Account } from "../Account";
 import type { language } from "../../types/language";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { LogoutUser } from "../../components/Logout";
 type Props = {
     language: language;
     setLanguage: (language: language) => void;
+    onLogout: () => Promise<void>;
 };
 
-export const Header = ({ language,setLanguage}: Props) => {
+export const Header = ({ language,setLanguage,onLogout}: Props) => {
     const navigate = useNavigate();
     const [username] = useState(
      () => localStorage.getItem('username') ?? ""
@@ -45,8 +47,11 @@ export const Header = ({ language,setLanguage}: Props) => {
                 />
 
                 <div className="h-7 w-px bg-fy-border" />
-
-                <Account username={username} />
+                <Link to={'/account'}>
+                <Account username={username}   />
+                </Link>
+                <LogoutUser onLogout={onLogout} />
+                
             </div>
         </header>
     );

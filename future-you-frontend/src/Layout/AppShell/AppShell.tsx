@@ -6,15 +6,16 @@ type Props = {
     children: ReactNode;
     activePath:string;
     language:language;
+    onLogout: () => Promise<void>;
     setLanguage:(language:language) =>void;
 }
-export const AppShell = ({children,activePath,language,setLanguage}:Props) => {
+export const AppShell = ({children,activePath,language,setLanguage,onLogout}:Props) => {
     return (
         <div 
         className={"min-h-screen bg-fy-bg text-fy-text"}
         dir={language === "arz" ? "rtl" : "ltl"}
         >
-            <Header language={language} setLanguage={setLanguage}  />
+            <Header onLogout={onLogout} language={language} setLanguage={setLanguage}  />
 
             <div className="flex min-h-[calc(100vh-var(--topbar-height))] w-full max-w-fy-page">
                 <Sidebar activePath={activePath}/>

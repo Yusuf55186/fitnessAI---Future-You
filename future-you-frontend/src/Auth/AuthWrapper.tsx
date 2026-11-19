@@ -3,7 +3,7 @@ import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 type Props = {
     onRegistered: (username:string) => void;
-    onLogged: (username:string) => void;
+    onLogged: (username:string,email:string) => void;
 }
 export const AuthWrapper = ({onRegistered, onLogged}:Props) => {
     const [isLogin, setLogin] = useState(true);
@@ -19,7 +19,7 @@ export const AuthWrapper = ({onRegistered, onLogged}:Props) => {
                         transform: isLogin ? 'translateX(0)' : 'translateX(-50px)'
                     }}
                 >
-                    <Login onLogged={onLogged} onToggle={() => setLogin(false)} />
+                    <Login onData={onLogged} onToggle={() => setLogin(false)} />
                 </div>
 
                 {/* Register Form */}

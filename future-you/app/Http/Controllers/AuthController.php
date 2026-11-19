@@ -101,6 +101,8 @@ public function logout(Request $request){
     $token = $request->user()->currentAccessToken();
     $token->delete();
     return response()->json([
+        'success' => true,
+        'data' =>  $token,
         'message' => 'successfully logged out'
     ],200);
 }

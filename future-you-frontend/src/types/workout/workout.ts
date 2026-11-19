@@ -26,6 +26,7 @@ export type WorkoutSession = {
     date: string | null;
     workout_template_id?: number | null;
     created_at:string;
+    finished_at:boolean;
 };
 
 export type WorkoutTemplate = { id: number; name: string };

@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react"
 import { Button } from "../ui/Button/Button";
  type Props = {
         created_at:string;
+        isFinished:boolean;
     }
-export const WorkoutTimer = ({created_at}:Props) => {
+export const WorkoutTimer = ({created_at,isFinished}:Props) => {
    
     const [startTime, setStartTime] = useState<number>(() => {
         console.log(created_at)
@@ -27,13 +28,12 @@ export const WorkoutTimer = ({created_at}:Props) => {
     
     
     useEffect(() => {
-        if (!isRunning) return;
+        if (!isRunning || isFinished) return;
         const interval = setInterval(() => {
              setTimePassed(((Date.now()) - startTime) / 1000)
         }, 1000);
-
         return () => clearInterval(interval);
-    },[created_at, isRunning,startTime,]);
+    },[created_at, isRunning,startTime,isFinished]);
     const formattedHours   = Math.floor(Timepassed / 3600).toString().padStart(2,"0");
     const formattedMinutes = Math.floor((Timepassed /60) % 60).toString().padStart(2,"0");
     const formattedSeconds = Math.floor(Timepassed % 60).toString().padStart(2,"0");
@@ -73,7 +73,9 @@ export const WorkoutTimer = ({created_at}:Props) => {
         }
 
     return (
+        
         <div className="flex justify-center items-center">
+            
          <div className="border border-fy-border bg-fy-surface rounded-md p-4 mt-4 w-[60ch] ">
             <div className="text-center items-center flex gap-fy-4">
                 <h3 className="text-fy-muted font-fy-bold "> • Future you</h3>

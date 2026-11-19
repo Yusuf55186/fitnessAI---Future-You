@@ -8,6 +8,7 @@ import type { WorkoutSession, WorkoutTemplate } from "../types/workout/workout";
 import { translations } from "../il8n/translations";
 import type { language } from "../types/language";
 import { WorkoutTimer } from "../components/WorkoutTimer/WorkoutTimer";
+import { FinishWorkoutModal } from "../components/ui/FinishWorkoutModal/FinishWorkoutModal";
 
 type Props = {
     language:language
@@ -25,6 +26,7 @@ export const WorkoutSessionPage = ({language}:Props) => {
     const [selectedTemplateId, setSelectedTemplateId] = useState<number | null>(null);
     const [templatesLoading, setTemplatesLoading] = useState(true);
     const [startingSession, setStartingSession] = useState(false);
+    const [isFinishModalOpen,setIsFinishModalOpen] = useState<boolean>(false);
     
     const alreadySelected = (id: number) => selectedExercises.some((selectedExercise) => selectedExercise.id === id);
     const { id } = useParams();
@@ -99,8 +101,9 @@ useEffect(() => {
     };
     const handleEndSession = async () => {
         try {
-            const updateSession = await finishWorkout(sessionId);
-            setSession(updateSession);
+            const finishSession = await finishWorkout(sessionId);
+            setIsFinishModalOpen(false);
+            setSession(finishSession);
         } catch (e: unknown) {
             setError(e instanceof Error ? e.message : "Couldnt Finish Workout");
         }
@@ -144,10 +147,9 @@ useEffect(() => {
 
     return (
         <>
-        {session?.created_at && <WorkoutTimer created_at={session.created_at} isReset={false} />}
+        {session?.created_at && <WorkoutTimer isFinished={(session.finished_at)} created_at={session.created_at}  />}
         <div className="flex flex-col mx-auto w-page-max-width justify-center mt-fy-4">
             <section className="flex flex-col justify-center gap-fy-4">
-                <h1 className="text-fy-xl text-fy-accent font-fy-bold">New Workout</h1>
                 <p className="text-fy-text-secondary font-fy-semibold">Workout in progress</p>
             </section>
             <section>
@@ -197,7 +199,7 @@ useEffect(() => {
                     
                     
                 ) : (
-                    <p>No Exercises yet</p>
+                    <p className="text-fy-sm text-fy-text font-fy-bold">No custom Exercises yet</p>
                 )}
 
                 {selectedExercises.map((selectedexer) => (
@@ -222,7 +224,13 @@ useEffect(() => {
             })}    
             
         </div>
-        <Button variant="action"onClick={handleEndSession}>Stop Workout</Button>
+        <Button variant="action"onClick={() => setIsFinishModalOpen(true)}>Stop Workout</Button>
+        {isFinishModalOpen && (
+    <FinishWorkoutModal
+        onCancel={() => setIsFinishModalOpen(false)}
+        onConfirm={handleEndSession}
+    />
+)}
         </> 
    )
    }
