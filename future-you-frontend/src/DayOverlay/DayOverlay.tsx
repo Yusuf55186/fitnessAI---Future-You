@@ -13,11 +13,7 @@ export const DayOverlay = ({date,sessions,language,onClose}:Props) => {
     return (
           <div
             className="
-                fixed inset-0 z-50
-                flex items-center justify-center
-                bg-black/70
-                backdrop-blur-sm
-                px-4
+                responsive-overlay bg-black/70 backdrop-blur-sm
                 
             "
             onClick={onClose}
@@ -25,8 +21,8 @@ export const DayOverlay = ({date,sessions,language,onClose}:Props) => {
             <div
                 className="
                     relative
-                    w-full max-w-2xl
-                    overflow-hidden
+                    responsive-dialog max-w-2xl
+                    overflow-x-hidden
                     rounded-2xl
                     border border-fy-border
                     bg-fy-surface
@@ -98,7 +94,7 @@ export const DayOverlay = ({date,sessions,language,onClose}:Props) => {
                 </div>
 
                 {/* Sessions */}
-                <div className="relative max-h-[60vh] space-y-3 overflow-y-auto p-6">
+                <div className="relative day-overlay-sessions space-y-3">
                     {sessions.map((session) => (
                         
                         <div
@@ -113,7 +109,7 @@ export const DayOverlay = ({date,sessions,language,onClose}:Props) => {
                                 hover:border-fy-accent/40
                             "
                         >
-                            <div className="flex items-center justify-between gap-6">
+                            <div className="day-overlay-row">
                                 <div className="min-w-0">
                                     <h3
                                         className="
@@ -128,7 +124,7 @@ export const DayOverlay = ({date,sessions,language,onClose}:Props) => {
                                     <div
                                         className="
                                             mt-2
-                                            flex items-center gap-3
+                                            flex flex-wrap items-center gap-3
                                             text-sm text-fy-muted
                                         "
                                     >

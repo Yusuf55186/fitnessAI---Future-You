@@ -42,10 +42,10 @@ export const ExerciseCard = ({id,name,sessionId,existingSets}:Props) => {
 <Card>
     {name}
    
-    <div className="flex overflow-hidden rounded-lg border border-fy-border bg-fy-bg-subtle">
+    <div className="workout-set-fields rounded-lg border border-fy-border bg-fy-bg-subtle">
 
     {/* WEIGHT */}
-    <div className="flex flex-1 flex-col gap-2 p-4 border-r border-fy-border">
+    <div className="workout-set-field">
         <label
             htmlFor={`weight-${id}`}
             className="text-xs font-semibold uppercase tracking-wider text-fy-muted"
@@ -60,7 +60,7 @@ export const ExerciseCard = ({id,name,sessionId,existingSets}:Props) => {
                 id={`weight-${id}`}
                 onChange={(e) => setWeight(e.target.value)}
                 value={weight}
-                className="w-full bg-transparent text-lg font-semibold text-fy-text outline-none"
+                className="min-w-0 w-full bg-transparent text-lg font-semibold text-fy-text outline-none"
             />
             <span className="text-xs font-semibold text-fy-muted">
                 KG
@@ -69,7 +69,7 @@ export const ExerciseCard = ({id,name,sessionId,existingSets}:Props) => {
     </div>
 
     {/* REPS */}
-    <div className="flex flex-1 flex-col gap-2 p-4 border-r border-fy-border">
+    <div className="workout-set-field">
         <label
             htmlFor={`reps-${id}`}
             className="text-xs font-semibold uppercase tracking-wider text-fy-muted"
@@ -83,12 +83,12 @@ export const ExerciseCard = ({id,name,sessionId,existingSets}:Props) => {
             id={`reps-${id}`}
             onChange={(e) => setReps(e.target.value)}
             value={reps}
-            className="w-full bg-transparent text-lg font-semibold text-fy-text outline-none"
+            className="min-w-0 w-full bg-transparent text-lg font-semibold text-fy-text outline-none"
         />
     </div>
 
     {/* RIR */}
-    <div className="flex flex-1 flex-col gap-2 p-4">
+    <div className="workout-set-field">
         <label
             htmlFor={`rir-${id}`}
             className="text-xs font-semibold uppercase tracking-wider text-fy-muted"
@@ -103,7 +103,7 @@ export const ExerciseCard = ({id,name,sessionId,existingSets}:Props) => {
             id={`rir-${id}`}
             onChange={(e) => setRir(e.target.value)}
             value={rir}
-            className="w-full bg-transparent text-lg font-semibold text-fy-text outline-none"
+            className="min-w-0 w-full bg-transparent text-lg font-semibold text-fy-text outline-none"
         />
     </div>
 

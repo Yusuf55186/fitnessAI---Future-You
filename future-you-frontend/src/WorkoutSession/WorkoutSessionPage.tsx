@@ -111,7 +111,7 @@ useEffect(() => {
     if (!id) {
         return (
             <>
-            <main className="mx-auto flex w-page-max-width flex-col gap-fy-4 mt-fy-4">
+            <section className="workout-page workout-template-page">
                 <section>
                     <h1 className="text-fy-xl text-fy-accent font-fy-bold">{translations[language].workoutday}</h1>
                     <p className="text-fy-text-secondary">{translations[language].template}</p>
@@ -140,7 +140,7 @@ useEffect(() => {
                     </Button>
                 )}
                 {error && <p className="text-fy-danger" role="alert">{error}</p>}
-            </main>
+            </section>
             </>
         );
     }
@@ -148,7 +148,7 @@ useEffect(() => {
     return (
         <>
         {session?.created_at && <WorkoutTimer isFinished={(session.finished_at)} created_at={session.created_at}  />}
-        <div className="flex flex-col mx-auto w-page-max-width justify-center mt-fy-4">
+        <div className="workout-page">
             <section className="flex flex-col justify-center gap-fy-4">
                 <p className="text-fy-text-secondary font-fy-semibold">Workout in progress</p>
             </section>
@@ -156,7 +156,7 @@ useEffect(() => {
                 {isAddExerciseOpen ? (
                     <>
                     <Card>
-                        <div className="flex justify-between">
+                        <div className="workout-exercise-row">
                         <p className="text-fy-text uppercase text-fy-md font-fy-semibold">Exercise Selector</p>
                         <Button variant="ghost" onClick={() => setisAddExercise(false)}>
                             Cancel
@@ -168,7 +168,7 @@ useEffect(() => {
                             <>
                                 <div className="max-h-[500px] overflow-y-auto ">
                                    {Exercise.map((exer) => (
-                                    <div className="flex justify-between items-center  px-fy-4 py-fy-2 border-b border-fy-border" key={exer.id}>
+                                    <div className="workout-exercise-row px-fy-4 py-fy-2 border-b border-fy-border" key={exer.id}>
                                         <p>{exer.name}</p>
                                         <Button
                                             onClick={() => {  

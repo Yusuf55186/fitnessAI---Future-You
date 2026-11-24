@@ -344,3 +344,505 @@
 .logo-transition{
    transition:var(--transition-fast)
 }
+/* Shared application layout */
+.app-shell {
+    --shell-page-padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+.app-shell-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    min-height: var(--topbar-height);
+    padding: var(--space-4) var(--shell-page-padding);
+    border-block-end: 1px solid var(--color-border);
+    background: var(--color-bg-subtle);
+}
+
+.app-shell-header-identity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-width: 0;
+}
+
+.app-shell-menu-toggle {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.75rem;
+    min-height: 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+}
+
+.app-shell-header-preferences {
+    display: none;
+}
+
+.app-shell-header-preferences[data-open="true"] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+    padding-block: var(--space-5);
+    border-block-start: 1px solid var(--color-border);
+}
+
+.app-shell-mobile-navigation {
+    width: 100%;
+}
+
+.app-shell-mobile-navigation ul {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.app-shell-mobile-navigation a {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+}
+
+.app-shell-mobile-navigation a:hover,
+.app-shell-mobile-navigation a:focus-visible {
+    background: var(--color-surface-hover);
+}
+
+.app-shell-mobile-navigation a[aria-current="page"] {
+    background: var(--color-surface);
+    color: var(--color-accent);
+}
+
+.app-shell-brand {
+    grid-area: brand;
+    flex-shrink: 0;
+}
+
+.app-shell-brand > span {
+    font-size: clamp(1rem, 5vw, var(--font-size-xl));
+}
+
+.app-shell-account {
+    grid-area: account;
+    min-width: 0;
+    white-space: nowrap;
+}
+
+.app-shell-account-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-shell-header-language {
+    grid-area: language;
+    min-width: 0;
+}
+
+.app-shell-header-language button {
+    padding-inline: clamp(var(--space-1), 2vw, var(--space-4));
+}
+
+.app-shell-header-logout {
+    grid-area: logout;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.app-shell-header-logout .button {
+    padding: var(--space-2);
+}
+
+.app-shell-header-navigation,
+.app-shell-sidebar {
+    display: none;
+}
+
+.app-shell-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    flex: 1;
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin-inline: auto;
+}
+
+.app-shell-main {
+    min-width: 0;
+    padding: var(--shell-page-padding);
+    overflow-wrap: anywhere;
+}
+
+@media (min-width: 40rem) {
+    .app-shell {
+        --shell-page-padding: var(--space-5);
+    }
+
+    .app-shell-header {
+        gap: var(--space-6);
+    }
+}
+
+@media (min-width: 64rem) {
+    .app-shell {
+        --shell-page-padding: var(--space-6);
+    }
+
+    .app-shell-header {
+        position: sticky;
+        z-index: 40;
+        inset-block-start: 0;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+        grid-template-areas: "brand navigation language account logout";
+        align-items: center;
+        gap: var(--space-4);
+        padding-block: var(--space-2);
+    }
+
+    .app-shell-header-identity,
+    .app-shell-header-preferences,
+    .app-shell-header-preferences[data-open="true"] {
+        display: contents;
+    }
+
+    .app-shell-menu-toggle,
+    .app-shell-mobile-navigation {
+        display: none;
+    }
+
+    .app-shell-header-navigation {
+        grid-area: navigation;
+        display: flex;
+        justify-content: center;
+    }
+
+    .app-shell-account-name {
+        display: block;
+        max-width: 12ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .app-shell-header-logout .button {
+        padding: var(--space-3) var(--space-4);
+    }
+
+    .app-shell-layout {
+        grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    }
+
+    .app-shell-sidebar {
+        display: block;
+        padding: var(--space-5);
+        border-inline-end: 1px solid var(--color-border);
+    }
+
+    .app-shell-sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+}
+
+/* Responsive page layouts */
+:root {
+    --page-section-gap: var(--space-4);
+    --panel-padding: var(--space-3);
+    --calendar-gap: var(--space-1);
+    --calendar-day-height: 2.75rem;
+}
+
+.dashboard-stats,
+.futurize-post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: var(--page-section-gap);
+}
+
+.dashboard-stats {
+    margin-block-start: var(--space-5);
+}
+
+.workout-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    margin-block-start: var(--page-section-gap);
+}
+
+.workout-template-page {
+    gap: var(--page-section-gap);
+}
+
+.workout-exercise-row,
+.workout-timer-controls,
+.day-overlay-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.workout-exercise-row,
+.day-overlay-row {
+    justify-content: space-between;
+}
+
+.workout-timer {
+    width: 100%;
+    max-width: 60ch;
+    padding: var(--panel-padding);
+    margin-block-start: var(--space-4);
+}
+
+.workout-timer-controls {
+    justify-content: center;
+    text-align: center;
+}
+
+.workout-set-fields,
+.workout-set-summary {
+    display: grid;
+}
+
+.workout-set-fields {
+    grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+}
+
+.workout-set-field,
+.workout-set-metric {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.workout-set-field {
+    gap: var(--space-2);
+    padding: var(--panel-padding);
+}
+
+.workout-set-field + .workout-set-field {
+    border-inline-start: 1px solid var(--color-border);
+}
+
+.workout-set-summary {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 4.5rem), 1fr));
+    gap: var(--space-2);
+    margin-block-start: var(--space-4);
+}
+
+.workout-calendar-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-2);
+    margin-block-end: var(--page-section-gap);
+}
+
+.workout-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: var(--calendar-gap);
+}
+
+.workout-calendar-weekdays {
+    margin-block-end: var(--calendar-gap);
+}
+
+.workout-calendar-weekday {
+    text-align: center;
+    font-size: clamp(0.625rem, 2.7vw, 0.875rem);
+    overflow-wrap: anywhere;
+}
+
+.workout-calendar-day {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--space-1);
+    min-height: var(--calendar-day-height);
+    text-align: center;
+}
+
+.streak-panel,
+.auth-card,
+.futurize-panel,
+.account-panel {
+    padding: var(--panel-padding);
+}
+
+.streak-panel-content {
+    display: flex;
+    align-items: center;
+    gap: var(--page-section-gap);
+}
+
+.streak-panel-mascot {
+    width: clamp(2.75rem, 12vw, 6rem);
+    height: clamp(2.75rem, 12vw, 6rem);
+}
+
+.responsive-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    place-items: center;
+    padding: var(--page-section-gap);
+}
+
+.responsive-dialog {
+    width: 100%;
+    min-width: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.day-overlay-sessions {
+    padding: var(--page-section-gap);
+}
+
+.finish-workout-actions,
+.account-row {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.finish-workout-actions {
+    margin-block-start: var(--space-5);
+}
+
+.futurize-page,
+.account-value {
+    overflow-wrap: anywhere;
+}
+
+.futurize-content,
+.futurize-feed,
+.account-page {
+    width: 100%;
+    margin-inline: auto;
+    padding-block: var(--page-section-gap);
+}
+
+.futurize-content {
+    max-width: 64rem;
+    padding-inline: var(--page-section-gap);
+}
+
+.futurize-feed {
+    max-width: 42rem;
+}
+
+.futurize-title {
+    font-size: clamp(1.75rem, 8vw, 3rem);
+}
+
+.futurize-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+    margin-block-end: var(--page-section-gap);
+}
+
+.futurize-tabs > button {
+    min-width: 0;
+    padding-inline: clamp(var(--space-2), 3vw, 1.25rem);
+    overflow-wrap: anywhere;
+}
+
+.account-page {
+    max-width: 36rem;
+}
+
+.account-row {
+    padding-block: var(--space-3);
+}
+
+.auth-layout {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: var(--page-section-gap);
+}
+
+.auth-forms {
+    position: relative;
+    width: 100%;
+    max-width: 28rem;
+    margin: auto;
+}
+
+.auth-form-active {
+    position: relative;
+}
+
+.auth-form-inactive {
+    position: absolute;
+    inset: 0 0 auto;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.auth-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+@media (min-width: 40rem) {
+    :root {
+        --page-section-gap: var(--space-5);
+        --panel-padding: var(--space-5);
+        --calendar-gap: var(--space-2);
+        --calendar-day-height: 4rem;
+    }
+
+    .finish-workout-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .account-row {
+        grid-template-columns: 8rem minmax(0, 1fr);
+    }
+}
+
+@media (width < 40rem) {
+    .today-workout-card,
+    .today-workout-details {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .today-workout-card {
+        gap: var(--space-4);
+    }
+
+    .today-workout-content {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .today-workout-separator {
+        display: none;
+    }
+
+    .today-workout-start {
+        width: 100%;
+    }
+}

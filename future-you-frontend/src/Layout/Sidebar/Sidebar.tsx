@@ -63,8 +63,8 @@ export const Sidebar = ({activePath}:Props) => {
                 }
     ]
     return (
-        <aside className="w-fy-sidebar shrink-0 border-r border-fy-border p-fy-5">
-            <nav className="flex flex-col gap-fy-6">
+        <aside className="app-shell-sidebar">
+            <nav className="app-shell-sidebar-nav">
                 {sideBarSections.map((section) =>{
                     return (
                         <section>

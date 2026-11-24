@@ -17,8 +17,8 @@ export default function FuturizePage({ language }: Props) {
   const t = translations[language];
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white">
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <section className="futurize-page bg-zinc-950 text-white">
+      <div className="futurize-content">
 
         {/* Community Header */}
         <header className="mb-8 border-b border-zinc-800 pb-8">
@@ -30,7 +30,7 @@ export default function FuturizePage({ language }: Props) {
             </span>
           </div>
 
-          <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
+          <h1 className="futurize-title font-black tracking-tight">
             FUTUR<span className="text-fy-accent">IZE.</span>
           </h1>
 
@@ -42,7 +42,7 @@ export default function FuturizePage({ language }: Props) {
         {/* Navigation Tabs */}
         <nav
           aria-label="Futurize navigation"
-          className="mb-6 flex gap-2 border-b border-zinc-800"
+          className="futurize-tabs border-b border-zinc-800"
         >
           <button
             type="button"
@@ -85,7 +85,7 @@ export default function FuturizePage({ language }: Props) {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-4 shadow-xl shadow-black/10 sm:p-6">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 futurize-panel shadow-xl shadow-black/10">
             {activeTab === "posts" ? (
               <Posts language={language} username="" />
             ) : (
@@ -94,6 +94,6 @@ export default function FuturizePage({ language }: Props) {
           </div>
         </section>
       </div>
-    </main>
+    </section>
   );
 }

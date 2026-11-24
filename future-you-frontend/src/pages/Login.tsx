@@ -37,8 +37,8 @@ fetchData()
         
     }
     return (
-        <div className="flex items-center justify-center min-h-screen bg-fy-bg">
-            <div className="bg-fy-surface gap-fy-4 p-fy-6 rounded-fy-lg flex flex-col border border-fy-border ">
+        <div>
+            <div className="auth-card bg-fy-surface rounded-fy-lg border border-fy-border ">
                 <h2 className="text-fy-text text-fy-2xl font-fy-bold text-center ">Login</h2>
                 {error && <p className="text-fy-danger">{error}</p>}
                 <form className="flex flex-col gap-fy-4" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>

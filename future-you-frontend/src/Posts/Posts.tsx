@@ -77,7 +77,7 @@ const [error,setError] = useState<string | null> (null);
     });
   }
     return (
-  <section className="mx-auto w-full max-w-2xl space-y-8 px-4 py-6">
+  <section className="futurize-feed space-y-8">
     {error && (
       <p
         role="alert"
@@ -92,7 +92,7 @@ const [error,setError] = useState<string | null> (null);
         e.preventDefault();
         void SubmitHandler();
       }}
-      className="space-y-5 rounded-2xl border border-fy-border bg-fy-surface p-5 shadow-lg shadow-black/10 sm:p-6"
+      className="space-y-5 rounded-2xl border border-fy-border bg-fy-surface futurize-panel shadow-lg shadow-black/10"
     >
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-fy-accent">
@@ -160,7 +160,7 @@ const [error,setError] = useState<string | null> (null);
               image_url: e.target.files?.[0],
             })
           }
-          className="block w-full cursor-pointer rounded-xl border border-fy-border bg-fy-bg text-sm text-fy-text-secondary file:mr-4 file:border-0 file:bg-fy-surface-elevated file:px-4 file:py-3 file:font-semibold file:text-fy-text hover:file:bg-fy-surface-hover"
+          className="block min-w-0 w-full cursor-pointer rounded-xl border border-fy-border bg-fy-bg text-sm text-fy-text-secondary file:mr-4 file:border-0 file:bg-fy-surface-elevated file:px-4 file:py-3 file:font-semibold file:text-fy-text hover:file:bg-fy-surface-hover"
         />
       </div>
 
@@ -208,7 +208,7 @@ const [error,setError] = useState<string | null> (null);
               </p>
             </div>
 
-            <div className="mb-4 flex items-center gap-4">
+            <div className="mb-4 flex flex-wrap items-center gap-4">
               <button
                 type="button"
                 aria-label="Vind ik leuk"

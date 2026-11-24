@@ -30,7 +30,7 @@ export const WorkoutCalender = ({language,sessions,onSelectDate,selectedDate}:Pr
     }
     return (
         <>
-        <div className="flex items-center justify-between mb-6">
+        <div className="workout-calendar-header">
     <Button
         variant="secondary"
         onClick={handlePreviousMonth}
@@ -45,15 +45,23 @@ export const WorkoutCalender = ({language,sessions,onSelectDate,selectedDate}:Pr
             {currentYear}
         </h2>
     </div>
-    <div  className="grid grid-cols-7 gap-2 mb-2">
+    <Button
+        variant="secondary"
+        onClick={handleNextMonth}
+        aria-label="Next month"
+    >
+        →
+    </Button>
+</div>
+    <div  className="workout-calendar-grid workout-calendar-weekdays">
     {translations[language].dayNames.map((dayName) => {
         return (
-            <div key={dayName} className="text-center text-sm text-fy-muted">{dayName}</div>
+            <div key={dayName} className="workout-calendar-weekday text-fy-muted">{dayName}</div>
         )
     })}
     
   </div>
-  <div className="grid grid-cols-7 gap-2">
+  <div className="workout-calendar-grid">
     {emptyDays.map((_,index) => {
         return (
             <div key={index}>{}</div>
@@ -69,7 +77,7 @@ export const WorkoutCalender = ({language,sessions,onSelectDate,selectedDate}:Pr
          const Hasworkout = daysessions && daysessions.length > 0;
         return (
             <div key={day} onClick={() => onSelectDate(dateKey)}
-              className={`relative min-h-20 rounded-lg p-2 cursor-pointer border ${
+              className={`workout-calendar-day rounded-lg cursor-pointer border ${
     isSelected
         ? "border-fy-accent bg-fy-accent/10"
         : "border-fy-border"
@@ -87,14 +95,7 @@ export const WorkoutCalender = ({language,sessions,onSelectDate,selectedDate}:Pr
     
 </div>
 
-    <Button
-        variant="secondary"
-        onClick={handleNextMonth}
-        aria-label="Next month"
-    >
-        →
-    </Button>
-</div>
+
 
         </>
     )

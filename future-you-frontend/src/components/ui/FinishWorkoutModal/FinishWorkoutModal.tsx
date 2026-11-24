@@ -5,12 +5,12 @@ type Props = {
 export const FinishWorkoutModal = ({onCancel,onConfirm}:Props) => {
 
     return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4">
+    <div className="responsive-overlay bg-black/70">
         <section
             role="dialog"
             aria-modal="true"
             aria-labelledby="finish-workout-title"
-            className="w-full max-w-sm rounded-2xl border border-white/10 bg-fy-surface p-fy-5 text-fy-text shadow-xl"
+            className="responsive-dialog max-w-sm rounded-2xl border border-white/10 bg-fy-surface p-fy-5 text-fy-text shadow-xl"
         >
             <h2 id="finish-workout-title" className="text-fy-xl font-fysemibold">
                 Finish workout?
@@ -20,7 +20,7 @@ export const FinishWorkoutModal = ({onCancel,onConfirm}:Props) => {
                 Your logged sets will be available in History.
             </p>
 
-            <div className="mt-6 grid gap-2 sm:grid-cols-2">
+            <div className="finish-workout-actions">
                 <button
                     onClick={onCancel}
                     type="button"

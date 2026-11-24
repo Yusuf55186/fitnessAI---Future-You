@@ -22,7 +22,7 @@ export const MyPosts = () => {
     return (
         <>
         <div>{error}</div>
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="futurize-post-grid">
   {userPosts.map((post) => (
     <article
       key={post.id}

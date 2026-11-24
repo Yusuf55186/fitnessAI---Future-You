@@ -10,7 +10,7 @@ export const Account = ({username}:AccountProps) => {
         <span>{username.charAt(0).toUpperCase()}</span>
       </div>
 
-      <span className="text-sm font-semibold text-white">
+      <span className="app-shell-account-name text-sm font-semibold text-white">
         {username}
       </span>
     </div>

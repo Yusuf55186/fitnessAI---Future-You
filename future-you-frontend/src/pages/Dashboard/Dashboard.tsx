@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { getWorkoutSessions} from "../../api/services";
 // import { type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
+import { getPersonalRecords } from "../../api/services";
+import { type PersonalRecord } from "../../types/workout/workout";
 
 type Props = {
     username:string;
@@ -14,24 +16,15 @@ type Props = {
 }
 
 export const Dashboard = ({username,language}:Props) => {
-    const stats = [
-        {
-            label:translations[language].workoutexercise
-            ,value:6
-        },
-        {
-            label:translations[language].week,
-            value:4
-        },
-        {
-            label:"Bench PR",
-            value:"82.5"
-        }
-    ]
+    
     const [workoutSessions, setWorkoutSessions] = useState([]);
+const [pr, setPr] = useState<PersonalRecord[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
+    const benchPr = pr.find((record) => {
+            return record.workout_exercise.exercise_id === 35;
+    });
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -46,9 +39,32 @@ export const Dashboard = ({username,language}:Props) => {
                 setLoading(false);
             }
         }
+        const fetchPR = async  () => {
+            try {
+                const data = await getPersonalRecords();
+                setPr(data.data);
+            }
+             catch (err: unknown) {
+                setError(err instanceof Error ? err.message : "An unexpected error occurred");
+            }
+        }
         fetchData();
+        fetchPR();
     },[]);
-
+const stats = [
+        {
+            label:translations[language].workoutexercise
+            ,value:6
+        },
+        {
+            label:translations[language].week,
+            value:4
+        },
+        {
+            label:"Bench PR",
+            value:benchPr?.weight
+        }
+    ]
     if (error) return <div>Error: {error}</div>;
     if (loading) return <div>Loading...</div>;
 
@@ -78,7 +94,7 @@ export const Dashboard = ({username,language}:Props) => {
             durationTime={45}
         />
     </section>
-    <div className="grid grid-cols-3 gap-fy-6 mt-5">
+    <div className="dashboard-stats">
             {stats.map((stat)=>{
                 return (
                     <StatCard key={stat.label}

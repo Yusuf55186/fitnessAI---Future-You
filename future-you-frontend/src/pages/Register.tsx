@@ -44,9 +44,9 @@ localStorage.setItem("username", username);
     
     return (
         
-        <div className="flex items-center justify-center min-h-screen bg-fy-bg">
+        <div>
             
-            <div className="bg-fy-surface gap-fy-4 p-fy-6 rounded-fy-lg flex flex-col border border-fy-border ">
+            <div className="auth-card bg-fy-surface rounded-fy-lg border border-fy-border ">
                 <h2 className="text-fy-text text-fy-2xl font-fy-bold text-center ">Register</h2>
                                   {error && <p className="text-fy-danger">{error}</p>}
 

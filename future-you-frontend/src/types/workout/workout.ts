@@ -39,3 +39,8 @@ export type CreatedWorkoutSession = {
     date: string;
     workout_template_id: number;
 };
+export type PersonalRecord = WorkoutSet & {
+    workout_exercise:{
+        exercise_id:number;
+    }
+};

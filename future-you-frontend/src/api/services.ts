@@ -1,5 +1,5 @@
 import { API_URL, AuthHeaders } from './config';
-import type { ApiResponse, CreatedWorkoutSession, WorkoutSession, WorkoutSetResponse, WorkoutTemplate } from '../types/workout/workout';
+import type { ApiResponse, CreatedWorkoutSession, WorkoutSession, WorkoutSetResponse, WorkoutTemplate, PersonalRecord } from '../types/workout/workout';
 import type { Post } from "../types/posts"
 export const getWorkoutTemplates = async (): Promise<WorkoutTemplate[]> => {
     const response = await fetch(`${API_URL}/workout-templates`, { headers: AuthHeaders() });
@@ -177,4 +177,15 @@ if (!response.ok || !data.success){
         }
         return data;
 
+}
+export const getPersonalRecords = async () => {
+    const response = await fetch(`${API_URL}/pr`,{
+        headers:AuthHeaders(),
+        method:'GET',
+    });
+    const data: ApiResponse<PersonalRecord[]> = await response.json();
+    if (!response.ok || !data.success){
+            throw new Error(data.message || "Failed to get PR");
+        }
+        return data;
 }

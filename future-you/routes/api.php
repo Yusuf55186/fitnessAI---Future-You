@@ -7,6 +7,7 @@ use App\Http\Controllers\WorkoutExerciseController;
 use App\Http\Controllers\WorkoutSessionController;
 use App\Http\Controllers\WorkoutSetController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PersonalRecordController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\WorkoutTemplateController;
 use App\Http\Controllers\WorkoutTemplateExerciseController;
@@ -56,8 +57,8 @@ Route::get('/posts',[PostController::class,'index'])->middleware('auth:sanctum')
 Route::post('/posts',[PostController::class,'store'])->middleware('auth:sanctum');
 Route::get('/posts/own-posts',[PostController::class,'showUserPosts'])->middleware('auth:sanctum');
 Route::get('/posts/{id}',[PostController::class,'show'])->middleware('auth:sanctum');
-
-
+Route::delete('/posts/{id}',[PostController::class,'destroy'])->middleware('auth:sanctum');
+Route::get('/pr',[PersonalRecordController::class,'index'])->middleware('auth:sanctum');
 
 
 

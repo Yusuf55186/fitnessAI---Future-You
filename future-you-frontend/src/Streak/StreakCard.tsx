@@ -60,8 +60,7 @@ export const StreakCard = ({language,sessions}:Props) => {
             w-full
             overflow-hidden
             border-fy-accent/30
-            px-8
-            py-7
+            streak-panel
         "
     >
         {/* Internal ambient light */}
@@ -79,15 +78,14 @@ export const StreakCard = ({language,sessions}:Props) => {
             "
         />
 
-        <div className="relative flex h-full items-center gap-6">
+        <div className="relative streak-panel-content">
 
             {/* Ordinary People mascot */}
             <div
                 className="
                     streak-devil-show
                     flex
-                    h-24
-                    w-24
+                    streak-panel-mascot
                     shrink-0
                     items-center
                     justify-center
@@ -123,7 +121,7 @@ export const StreakCard = ({language,sessions}:Props) => {
                     </span>
                 </div>
 
-                <div className="flex items-baseline gap-2">
+                <div className="flex flex-wrap items-baseline gap-2">
                     <span className="text-6xl font-black text-fy-text">
                        {streakCounter}
                     </span>

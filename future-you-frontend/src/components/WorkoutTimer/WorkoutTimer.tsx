@@ -76,8 +76,8 @@ export const WorkoutTimer = ({created_at,isFinished}:Props) => {
         
         <div className="flex justify-center items-center">
             
-         <div className="border border-fy-border bg-fy-surface rounded-md p-4 mt-4 w-[60ch] ">
-            <div className="text-center items-center flex gap-fy-4">
+         <div className="border border-fy-border bg-fy-surface rounded-md workout-timer ">
+            <div className="workout-timer-controls">
                 <h3 className="text-fy-muted font-fy-bold "> • Future you</h3>
                 <i className="text-fy-accent text-fy-sm">
                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-clock preview-icon"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>

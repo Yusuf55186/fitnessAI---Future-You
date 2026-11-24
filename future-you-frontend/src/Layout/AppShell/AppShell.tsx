@@ -12,15 +12,15 @@ type Props = {
 export const AppShell = ({children,activePath,language,setLanguage,onLogout}:Props) => {
     return (
         <div 
-        className={"min-h-screen bg-fy-bg text-fy-text"}
-        dir={language === "arz" ? "rtl" : "ltl"}
+        className="app-shell"
+        dir={language === "arz" ? "rtl" : "ltr"}
         >
             <Header onLogout={onLogout} language={language} setLanguage={setLanguage}  />
 
-            <div className="flex min-h-[calc(100vh-var(--topbar-height))] w-full max-w-fy-page">
+            <div className="app-shell-layout">
                 <Sidebar activePath={activePath}/>
 
-                <main className="flex-1 p-fy-6">
+                <main className="app-shell-main">
                     {children}
                 </main>
             </div>
