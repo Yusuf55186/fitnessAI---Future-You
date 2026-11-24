@@ -9,7 +9,7 @@ import { getWorkoutSessions} from "../../api/services";
 import { useNavigate } from "react-router-dom";
 import { getPersonalRecords } from "../../api/services";
 import { type PersonalRecord } from "../../types/workout/workout";
-
+import { type WorkoutSession } from "../../types/workout/workout";
 type Props = {
     username:string;
     language:language;
@@ -17,13 +17,25 @@ type Props = {
 
 export const Dashboard = ({username,language}:Props) => {
     
-    const [workoutSessions, setWorkoutSessions] = useState([]);
+    const [workoutSessions, setWorkoutSessions] = useState<WorkoutSession[]>([]);
 const [pr, setPr] = useState<PersonalRecord[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
     const benchPr = pr.find((record) => {
-            return record.workout_exercise.exercise_id === 35;
+            return record.workout_exercise.exercise_id === 2;
+    });
+    const startWeek = new Date();
+    const day = startWeek.getDay() ;
+    const daysSinceMonday = day === 0 ? 6 : day -1;
+    startWeek.setDate(startWeek.getDate() - daysSinceMonday);
+    startWeek.setHours(0,0,0,0);
+    const endWeek = new Date(startWeek);
+    endWeek.setDate(endWeek.getDate() + 7);
+    const weeklySessions = workoutSessions.filter((session,) => {
+         if (session.date === null) return false;
+         const sessionDate = new Date(session.date);
+         return sessionDate >= startWeek && sessionDate < endWeek ;
     });
     useEffect(() => {
         const fetchData = async () => {
@@ -54,17 +66,20 @@ const [pr, setPr] = useState<PersonalRecord[]>([]);
 const stats = [
         {
             label:translations[language].workoutexercise
-            ,value:6
+            ,value:workoutSessions.length
         },
         {
             label:translations[language].week,
-            value:4
+            value:weeklySessions.length
         },
         {
             label:"Bench PR",
-            value:benchPr?.weight
+            value:benchPr?.weight ?? ""
         }
     ]
+    console.log('startweek',startWeek)
+    console.log('endweek',endWeek)
+    console.log('Weekly stats',weeklySessions);
     if (error) return <div>Error: {error}</div>;
     if (loading) return <div>Loading...</div>;
 
