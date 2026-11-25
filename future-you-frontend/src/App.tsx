@@ -9,6 +9,7 @@ import { WorkoutHistoryPage } from './WorkoutHistory/WorkoutHistoryPage';
 import   FuturizePage  from './Posts/FuturizePosts';
 import { AccountPage } from './components/AccountPage';
 import { logoutUser } from './api/services';
+import { PersonalRecords } from './PersonalRecord';
 
 export const App = () => {
   const [language, setLanguage] = useState<language>('nl');
@@ -64,6 +65,10 @@ export const App = () => {
     path="/posts"
     element={<FuturizePage language={language} />}
     />
+    <Route
+    path='/personal-record'
+    element={<PersonalRecords />}
+    ></Route>
     <Route
     path='/account'
   

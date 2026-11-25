@@ -9,6 +9,7 @@ class PersonalRecordController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+    // Filtering on user_id and checking on workout_session
     {
        $sets = WorkoutSet::whereHas('workoutExercise.session',function ($query){
         $query->where('user_id', Auth::id());
@@ -17,14 +18,16 @@ class PersonalRecordController extends Controller
     //    EagerLoading
        ->with('workoutExercise')
         ->get();
+        // Grouping sets by exercise_id
     $groupedSets = $sets->groupBy(
         function ($set){
             return $set->workoutExercise->exercise_id;
         });
-
+        // Sorting groupedSets by DESC weight
         $groupedSets = $groupedSets->map(function($groupedSet) {
            return $groupedSet->sortByDesc('weight')->first();
 });
+// Converting response to JSON
 return response()->json([
     'success' => true,
     'data' => $groupedSets->values(),

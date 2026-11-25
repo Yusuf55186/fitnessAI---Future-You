@@ -74,7 +74,7 @@ const stats = [
         },
         {
             label:"Bench PR",
-            value:benchPr?.weight ?? ""
+            value:benchPr?.weight ?? 0
         }
     ]
     console.log('startweek',startWeek)
