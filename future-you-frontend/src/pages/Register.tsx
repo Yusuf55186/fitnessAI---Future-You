@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button/Button';
 type Props = {
     onToggle: () => void;
-    onRegistered: (username:string) => void;
+    onRegistered: (username:string,email:string) => void;
 }
 export const Register = ({ onToggle,onRegistered }:Props) => {
     const [name,setName] = useState('');
@@ -22,7 +22,7 @@ export const Register = ({ onToggle,onRegistered }:Props) => {
                  const response = await registerUser(name,email,password,passwordConfirm);
                 localStorage.setItem('token',response.token);
                const username = response.user.name;
-onRegistered(username);
+onRegistered(username,email);
 localStorage.setItem("username", username);
 
                  

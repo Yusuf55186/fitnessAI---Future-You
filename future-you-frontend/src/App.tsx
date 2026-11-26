@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { AppShell } from './Layout/AppShell/AppShell';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { language } from './types/language';
 import { AuthWrapper } from './Auth/AuthWrapper';
 import { WorkoutSessionPage } from './WorkoutSession/WorkoutSessionPage';
@@ -10,8 +10,8 @@ import   FuturizePage  from './Posts/FuturizePosts';
 import { AccountPage } from './components/AccountPage';
 import { logoutUser } from './api/services';
 import { PersonalRecords } from './PersonalRecord';
-
 export const App = () => {
+  
   const [language, setLanguage] = useState<language>('nl');
     const [username,setUsername] = useState(
      () => localStorage.getItem('username') ?? ""
@@ -27,6 +27,27 @@ export const App = () => {
       localStorage.removeItem('email');
       setToken(null);
     } 
+    const handleAuthSuccess = (name:string,email:string) => {
+      setUsername(name);
+      setEmail(email);
+      setToken(localStorage.getItem('token'));
+    }
+useEffect(() => {
+  const clearSession = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('email');
+    setToken(null);
+    setUsername('');
+    setEmail('');
+  };
+
+  window.addEventListener('future-you:session-expired', clearSession);
+  return () => {
+    window.removeEventListener('future-you:session-expired', clearSession);
+  };
+}, []);
+    
   return (
     <>
   
@@ -37,13 +58,8 @@ export const App = () => {
       path="/auth"
       element={
         <AuthWrapper
-          onLogged={(name, email) => {
-            setUsername(name);
-            setEmail(email);
-            setToken(localStorage.getItem('token'))
-
-          }}
-          onRegistered={setUsername}
+         onLogged={handleAuthSuccess}
+         onRegistered={handleAuthSuccess}
         />
       }
     />

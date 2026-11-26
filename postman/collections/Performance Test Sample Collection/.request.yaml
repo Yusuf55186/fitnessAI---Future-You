@@ -1,0 +1,14 @@
+$kind: http-request
+name: ""
+url: localhost:8080/storage/posts/?image_url=x0uYVS8lR5rTFglJyyal5BALkGLsQdmglisLNSKR.jpg"
+method: DELETE
+queryParams:
+  - key: image_url
+    value: x0uYVS8lR5rTFglJyyal5BALkGLsQdmglisLNSKR.jpg"
+    disabled: false
+    description: ""
+auth:
+  type: bearer
+  credentials:
+    token: 15|zUHn7abmovW2fKLHWbLGqRAZ8SWnZhkBOCMBOqMlc697e0f7
+order: 1000

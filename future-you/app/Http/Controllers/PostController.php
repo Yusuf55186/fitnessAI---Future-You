@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RuntimeException;
 
 class PostController extends Controller
 {
@@ -32,23 +33,38 @@ class PostController extends Controller
             'title' => "string|max:255|required",
             'image_url' => "image|max:2048|nullable",
             'content' => "string|max:255|required",
-            'category_id' => "integer|exists:categories,id",
+            'category_id' => "required|integer|exists:categories,id",
         ]);
         $path = null;
         if ($request->hasFile('image_url')) {
             $disk = Storage::disk('public');
             $path = $disk->putFile("posts", $validated['image_url']);
         }
+        if ($path === false){
+            return response()->json([
+                'success' => false,
+                'message' => "Couldn't upload image"
+            ],500);
+        }
+        try {
+            $post = Post::create([
+                'user_id' => $user_id,
+                'title' => $validated['title'],
+                'content' => $validated['content'],
+                'image_url' => $path,
+                'category_id' => $validated['category_id']
 
-        $post = Post::create([
-            'user_id' => $user_id,
-            'title' => $validated['title'],
-            'content' => $validated['content'],
-            'image_url' => $path,
-            'category_id' => $validated['category_id']
+            ]);
+        } catch (\Throwable $exception) {
+            if ($path && !Storage::disk('public')->delete($path)) {
+                logger()->warning('Could not clean up Futurize upload.', [
+                    'path' => $path,
+                ]);
+            }
 
+            throw $exception;
+        }
 
-        ]);
         return response()->json([
             'success' => true,
             'data' => $post,

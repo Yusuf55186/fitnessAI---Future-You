@@ -6,3 +6,15 @@ export const AuthHeaders = () => {
         'Content-Type': 'application/json'
     };
 };
+export async function authFetch(url: string, options?: RequestInit) {
+  const headers = new Headers(options?.headers);
+headers.set('Accept', 'application/json');
+
+const response = await fetch(url, { ...options, headers });
+
+  if (response.status === 401) {
+    window.dispatchEvent(new Event('future-you:session-expired'));
+  }
+
+  return response;
+}

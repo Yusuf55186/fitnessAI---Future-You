@@ -1,15 +1,16 @@
-import { API_URL, AuthHeaders } from './config';
+import { API_URL, AuthHeaders, authFetch } from './config';
+
 import type { ApiResponse, CreatedWorkoutSession, WorkoutSession, WorkoutSetResponse, WorkoutTemplate, PersonalRecord } from '../types/workout/workout';
 import type { Post } from "../types/posts"
 export const getWorkoutTemplates = async (): Promise<WorkoutTemplate[]> => {
-    const response = await fetch(`${API_URL}/workout-templates`, { headers: AuthHeaders() });
+    const response = await authFetch(`${API_URL}/workout-templates`, { headers: AuthHeaders() });
     const result: ApiResponse<WorkoutTemplate[]> = await response.json();
     if (!response.ok || !result.success) throw new Error(result.message || 'Failed to load workout templates');
     return result.data;
 };
 
 export const createWorkoutSession = async (workoutTemplateId: number): Promise<CreatedWorkoutSession> => {
-    const response = await fetch(`${API_URL}/workout-sessions`, {
+    const response = await authFetch(`${API_URL}/workout-sessions`, {
         method: 'POST',
         headers: AuthHeaders(),
         body: JSON.stringify({ workout_template_id: workoutTemplateId })
@@ -29,7 +30,7 @@ export const finishWorkout = async (id:number): Promise<WorkoutSession> => {
     return result.data;
 };
 export const getWorkoutSessions = async () => {
-    const response = await fetch(`${API_URL}/workout-sessions`, {
+    const response = await authFetch(`${API_URL}/workout-sessions`, {
         headers: AuthHeaders()
     });
 
@@ -41,7 +42,7 @@ export const getWorkoutSessions = async () => {
 
 }
 export const getWorkoutSession = async (id: string): Promise<WorkoutSession> => {
-    const response =  await fetch(`${API_URL}/workout-sessions/${id}`, {
+    const response =  await authFetch(`${API_URL}/workout-sessions/${id}`, {
         headers:AuthHeaders()
     });
     
@@ -52,7 +53,7 @@ export const getWorkoutSession = async (id: string): Promise<WorkoutSession> => 
    return data.data;
 }
 export const getExercises = async () => {
-    const response = await fetch(`${API_URL}/exercises`, {
+    const response = await authFetch(`${API_URL}/exercises`, {
         headers: AuthHeaders()
     });
     const data = await response.json();
@@ -62,7 +63,7 @@ export const getExercises = async () => {
        return data.data;
 }
 export const getWorkoutSessionById = async (id: string) => {
-    const response = await fetch(`${API_URL}/workout-sessions/${id}`, {
+    const response = await authFetch(`${API_URL}/workout-sessions/${id}`, {
         headers: AuthHeaders()
     });
     const data = await response.json();
@@ -72,7 +73,7 @@ export const getWorkoutSessionById = async (id: string) => {
        return data.data;
 }
 export const loginUser = async (email:string,password:string) => {
-    const response = await fetch(`${API_URL}/user/login`, {
+    const response = await authFetch(`${API_URL}/user/login`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -86,7 +87,7 @@ export const loginUser = async (email:string,password:string) => {
     return data.data;
 }
 export const registerUser = async (name:string,email:string,password:string,password_confirmation:string) => {
-    const response = await fetch(`${API_URL}/user/register`, {
+    const response = await authFetch(`${API_URL}/user/register`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -106,7 +107,7 @@ export const workoutSets = async (
     reps: number,
     session_id: number
 ): Promise<ApiResponse<WorkoutSetResponse>> => {
-   const response = await fetch(`${API_URL}/workout-sets`, {
+   const response = await authFetch(`${API_URL}/workout-sets`, {
         headers: AuthHeaders(),
         method:'POST',
     
@@ -132,7 +133,7 @@ export const createPosts = async (
     if (image_url){
         formData.append('image_url',image_url);
     }
-    const response = await fetch (`${API_URL}/posts`, {
+    const response = await authFetch (`${API_URL}/posts`, {
         headers:{ Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
         method: 'POST',   
@@ -148,7 +149,7 @@ export const createPosts = async (
     return data;
 }
 export const getPosts = async () => {
-    const response = await fetch (`${API_URL}/posts`, {headers: AuthHeaders(),});
+    const response = await authFetch (`${API_URL}/posts`, {headers: AuthHeaders(),});
     const data = await response.json();
     if (!response.ok || !data.success){
             throw new Error(data.message || 'Failed to load Posts');
@@ -156,7 +157,7 @@ export const getPosts = async () => {
     return data;
 }
 export const getUserPosts = async () => {
-    const response = await fetch(`${API_URL}/posts/own-posts`,{
+    const response = await authFetch(`${API_URL}/posts/own-posts`,{
         headers:AuthHeaders(),
         method:'GET',
         });
@@ -167,7 +168,7 @@ export const getUserPosts = async () => {
         return data;
 }
 export const logoutUser = async () => {
-const response = await fetch(`${API_URL}/user/logout`,{
+const response = await authFetch(`${API_URL}/user/logout`,{
 headers:AuthHeaders(),
 method:'POST',
 });
@@ -179,7 +180,7 @@ if (!response.ok || !data.success){
 
 }
 export const getPersonalRecords = async () => {
-    const response = await fetch(`${API_URL}/pr`,{
+    const response = await authFetch(`${API_URL}/pr`,{
         headers:AuthHeaders(),
         method:'GET',
     });

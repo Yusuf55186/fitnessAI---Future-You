@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 type Props = {
-    onRegistered: (username:string) => void;
+    onRegistered: (username:string,email:string) => void;
     onLogged: (username:string,email:string) => void;
 }
 export const AuthWrapper = ({onRegistered, onLogged}:Props) => {
