@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\WorkoutSession;
 use App\Models\WorkoutTemplate;
 use Carbon\Carbon;
 use App\Models\WorkoutExercise;
+use Illuminate\Support\Facades\DB;
 class WorkoutSessionController extends Controller
 {
     /**
@@ -53,13 +55,21 @@ class WorkoutSessionController extends Controller
         $validated['date'] = $date;
         $workoutSession = WorkoutSession::create($validated);
         unset($workoutSession->user_id);
-
-        foreach ($workoutTemplate->workoutTemplateExercises as $workoutTemplateExercise) {
+        $workoutSession = DB::transaction(function () use ($validated,$workoutTemplate){
+                $session = WorkoutSession::create($validated);
+                foreach ($workoutTemplate->workoutTemplateExercises as $workoutTemplateExercise) {
+        
             WorkoutExercise::create([
                 'exercise_id' => $workoutTemplateExercise->exercise_id,
-                'workout_session_id' => $workoutSession->id
+                'workout_session_id' => $session->id
             ]);
+            
         }
+        return $session;
+        });
+        
+        
+        
         
         
         return response()->json([
