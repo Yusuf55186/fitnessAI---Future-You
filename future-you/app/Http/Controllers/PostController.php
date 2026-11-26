@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     /**
@@ -11,13 +13,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->orderBy("created_at","DESC")->get();
+        $posts = Post::with('user')->orderBy("created_at", "DESC")->get();
         return response()->json([
             "success" => true,
             "data" => $posts,
             "message" => "Posts successfully viewed ",
-            
-        ],200);      //
+
+        ], 200);      //
     }
 
     /**
@@ -33,28 +35,27 @@ class PostController extends Controller
             'category_id' => "integer|exists:categories,id",
         ]);
         $path = null;
-        if ($request->hasFile('image_url')){
-          $disk = Storage::disk('public');
-         $path = $disk->putFile("posts",$validated['image_url']);
+        if ($request->hasFile('image_url')) {
+            $disk = Storage::disk('public');
+            $path = $disk->putFile("posts", $validated['image_url']);
         }
-         
+
         $post = Post::create([
             'user_id' => $user_id,
             'title' => $validated['title'],
             'content' => $validated['content'],
             'image_url' => $path,
             'category_id' => $validated['category_id']
-            
+
 
         ]);
         return response()->json([
             'success' => true,
             'data' => $post,
             'message' => 'post successfully created '
-        ],201);
-    
+        ], 201);
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -71,12 +72,12 @@ class PostController extends Controller
     }
     public function showUserPosts(Request $request)
     {
-        $userPost = Post::where('user_id',$request->user()->id)->get();
+        $userPost = Post::where('user_id', $request->user()->id)->get();
         return response()->json([
             'success' => true,
             'data' => $userPost,
             'message' => 'User posts successfully viewed'
-             
+
         ]);
     }
 
@@ -91,10 +92,25 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
         $post = Post::findOrFail($id);
+
+        if ($request->user()->id !== $post->user_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You are only allowed to delete your own posts'
+            ], 403);
+        }
+        $imagePath = $post->image_url;
         $post->delete();
+
+        if ($imagePath && !Storage::disk('public')->delete($imagePath)) {
+            logger()->warning('Could not delete Futurize post image.', [
+                'post_id' => $post->id,
+                'path' => $imagePath,
+            ]);
+        }
         return response()->json([
             'success' => true,
             'data' => $post,
