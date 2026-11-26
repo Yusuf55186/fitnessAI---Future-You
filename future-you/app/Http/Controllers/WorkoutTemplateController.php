@@ -45,11 +45,13 @@ class WorkoutTemplateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id,Request $request)
     {
         $workoutTemplate = WorkoutTemplate::with(
-            'workoutTemplateExercises.exercise'
-        )->findOrfail($id);
+            'workoutTemplateExercises.exercise')->where(function ($query) use ($request){
+                $query->whereNull('user_id')->orWhere('user_id','=',$request->user()->id);
+            })
+        ->findOrfail($id);
         //
         return response()->json([
             'success' => true,
